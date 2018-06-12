@@ -25,6 +25,7 @@ class _Login extends React.Component {
 
     this.state = {
       in: true,
+      submittedFormBefore: false,
       formObject: {
         email: "",
         password: "",
@@ -41,6 +42,7 @@ class _Login extends React.Component {
   }
 
   render() {
+    const { formObject, formErrors } = this.state
     return (~
       %AnimationWrapper(
         classNames="fade"
@@ -55,14 +57,18 @@ class _Login extends React.Component {
                     name="email"
                     placeholder="Email"
                     type="text"
-                    value={this.state.email}
+                    label="Email"
+                    error={formErrors.email}
+                    value={formObject.email}
                     onChange={this.onChangeEmail})
 
                   %TextField(
                     name="password"
                     placeholder="Password"
+                    label="Password"
                     type="password"
-                    value={this.state.password}
+                    error={formErrors.password}
+                    value={formObject.password}
                     onChange={this.onChangePassword})
 
                   %Button(
@@ -70,13 +76,24 @@ class _Login extends React.Component {
                     text="Login"
                     onClick={() => {
                       if (this.validateForm()) {
-                        this.props.loginAdminUser(this.state.email, this.state.password)
+                        if (!this.state.submittedFormBefore) {
+                          this.setState({
+                            submittedFormBefore: true,
+                          }, this.login)
+                        } else {
+                          this.login()
+                        }
                       }
                     }})
                 .cell.auto
           ~)
         }})
     ~)
+  }
+
+  login = () => {
+    const { formObject } = this.state
+    this.props.loginAdminUser(formObject.email, formObject.password)
   }
 
   onChangeEmail = (e) => {
