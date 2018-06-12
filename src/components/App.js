@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 
@@ -38,4 +38,4 @@ function mapStateToProps({ isLoading }) {
   return { isLoading }
 }
 
-export default connect(mapStateToProps)(App)
+export default withRouter(connect(mapStateToProps)(App))
