@@ -79,12 +79,12 @@ class _Login extends React.Component {
     ~)
   }
 
-  onChangeEmail = (email) => {
-    this.updateForm('email', email)
+  onChangeEmail = (e) => {
+    this.updateForm('email', e.target.value)
   }
 
-  onChangePassword = (password) => {
-    this.updateForm('password', password)
+  onChangePassword = (e) => {
+    this.updateForm('password', e.target.value)
   }
 
   // form methods
