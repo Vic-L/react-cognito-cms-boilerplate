@@ -29,4 +29,4 @@ class LoadingModal extends React.Component {
   }
 }
 
-export default LoadingModal
+export { LoadingModal }

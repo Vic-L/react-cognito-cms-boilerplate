@@ -4,9 +4,11 @@ import { Switch, Route } from 'react-router-dom'
 
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 
-import Home from '_components/Home'
-import AlertModal from '_components/AlertModal'
-import LoadingModal from '_components/LoadingModal'
+import {
+  Home,
+  AlertModal,
+  LoadingModal,
+} from '_miscellaneous'
 import { Login } from '_authentications'
 
 const App = ({ isLoading }) => {

@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 
 import { dismissAlert } from '_actions/alerts'
 
-class AlertModal extends Component {
+class _AlertModal extends Component {
   componentDidMount() {
     Modal.setAppElement('#app')
   }
@@ -72,4 +72,6 @@ function mapStateToProps({alert}) {
   return { alert }
 }
 
-export default connect(mapStateToProps, { dismissAlert })(AlertModal)
+const AlertModal = connect(mapStateToProps, { dismissAlert })(_AlertModal)
+
+export { AlertModal }

@@ -53,4 +53,4 @@ const renderLinks = () => {
   })
 }
 
-export default Home
+export { Home }
