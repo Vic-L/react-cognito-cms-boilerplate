@@ -2,6 +2,7 @@ import React from 'react'
 
 import { AnimationWrapper } from '_animationWrappers'
 import { TextField } from '_inputs'
+import { Button } from '_buttons'
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,6 +50,13 @@ class Login extends React.Component {
                       this.setState({
                         password: event.target.value
                       })
+                    }})
+
+                  %Button(
+                    className="button"
+                    text="Login"
+                    onClick={() => {
+                      alert("Login")
                     }})
                 .cell.auto
           ~)
