@@ -28,6 +28,10 @@ const App = ({ isLoading }) => {
             exact=""
             component={Login})
           %PrivateRoute(
+            path="/dashboard"
+            exact=""
+            component={Dashboard})
+          %PrivateRoute(
             path="/"
             exact=""
             component={Home})
