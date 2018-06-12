@@ -9,6 +9,8 @@ import {
   AlertModal,
   LoadingModal,
   PrivateRoute,
+  PublicRoute,
+  Dashboard,
 } from '_miscellaneous'
 import { Login } from '_authentications'
 
@@ -23,7 +25,7 @@ const App = ({ isLoading }) => {
       }
       %TransitionGroup
         %Switch
-          %Route(
+          %PublicRoute(
             path="/login"
             exact=""
             component={Login})
