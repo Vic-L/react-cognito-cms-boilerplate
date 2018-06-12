@@ -73,7 +73,7 @@ module.exports = {
   resolve: {
     alias: {
       _components: path.resolve(__dirname, "src/components/"),
-      _containers: path.resolve(__dirname, "src/containers/"),
+      _animationWrappers: path.resolve(__dirname, "src/components/animationWrappers/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
@@ -82,4 +82,4 @@ module.exports = {
       _reducers: path.resolve(__dirname, "src/reducers/"),
     }
   },
-};
+}

@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-import FadeTransition from '_components/FadeTransition'
+import AnimationWrapper from '_animationWrappers/AnimationWrapper'
 
-class Content extends Component {
+class Content extends React.Component {
   constructor(props) {
     super(props)
 
@@ -18,15 +18,19 @@ class Content extends Component {
     const { path, params } = this.props.match
 
     return (~
-      %FadeTransition(
+      %AnimationWrapper(
         timeout={350}
         classNames="fade"
-        shouldShow={this.state.in})
-
-        .cell.text-center
-          %h1 This is {params.contentId} page !!
-          
-          %Link(to="/") Back
+        shouldShow={this.state.in}
+        render={() => {
+          return (~
+            .cell.text-center
+              %h1 This is {params.contentId} page !!
+              
+              %Link(to="/") Back
+          ~)
+        }}
+      )
     ~)
   }
 }
