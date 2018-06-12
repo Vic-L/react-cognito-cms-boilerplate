@@ -9,7 +9,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props =>
       localStorage.getItem(`CognitoIdentityServiceProvider.${process.env.COGNITO_ADMIN_CLIENT_ID}.LastAuthUser`) ? (
-        <Redirect from="/" to="/dashboard"/>
+        <Redirect to="/"/>
       ) : (
         <Component {...props} />
       )

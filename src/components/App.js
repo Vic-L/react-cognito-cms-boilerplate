@@ -5,7 +5,6 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 
 import {
-  Home,
   AlertModal,
   LoadingModal,
   PrivateRoute,
@@ -30,13 +29,9 @@ const App = ({ isLoading }) => {
             exact=""
             component={Login})
           %PrivateRoute(
-            path="/dashboard"
-            exact=""
-            component={Dashboard})
-          %PrivateRoute(
             path="/"
             exact=""
-            component={Home})
+            component={Dashboard})
   ~)
 }
 
