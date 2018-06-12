@@ -23,12 +23,10 @@ class Home extends React.Component {
           classNames="fade"
           shouldShow={this.state.in}
           render={() => {
-          return (
-            <div>
-              {renderLinks()}
-            </div>
-          )
-        }}/>
+            return (
+              <Link to="/login">Login</Link>
+            )
+          }}/>
       </div>
     )
   }

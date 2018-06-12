@@ -74,6 +74,7 @@ module.exports = {
     alias: {
       _components: path.resolve(__dirname, "src/components/"),
       _animationWrappers: path.resolve(__dirname, "src/components/animationWrappers/"),
+      _authentications: path.resolve(__dirname, "src/components/authentications/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
