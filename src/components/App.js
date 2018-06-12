@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 
@@ -8,6 +8,7 @@ import {
   Home,
   AlertModal,
   LoadingModal,
+  PrivateRoute,
 } from '_miscellaneous'
 import { Login } from '_authentications'
 
@@ -26,7 +27,7 @@ const App = ({ isLoading }) => {
             path="/login"
             exact=""
             component={Login})
-          %Route(
+          %PrivateRoute(
             path="/"
             exact=""
             component={Home})
