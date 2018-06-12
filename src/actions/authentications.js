@@ -32,6 +32,9 @@ export function loginAdminUser(Username, Password) {
       onFailure: (err) => {
         console.log(err)
         dispatch({
+          type: actionTypes.LOADING_END,
+        })
+        dispatch({
           type: actionTypes.ALERT_SHOW,
           alert: {
             title: "Alert",
