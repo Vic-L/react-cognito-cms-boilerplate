@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import AnimationWrapper from '_animationWrappers/AnimationWrapper'
+import { AnimationWrapper } from '_animationWrappers'
 
 class Home extends React.Component {
   constructor(props) {

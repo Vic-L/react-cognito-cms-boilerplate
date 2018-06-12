@@ -18,4 +18,4 @@ class AnimationWrapper extends React.Component {
   }
 }
 
-export default AnimationWrapper
+export { AnimationWrapper }
