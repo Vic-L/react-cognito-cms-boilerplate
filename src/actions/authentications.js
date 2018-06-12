@@ -31,6 +31,13 @@ export function loginAdminUser(Username, Password) {
       },
       onFailure: (err) => {
         console.log(err)
+        dispatch({
+          type: actionTypes.ALERT_SHOW,
+          alert: {
+            title: "Alert",
+            body: err.message
+          }
+        })
       },
       newPasswordRequired: (userAttributes, requiredAttributes) => {
         // User was signed up by an admin and must provide new
