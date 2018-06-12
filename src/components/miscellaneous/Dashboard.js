@@ -1,11 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-class Dashboard extends React.Component {
+import { logoutAdminUser } from '_actions/authentications'
+
+import { Button } from '_buttons'
+
+class _Dashboard extends React.Component {
   render() {
     return (~
-      %h1 dashboard
+      %div
+        %h1 dashboard
+        %Button(
+          text="Logout"
+          className="button"
+          onClick={() => {
+            this.props.logoutAdminUser()
+          }})
     ~)
   }
 }
+
+const Dashboard = connect(null, { logoutAdminUser })(_Dashboard)
 
 export { Dashboard }

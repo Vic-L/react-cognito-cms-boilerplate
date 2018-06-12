@@ -56,3 +56,23 @@ export function loginAdminUser(Username, Password) {
     })
   }
 }
+
+export function logoutAdminUser() {
+  return function(dispatch) {
+    // have to dispatch something
+    dispatch({
+      type: actionTypes.LOADING_START
+    })
+
+    const Pool = new CognitoUserPool({
+      UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
+      ClientId: process.env.COGNITO_ADMIN_CLIENT_ID
+    })
+    const cognitoUser = Pool.getCurrentUser()
+    cognitoUser.signOut()
+
+    dispatch({
+      type: actionTypes.LOADING_END
+    })
+  }
+}
