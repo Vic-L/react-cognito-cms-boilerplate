@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const pathsToClean = ["dist"]
 const cleanOptions = {}
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: [
@@ -62,6 +63,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"
+    }),
+    new Dotenv({
+      path: `./.env.${process.env.NODE_ENV}`
     }),
   ],
 
