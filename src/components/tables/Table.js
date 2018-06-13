@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { ClickableTableHeader } from '_tables'
+
+// TODO Table component should be customised?
 class Table extends React.Component {
   render() {
     return (~
@@ -7,7 +10,9 @@ class Table extends React.Component {
         %thead
           %tr
             %th Header 1
-            %th Header 2
+            %ClickableTableHeader(
+              title="Sortable Header 2"
+              onClick={this.handleHeader2Change})
             %th Header 3
         %tbody
           %tr
@@ -19,6 +24,10 @@ class Table extends React.Component {
             %td Body 2B
             %td Body 3B
     ~)
+  }
+
+  handleHeader2Change = () => {
+    alert("handleHeader2Change")
   }
 }
 
