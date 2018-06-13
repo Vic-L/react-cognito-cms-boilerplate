@@ -6,7 +6,7 @@ class SidebarOption extends React.Component {
     return (~
       .sidebar-option
         %Link(to={this.props.dst})
-          Link1
+          {this.props.text}
     ~)
   }
 }

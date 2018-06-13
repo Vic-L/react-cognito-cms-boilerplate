@@ -1,12 +1,31 @@
 .sidebar
   width: 100%
   display: block
-  .sidebar-option
-    padding-left: 1rem
-    background: $primary-color
-    &:hover
-      background: $alternative-color
-    a
-      color: $secondary-color
-      width: 100%
-      display: block
+
+.sidebar-option
+  position: relative
+  padding: 1rem
+  background: $primary-color
+  &:hover
+    background: $alternative-color
+  a
+    color: white
+    width: 100%
+    display: block
+  &.with-dropdown
+
+.sidebar-dropdown
+  position: absolute
+  top: 0
+  left: 100%
+
+
+.sidebar-dropdown-option
+  padding: 1rem
+  background: $secondary-color
+  &:hover
+    background: $alternative-color
+  a
+    color: white
+    width: 100%
+    display: block
