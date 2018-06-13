@@ -83,6 +83,7 @@ module.exports = {
       _inputs: path.resolve(__dirname, "src/components/inputs/"),
       _buttons: path.resolve(__dirname, "src/components/buttons/"),
       _sidebar: path.resolve(__dirname, "src/components/sidebar/"),
+      _tables: path.resolve(__dirname, "src/components/tables/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),

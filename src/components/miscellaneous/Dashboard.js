@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import { logoutAdminUser } from '_actions/authentications'
 
 import { Button } from '_buttons'
+import { Table } from '_tables'
 
 class _Dashboard extends React.Component {
   render() {
     return (~
       %div
-        %h1 dashboard
+        %Table
         %Button(
           text="Logout"
           className="button"
