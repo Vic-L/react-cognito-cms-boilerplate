@@ -82,6 +82,7 @@ module.exports = {
       _authentications: path.resolve(__dirname, "src/components/authentications/"),
       _inputs: path.resolve(__dirname, "src/components/inputs/"),
       _buttons: path.resolve(__dirname, "src/components/buttons/"),
+      _sidebar: path.resolve(__dirname, "src/components/sidebar/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),

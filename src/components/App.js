@@ -9,7 +9,7 @@ import {
   LoadingModal,
   PrivateRoute,
   PublicRoute,
-  Dashboard,
+  Main,
 } from '_miscellaneous'
 import { Login } from '_authentications'
 
@@ -31,7 +31,7 @@ const App = ({ isLoading }) => {
           %PrivateRoute(
             path="/"
             exact=""
-            component={Dashboard})
+            component={Main})
   ~)
 }
 
