@@ -1,13 +1,13 @@
 import '_stylesheets/main.sass'
 
 import React from 'react'
-import { createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from  'react-redux'
-import reduxThunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
 
-import reducers from '_reducers'
+import rootReducers from '_reducers'
 
 import App from '_components/App'
 
@@ -18,10 +18,21 @@ import axios from 'axios'
 axios.defaults.headers.common["Content-Type"] = "application/json"
 axios.defaults.headers.common["Accept"] = "application/json"
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
+import sagas from './sagas'
 
-const store = createStoreWithMiddleware(
-  reducers)
+const middlewares = [];
+ 
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`)
+  middlewares.push(logger)
+}
+
+const sagaMiddleware = createSagaMiddleware()
+middlewares.push(sagaMiddleware)
+ 
+const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
+
+sagaMiddleware.run(sagas)
 
 WebFont.load({
   google: {
