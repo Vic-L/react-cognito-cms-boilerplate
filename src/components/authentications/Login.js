@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import { connect } from 'react-redux'
+import autobind from 'autobind-decorator'
 
 import {
   CognitoUserPool,
@@ -91,21 +92,25 @@ class _Login extends React.Component {
     ~)
   }
 
-  login = () => {
+  @autobind
+  login() {
     const { formObject } = this.state
     this.props.loginAdminUser(formObject.email, formObject.password)
   }
 
-  onChangeEmail = (e) => {
+  @autobind
+  onChangeEmail(e) {
     this.updateForm('email', e.target.value)
   }
 
-  onChangePassword = (e) => {
+  @autobind
+  onChangePassword(e) {
     this.updateForm('password', e.target.value)
   }
 
   // form methods
-  updateForm = (fieldName, fieldValue) => {
+  @autobind
+  updateForm(fieldName, fieldValue) {
     let newState = {
       formObject: {
           ...this.state.formObject,
@@ -122,7 +127,8 @@ class _Login extends React.Component {
     this.setState(newState)
   }
 
-  validateForm = () => {
+  @autobind
+  validateForm() {
     const { formObject } = this.state
     const formErrors = _.cloneDeep(this.state.formErrors)
 

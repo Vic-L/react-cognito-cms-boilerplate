@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
+import autobind from 'autobind-decorator'
 
 import { dismissAlert } from '_actions/alerts'
 
@@ -59,7 +60,8 @@ class _AlertModal extends Component {
     )
   }
 
-  closeModal = () => {
+  @autobind
+  closeModal() {
     const { alert } = this.props
     if (alert.okAction) {
       alert.okAction()

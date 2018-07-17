@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import autobind from 'autobind-decorator'
 
 class SidebarOptionWithDropdown extends React.Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class SidebarOptionWithDropdown extends React.Component {
     ~)
   }
 
-  getDropdown = () => {
+  @autobind
+  getDropdown() {
     const dropdown = this.props.dropdown.map((option, index) => {
       return (~
         %Link.sidebar-dropdown-option(to={option.dst} key={`option-${index}`})
@@ -38,7 +40,8 @@ class SidebarOptionWithDropdown extends React.Component {
     ~)
   }
 
-  toggleRevealDropdown = () => {
+  @autobind
+  toggleRevealDropdown() {
     this.setState({
       revealDropdown: !this.state.revealDropdown
     })

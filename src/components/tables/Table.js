@@ -26,7 +26,7 @@ class Table extends React.Component {
     ~)
   }
 
-  handleHeader2Change = () => {
+  handleHeader2Change() {
     alert("handleHeader2Change")
   }
 }
