@@ -1,10 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { logoutAdminUser } from '_actions/authentications'
-
-import { Button } from '_buttons'
 import { Sidebar } from '_sidebar'
 import {
   Dashboard,
@@ -17,13 +14,7 @@ class _Main extends React.Component {
       .grid-container.full
         .grid-x
           .sidebar.cell.medium-2
-            %Button(
-              text="Logout"
-              className="button"
-              onClick={() => {
-                this.props.logoutAdminUser()
-              }})
-            %Sidebar
+            %Sidebar(dispatch={this.props.dispatch})
           .main.cell.medium-10
             %Switch
               %PrivateRoute(
@@ -34,6 +25,6 @@ class _Main extends React.Component {
   }
 }
 
-const Main = connect(null, { logoutAdminUser })(_Main)
+const Main = connect(null)(_Main)
 
 export { Main }

@@ -14,9 +14,6 @@ import { AnimationWrapper } from '_animationWrappers'
 import { TextField } from '_inputs'
 import { Button } from '_buttons'
 
-// actions
-import { loginAdminUser } from '_actions/authentications'
-
 // utils
 import validate from '_utils/validations'
 
@@ -95,7 +92,49 @@ class _Login extends React.Component {
   @autobind
   login() {
     const { formObject } = this.state
-    this.props.loginAdminUser(formObject.email, formObject.password)
+    const { dispatch } = this.props
+    dispatch({type: 'LOADING_START'})
+
+    const Username = formObject.email
+    const Password = formObject.password
+
+    const Pool = new CognitoUserPool({
+      UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
+      ClientId: process.env.COGNITO_ADMIN_CLIENT_ID,
+      Storage: new CookieStorage({domain: "localhost"})
+    })
+    const cognitoUser = new CognitoUser({ Username, Pool })
+
+    const authenticationData = { Username, Password }
+    const authenticationDetails = new AuthenticationDetails(authenticationData)
+
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result) => {
+        dispatch({type: 'LOADING_END'})
+      },
+      onFailure: (err) => {
+        console.log(err)
+        dispatch({type: 'LOADING_END'})
+        dispatch({
+          type: 'ALERT_SHOW',
+          alert: {
+            title: "Alert",
+            body: err.message
+          }
+        })
+      },
+      newPasswordRequired: (userAttributes, requiredAttributes) => {
+        // User was signed up by an admin and must provide new
+        // password and required attributes, if any, to complete
+        // authentication.
+
+        // the api doesn't accept this field back
+        delete userAttributes.email_verified
+
+        // Get these details and call
+        cognitoUser.completeNewPasswordChallenge(Password, userAttributes, this)
+      }
+    })
   }
 
   @autobind
@@ -151,6 +190,6 @@ function mapStateToProps({ isLoading }) {
   return { isLoading }
 }
 
-const Login = connect(mapStateToProps, { loginAdminUser })(_Login)
+const Login = connect(mapStateToProps)(_Login)
 
 export { Login }

@@ -88,7 +88,6 @@ module.exports = {
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
       _utils: path.resolve(__dirname, "src/utils/"),
-      _actions: path.resolve(__dirname, "src/actions/"),
       _reducers: path.resolve(__dirname, "src/reducers/"),
     }
   },

@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import Modal from 'react-modal'
 import autobind from 'autobind-decorator'
 
-import { dismissAlert } from '_actions/alerts'
-
 class _AlertModal extends Component {
   componentDidMount() {
     Modal.setAppElement('#app')
@@ -66,7 +64,7 @@ class _AlertModal extends Component {
     if (alert.okAction) {
       alert.okAction()
     }
-    this.props.dismissAlert()
+    this.props.dispatch({type: 'ALERT_DISMISS'})
   }
 }
 
@@ -74,6 +72,6 @@ function mapStateToProps({alert}) {
   return { alert }
 }
 
-const AlertModal = connect(mapStateToProps, { dismissAlert })(_AlertModal)
+const AlertModal = connect(mapStateToProps)(_AlertModal)
 
 export { AlertModal }
