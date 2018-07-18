@@ -9,4 +9,4 @@ class ClickableTableHeader extends React.Component {
   }
 }
 
-export { ClickableTableHeader }
+export default ClickableTableHeader

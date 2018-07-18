@@ -11,4 +11,4 @@ const Button = ({className, onClick, text, ...others}) => {
   ~)
 }
 
-export { Button }
+export default Button

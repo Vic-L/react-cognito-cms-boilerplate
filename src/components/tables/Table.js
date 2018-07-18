@@ -1,17 +1,11 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 
-import {
-  LoadingModal
-} from '_miscellaneous'
+import LoadingModal from '_miscellaneous/LoadingModal'
 
 const ClickableTableHeader = Loadable({
-  loader: () => import('_tables'),
+  loader: () => import('_tables/ClickableTableHeader'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.ClickableTableHeader
-    return <Component {...props}/>
-  }
 })
 
 // TODO Table component should be customised?
@@ -43,4 +37,4 @@ class Table extends React.Component {
   }
 }
 
-export { Table }
+export default Table

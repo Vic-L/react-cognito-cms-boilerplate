@@ -48,4 +48,4 @@ class SidebarOptionWithDropdown extends React.Component {
   }
 }
 
-export { SidebarOptionWithDropdown }
+export default SidebarOptionWithDropdown

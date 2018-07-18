@@ -18,4 +18,4 @@ const TextField = ({label, placeholder, type, name, onChange, value, error, ...o
   ~)
 }
 
-export { TextField }
+export default TextField

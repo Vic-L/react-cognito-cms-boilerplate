@@ -1,17 +1,11 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 
-import {
-  LoadingModal
-} from '_miscellaneous'
+import LoadingModal from '_miscellaneous/LoadingModal'
 
 const Table = Loadable({
-  loader: () => import('_tables'),
+  loader: () => import('_tables/Table'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.Table
-    return <Component {...props}/>
-  }
 })
 
 class Dashboard extends React.Component {
@@ -23,4 +17,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export { Dashboard }
+export default Dashboard

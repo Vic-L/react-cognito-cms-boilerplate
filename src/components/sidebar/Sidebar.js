@@ -5,35 +5,21 @@ import {
   CognitoUserPool,
 } from "amazon-cognito-identity-js"
 
-import {
-  LoadingModal
-} from '_miscellaneous'
+import LoadingModal from '_miscellaneous/LoadingModal'
 
 const SidebarOption = Loadable({
-  loader: () => import('_sidebar'),
+  loader: () => import('_sidebar/SidebarOption'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.SidebarOption
-    return <Component {...props}/>
-  }
 })
 
 const SidebarOptionWithDropdown = Loadable({
-  loader: () => import('_sidebar'),
+  loader: () => import('_sidebar/SidebarOptionWithDropdown'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.SidebarOptionWithDropdown
-    return <Component {...props}/>
-  }
 })
 
 const Button = Loadable({
-  loader: () => import('_buttons'),
+  loader: () => import('_buttons/Button'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.Button
-    return <Component {...props}/>
-  }
 })
 
 const Sidebar = ({ dispatch }) => {
@@ -71,4 +57,4 @@ const Sidebar = ({ dispatch }) => {
   ~)
 }
 
-export { Sidebar }
+export default Sidebar

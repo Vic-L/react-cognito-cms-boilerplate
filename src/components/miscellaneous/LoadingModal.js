@@ -2,12 +2,8 @@ import React from 'react'
 import Loadable from 'react-loadable'
 
 const AnimationWrapper = Loadable({
-  loader: () => import('_animationWrappers'),
+  loader: () => import('_animationWrappers/AnimationWrapper'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.AnimationWrapper
-    return <Component {...props}/>
-  }
 })
 
 class LoadingModal extends React.Component {
@@ -37,4 +33,4 @@ class LoadingModal extends React.Component {
   }
 }
 
-export { LoadingModal }
+export default LoadingModal

@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import {
-  LoadingModal,
-} from '_miscellaneous'
+import LoadingModal from '_miscellaneous/LoadingModal'
 
 const TransitionGroup = Loadable({
   loader: () => import('react-transition-group/TransitionGroup'),
@@ -13,44 +11,24 @@ const TransitionGroup = Loadable({
 })
 
 const AlertModal = Loadable({
-  loader: () => import('_miscellaneous'),
+  loader: () => import('_miscellaneous/AlertModal'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.AlertModal
-    return <Component {...props}/>
-  }
 })
 const PrivateRoute = Loadable({
-  loader: () => import('_miscellaneous'),
+  loader: () => import('_miscellaneous/PrivateRoute'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.PrivateRoute
-    return <Component {...props}/>
-  }
 })
 const PublicRoute = Loadable({
-  loader: () => import('_miscellaneous'),
+  loader: () => import('_miscellaneous/PublicRoute'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.PublicRoute
-    return <Component {...props}/>
-  }
 })
 const Main = Loadable({
-  loader: () => import('_miscellaneous'),
+  loader: () => import('_miscellaneous/Main'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.Main
-    return <Component {...props}/>
-  }
 })
 const Login = Loadable({
-  loader: () => import('_authentications'),
+  loader: () => import('_authentications/Login'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.Login
-    return <Component {...props}/>
-  }
 })
 
 const App = ({ isLoading }) => {

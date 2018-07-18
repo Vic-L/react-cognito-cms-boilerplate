@@ -74,4 +74,4 @@ function mapStateToProps({alert}) {
 
 const AlertModal = connect(mapStateToProps)(_AlertModal)
 
-export { AlertModal }
+export default AlertModal

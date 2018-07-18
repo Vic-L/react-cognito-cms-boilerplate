@@ -11,4 +11,4 @@ class SidebarOption extends React.Component {
   }
 }
 
-export { SidebarOption }
+export default SidebarOption

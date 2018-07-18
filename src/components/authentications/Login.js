@@ -11,33 +11,19 @@ import {
   CookieStorage
 } from "amazon-cognito-identity-js"
 
-import {
-  LoadingModal
-} from '_miscellaneous'
+import LoadingModal from '_miscellaneous/LoadingModal'
 
 const AnimationWrapper = Loadable({
-  loader: () => import('_animationWrappers'),
+  loader: () => import('_animationWrappers/AnimationWrapper'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.AnimationWrapper
-    return <Component {...props}/>
-  }
 })
 const TextField = Loadable({
-  loader: () => import('_inputs'),
+  loader: () => import('_inputs/TextField'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.TextField
-    return <Component {...props}/>
-  }
 })
 const Button = Loadable({
-  loader: () => import('_buttons'),
+  loader: () => import('_buttons/Button'),
   loading: LoadingModal,
-  render(loaded, props) {
-    let Component = loaded.Button
-    return <Component {...props}/>
-  }
 })
 
 // utils
@@ -218,4 +204,4 @@ function mapStateToProps({ isLoading }) {
 
 const Login = connect(mapStateToProps)(_Login)
 
-export { Login }
+export default Login
