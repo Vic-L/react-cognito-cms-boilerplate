@@ -1,11 +1,9 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 
-import LoadingModal from '_miscellaneous/LoadingModal'
-
 const ClickableTableHeader = Loadable({
   loader: () => import('_tables/ClickableTableHeader'),
-  loading: LoadingModal,
+  loading: () => <th></th>,
 })
 
 // TODO Table component should be customised?

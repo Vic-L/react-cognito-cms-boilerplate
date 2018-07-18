@@ -1,11 +1,9 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 
-import LoadingModal from '_miscellaneous/LoadingModal'
-
 const Table = Loadable({
   loader: () => import('_tables/Table'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 
 class Dashboard extends React.Component {

@@ -7,28 +7,28 @@ import LoadingModal from '_miscellaneous/LoadingModal'
 
 const TransitionGroup = Loadable({
   loader: () => import('react-transition-group/TransitionGroup'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 
 const AlertModal = Loadable({
   loader: () => import('_miscellaneous/AlertModal'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const PrivateRoute = Loadable({
   loader: () => import('_miscellaneous/PrivateRoute'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const PublicRoute = Loadable({
   loader: () => import('_miscellaneous/PublicRoute'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const Main = Loadable({
   loader: () => import('_miscellaneous/Main'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const Login = Loadable({
   loader: () => import('_authentications/Login'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 
 const App = ({ isLoading }) => {

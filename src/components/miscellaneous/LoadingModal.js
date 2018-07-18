@@ -3,7 +3,7 @@ import Loadable from 'react-loadable'
 
 const AnimationWrapper = Loadable({
   loader: () => import('_animationWrappers/AnimationWrapper'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 
 class LoadingModal extends React.Component {

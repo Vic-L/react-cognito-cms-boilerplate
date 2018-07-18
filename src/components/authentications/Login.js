@@ -11,19 +11,17 @@ import {
   CookieStorage
 } from "amazon-cognito-identity-js"
 
-import LoadingModal from '_miscellaneous/LoadingModal'
-
 const AnimationWrapper = Loadable({
   loader: () => import('_animationWrappers/AnimationWrapper'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 const Button = Loadable({
   loader: () => import('_buttons/Button'),
-  loading: LoadingModal,
+  loading: () => <div></div>,
 })
 
 // utils
