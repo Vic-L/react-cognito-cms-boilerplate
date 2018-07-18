@@ -1,15 +1,40 @@
 import React from 'react'
+import Loadable from 'react-loadable'
 
 import {
   CognitoUserPool,
 } from "amazon-cognito-identity-js"
 
 import {
-  SidebarOption,
-  SidebarOptionWithDropdown
-} from '_sidebar'
+  LoadingModal
+} from '_miscellaneous'
 
-import { Button } from '_buttons'
+const SidebarOption = Loadable({
+  loader: () => import('_sidebar'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.SidebarOption
+    return <Component {...props}/>
+  }
+})
+
+const SidebarOptionWithDropdown = Loadable({
+  loader: () => import('_sidebar'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.SidebarOptionWithDropdown
+    return <Component {...props}/>
+  }
+})
+
+const Button = Loadable({
+  loader: () => import('_buttons'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.Button
+    return <Component {...props}/>
+  }
+})
 
 const Sidebar = ({ dispatch }) => {
   return (~

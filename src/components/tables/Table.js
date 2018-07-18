@@ -1,6 +1,18 @@
 import React from 'react'
+import Loadable from 'react-loadable'
 
-import { ClickableTableHeader } from '_tables'
+import {
+  LoadingModal
+} from '_miscellaneous'
+
+const ClickableTableHeader = Loadable({
+  loader: () => import('_tables'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.ClickableTableHeader
+    return <Component {...props}/>
+  }
+})
 
 // TODO Table component should be customised?
 class Table extends React.Component {

@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
+import Loadable from 'react-loadable'
 
 import {
   CognitoUserPool,
@@ -10,9 +11,34 @@ import {
   CookieStorage
 } from "amazon-cognito-identity-js"
 
-import { AnimationWrapper } from '_animationWrappers'
-import { TextField } from '_inputs'
-import { Button } from '_buttons'
+import {
+  LoadingModal
+} from '_miscellaneous'
+
+const AnimationWrapper = Loadable({
+  loader: () => import('_animationWrappers'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.AnimationWrapper
+    return <Component {...props}/>
+  }
+})
+const TextField = Loadable({
+  loader: () => import('_inputs'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.TextField
+    return <Component {...props}/>
+  }
+})
+const Button = Loadable({
+  loader: () => import('_buttons'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.Button
+    return <Component {...props}/>
+  }
+})
 
 // utils
 import validate from '_utils/validations'

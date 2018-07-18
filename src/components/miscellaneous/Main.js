@@ -1,12 +1,38 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Loadable from 'react-loadable'
 
-import { Sidebar } from '_sidebar'
 import {
-  Dashboard,
-  PrivateRoute
+  LoadingModal,
 } from '_miscellaneous'
+
+const Sidebar = Loadable({
+  loader: () => import('_sidebar'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.Sidebar
+    return <Component {...props}/>
+  }
+})
+
+const Dashboard = Loadable({
+  loader: () => import('_miscellaneous'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.Dashboard
+    return <Component {...props}/>
+  }
+})
+
+const PrivateRoute = Loadable({
+  loader: () => import('_miscellaneous'),
+  loading: LoadingModal,
+  render(loaded, props) {
+    let Component = loaded.PrivateRoute
+    return <Component {...props}/>
+  }
+})
 
 class _Main extends React.Component {
   render() {
