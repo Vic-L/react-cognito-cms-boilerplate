@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props =>
       localStorage.getItem(`CognitoIdentityServiceProvider.${process.env.COGNITO_ADMIN_CLIENT_ID}.LastAuthUser`) ? (
-        <Component {...props}/>
+        <Component {...props} {...rest}/>
       ) : (
         <Redirect to="/login"/>
       )
