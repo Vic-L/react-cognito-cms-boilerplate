@@ -18,7 +18,8 @@ class _AlertModal extends Component {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.75)'
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        zIndex: 999999999999,
       },
       content : {
         position: 'absolute',
@@ -31,7 +32,7 @@ class _AlertModal extends Component {
         padding: '20px',
         left: '50%',
         top: '50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
       }
     }
     return (
