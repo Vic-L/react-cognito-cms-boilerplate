@@ -49,6 +49,7 @@ const App = ({ isLoading }) => {
           %PrivateRoute(
             path="/"
             exact=""
+            dispatch={this.props.dispatch}
             component={Main})
   ~)
 }

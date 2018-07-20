@@ -1,6 +1,5 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
 import Loadable from 'react-loadable'
 
 const Sidebar = Loadable({
@@ -18,7 +17,7 @@ const PrivateRoute = Loadable({
   loading: () => <div></div>,
 })
 
-class _Main extends React.Component {
+class Main extends React.Component {
   render() {
     return (~
       .grid-container.full
@@ -34,7 +33,5 @@ class _Main extends React.Component {
     ~)
   }
 }
-
-const Main = connect(null)(_Main)
 
 export default Main
