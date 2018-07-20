@@ -1,11 +1,13 @@
 import '_stylesheets/main.sass'
 
+import createHistory from 'history/createBrowserHistory'
 import React from 'react'
 import { compose, createStore, applyMiddleware } from 'redux'
 import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { Provider } from  'react-redux'
 import createSagaMiddleware from 'redux-saga'
+import { routerMiddleware } from 'react-router-redux'
 
 import rootReducers from '_reducers'
 
@@ -29,6 +31,9 @@ if (process.env.NODE_ENV === `development`) {
 
 const sagaMiddleware = createSagaMiddleware()
 middlewares.push(sagaMiddleware)
+
+const history = createHistory()
+middlewares.push(routerMiddleware(history))
  
 const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
 
@@ -42,8 +47,8 @@ WebFont.load({
 
 render((
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>
 ), document.getElementById("app"))
