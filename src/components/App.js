@@ -31,7 +31,7 @@ const Login = Loadable({
   loading: () => <div></div>,
 })
 
-const App = ({ isLoading }) => {
+const App = ({ isLoading, dispatch }) => {
   return (~
     %div
       %AlertModal
@@ -49,7 +49,7 @@ const App = ({ isLoading }) => {
           %PrivateRoute(
             path="/"
             exact=""
-            dispatch={this.props.dispatch}
+            dispatch={dispatch}
             component={Main})
   ~)
 }
