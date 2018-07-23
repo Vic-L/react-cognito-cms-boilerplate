@@ -17,12 +17,12 @@ class Form extends React.Component {
 
     this.state = {
       formObject: {
-        fieldName1: "",
-        fieldName2: "",
+        fieldWithNoError: "",
+        fieldWithError: "",
       },
       formErrors: {
-        fieldName1: "",
-        fieldName2: "",
+        fieldWithNoError: "",
+        fieldWithError: "",
       }
     }
   }
@@ -33,23 +33,42 @@ class Form extends React.Component {
     return (
       <div>
         <TextField
-          name="fieldName1"
+          name="fieldWithNoError"
           placeholder="placeholder"
           type="text"
-          label="label"
-          error={formErrors.fieldName1}
-          value={formObject.fieldName1}
-          onChange={this.onChangefieldName1}/>
+          label="FieldWithNoError"
+          value={formObject.fieldWithNoError}
+          error={formErrors.fieldWithNoError}
+          onChange={this.onChangeFieldWithNoError}/>
+
+        <TextField
+          name="fieldWithError"
+          placeholder="placeholder"
+          type="text"
+          label="FieldWithError"
+          value={formObject.fieldWithError}
+          error={'fieldWithError'}
+          onChange={this.onChangeFieldWithError}/>
       </div>
     )
   }
 
   @autobind
-  onChangefieldName1(e) {
+  onChangeFieldWithNoError(e) {
     this.setState({
       formObject: {
-        ...formObject,
-        fieldName1: e.target.value
+        ...this.state.formObject,
+        fieldWithNoError: e.target.value
+      }
+    })
+  }
+
+  @autobind
+  onChangeFieldWithError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        fieldWithError: e.target.value
       }
     })
   }
