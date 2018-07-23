@@ -44,11 +44,10 @@ const App = ({ isLoading, dispatch }) => {
         %Switch
           %PublicRoute(
             path="/login"
-            exact=""
+            exact={true}
             component={Login})
           %PrivateRoute(
             path="/"
-            exact=""
             dispatch={dispatch}
             component={Main})
   ~)

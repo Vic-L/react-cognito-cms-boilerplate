@@ -37,8 +37,8 @@ const Sidebar = ({ dispatch }) => {
           dispatch({type: 'LOADING_END'})
         }})
       %SidebarOption(
-        text="Link1"
-        dst="#")
+        text="Form"
+        dst="/form")
       %SidebarOptionWithDropdown(
         text="Link2"
         dst="#"

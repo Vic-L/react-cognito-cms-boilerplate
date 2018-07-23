@@ -17,6 +17,11 @@ const PrivateRoute = Loadable({
   loading: () => <div></div>,
 })
 
+const Form = Loadable({
+  loader: () => import('_inputs/Form'),
+  loading: () => <div></div>,
+})
+
 class Main extends React.Component {
   render() {
     return (~
@@ -28,8 +33,12 @@ class Main extends React.Component {
             %Switch
               %PrivateRoute(
                 path="/"
-                exact=""
+                exact={true}
                 component={Dashboard})
+              %PrivateRoute(
+                path="/form"
+                exact={true}
+                component={Form})
     ~)
   }
 }
