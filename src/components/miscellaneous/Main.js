@@ -22,7 +22,7 @@ class Main extends React.Component {
     return (~
       .grid-container.full
         .grid-x
-          .sidebar.cell.medium-2
+          .cell.medium-2
             %Sidebar(dispatch={this.props.dispatch})
           .main.cell.medium-10
             %Switch
