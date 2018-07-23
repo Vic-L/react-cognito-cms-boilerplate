@@ -59,14 +59,18 @@ class Form extends React.Component {
           label="SelectFieldWithNoError"
           value={formObject.selectFieldWithNoError}
           error={formErrors.selectFieldWithNoError}
-          options={[
-            {label: "label1", value: 1},
-            {label: "label2", value: 2},
-            {label: "label3", value: 3},
-          ]}
+          options={this.getOptions()}
           onChange={this.onChangeSelectFieldWithNoError}/>
       </div>
     )
+  }
+
+  getOptions() {
+    return [
+      {label: "label1", value: 1},
+      {label: "label2", value: 2},
+      {label: "label3", value: 3},
+    ]
   }
 
   @autobind
@@ -91,7 +95,12 @@ class Form extends React.Component {
 
   @autobind
   onChangeSelectFieldWithNoError(selectedIndex) {
-    console.log(selectedIndex)
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        selectFieldWithNoError: this.getOptions()[selectedIndex].value
+      }
+    })
   }
 }
 

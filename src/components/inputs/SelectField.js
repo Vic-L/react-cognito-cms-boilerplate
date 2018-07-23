@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
@@ -26,7 +27,7 @@ class SelectField extends React.Component {
             type={this.props.type}
             label={this.props.label}
             error={this.props.error}
-            value={this.props.value}
+            value={this.renderOptionLabel()}
             options={this.props.options}
             onChange={this.props.onChange})
           .select-dropdown(onClick={this.toggleDropDown})
@@ -35,6 +36,17 @@ class SelectField extends React.Component {
         }})
           {this.renderOptions()}
     ~)
+  }
+
+  @autobind
+  renderOptionLabel() {
+    if (this.props.value) {
+      return this.props.options.find((option) => {
+        return option.value === this.props.value
+      }).label
+    } else {
+      return ""
+    }
   }
 
   @autobind
