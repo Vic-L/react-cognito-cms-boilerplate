@@ -1,0 +1,30 @@
+.select-container
+  position: relative
+  display: block
+
+.select-field
+  position: relative
+  display: block
+
+.select-dropdown
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 2
+  cursor: pointer
+
+.options-container
+  position: absolute
+  top: 60px // TODO height of textfield
+  left: 0
+  right: 0
+  z-index: 1
+
+  .option
+    background: white
+    position: relative
+    cursor: pointer
+    &:hover
+      background: green
