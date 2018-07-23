@@ -13,6 +13,7 @@ module.exports = {
   entry: [
     './src/index.js',
   ],
+  mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, "dist", "assets"),
     publicPath: '/assets/',
