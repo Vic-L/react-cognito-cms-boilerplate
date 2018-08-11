@@ -1,0 +1,15 @@
+{
+  "name": "react-cognito-cms-boilerplate_backend",
+  "version": "1.0.0",
+  "description": "Boilerplate for render html with API Gateway and AWS Lambda to give server side rendering",
+  "repository": "https://github.com/Vic-L/server-side-rendering-boilerplate",
+  "devDependencies": {
+    "serverless-domain-manager": "^1.1.19",
+    "serverless-offline": "^3.16.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vic-L",
+  "license": "MIT"
+}
