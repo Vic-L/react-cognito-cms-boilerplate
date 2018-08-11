@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.config.js && aws s3 rm s3://TODO_BUCKET_NAME/assets --recursive --profile TODO_AWS_PROFILE_NAME && aws s3 cp ./dist s3://TODO_BUCKET_NAME  --recursive --acl public-read --exclude '*.DS_Store' --profile TODO_AWS_PROFILE_NAME --cache-control public,max-age=86400"
+    "deploy": "npm run build:prod && npm run deploy:remove-assets && npm run deploy:upload-assets",
+    "deploy:remove-assets": "aws s3 rm $assetsDirectory --recursive --profile $awsProfile",
+    "deploy:upload-assets": "aws s3 cp ./dist/assets $assetsDirectory --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=86400",
   },
   "author": "Vic-L",
   "license": "ISC",
