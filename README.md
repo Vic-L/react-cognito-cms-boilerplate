@@ -1,5 +1,4 @@
-# React Router v4 + React Transition Group v2
-This is repo for [this story](https://medium.com/@victor.leong.17/react-router-v4-with-react-transition-group-v2-683608683356) on Medium.
+# React front end CMS integrated with AWS Cognito built on top [React Router v4 + React Transition Group v2](https://github.com/Vic-L/react-router-4-react-transition-group-2).
 
 ## Usage
 
