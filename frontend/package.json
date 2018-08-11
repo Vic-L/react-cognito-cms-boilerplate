@@ -9,7 +9,7 @@
     "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js",
     "deploy": "npm run build:prod && npm run deploy:remove-assets && npm run deploy:upload-assets",
     "deploy:remove-assets": "aws s3 rm $assetsDirectory --recursive --profile $awsProfile",
-    "deploy:upload-assets": "aws s3 cp ./dist/assets $assetsDirectory --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=86400",
+    "deploy:upload-assets": "aws s3 cp ./dist/assets $assetsDirectory --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=86400"
   },
   "author": "Vic-L",
   "license": "ISC",
