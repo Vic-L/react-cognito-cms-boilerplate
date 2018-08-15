@@ -40,6 +40,7 @@ class Sidebar extends React.Component {
 
     return (
       <div className={`sidebar ${isShown ? '' : 'inactive'}`}>
+        <div className='sidebar-background'/>
         <div className='top-section'>
           <Button
             text="Logout"

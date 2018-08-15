@@ -5,6 +5,17 @@
   height: 100vh
   position: fixed
   transition: margin 350ms ease-in-out
+
+  .sidebar-background
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: $alternative-color
+    filter: blur(-4px)
+    opacity: 0.9
+
   &.inactive
     margin-left: -16.66666667%
     .sidebar-button
@@ -26,14 +37,13 @@
 
 .sidebar-option
   position: relative
-  padding: 1rem
-  background: $primary-color
-  &:hover
-    background: $alternative-color
   a
-    color: white
+    color: $primary-color
     width: 100%
     display: block
+    padding: 1rem
+    &:hover
+      font-weight: bold
   &.with-dropdown
 
 .sidebar-dropdown
