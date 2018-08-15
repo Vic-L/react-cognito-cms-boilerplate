@@ -6,28 +6,34 @@ const ClickableTableHeader = Loadable({
   loading: () => <th></th>,
 })
 
-// TODO Table component should be customised?
+// Delete this component
 class Table extends React.Component {
   render() {
-    return (~
-      %table.unstriped.hover.table-scroll
-        %thead
-          %tr
-            %th Header 1
-            %ClickableTableHeader(
+    return (
+      <table className='unstriped hover table-scroll'>
+        <thead>
+          <tr>
+            <th>Header 1</th>
+            <ClickableTableHeader
               title="Sortable Header 2"
-              onClick={this.handleHeader2Change})
-            %th Header 3
-        %tbody
-          %tr
-            %td Body 1A
-            %td Body 2A
-            %td Body 3A
-          %tr
-            %td Body 1B
-            %td Body 2B
-            %td Body 3B
-    ~)
+              onClick={this.handleHeader2Change}/>
+            <th>Header 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Body 1A</td>
+            <td>Body 2A</td>
+            <td>Body 3A</td>
+          </tr>
+          <tr>
+            <td>Body 1B</td>
+            <td>Body 2B</td>
+            <td>Body 3B</td>
+          </tr>
+        </tbody>
+      </table>
+    )
   }
 
   handleHeader2Change() {
