@@ -34,6 +34,12 @@ class Sidebar extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.history.listen((location, action) => {
+      this.setState({ isShown: false })
+    })
+  }
+
   render() {
     const { dispatch } = this.props
     const { isShown } = this.state

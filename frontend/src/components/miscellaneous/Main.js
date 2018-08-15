@@ -27,7 +27,7 @@ class Main extends React.Component {
     return (
       <div className='grid-container full'>
         <div className='grid-x'>
-          <Sidebar dispatch={this.props.dispatch}/>
+          <Sidebar dispatch={this.props.dispatch} history={this.props.history}/>
           <div className='main cell medium-12'>
             <Switch>
               <PrivateRoute
