@@ -1,5 +1,7 @@
 custom: 
   service: ${file(env.yml):service}
+  awsProfile: ${file(env.yml):awsProfile}
+  awsTagName: ${file(env.yml):awsTagName}
   serverless-offline:
     port: 8000
   customDomain: 
