@@ -36,7 +36,7 @@ module.exports.render = (event, context, callback) => {
     '</head>' + 
     '<body>' +
     '<div id="app"></div>' +
-    `<script type="text/javascript" src="https://${process.env.assetDomainName}/assets/bundle-${process.env.bundleHash}" async></script>` +
+    `<script type="text/javascript" src="https://${process.env.assetDomainName}/assets/bundle-${process.env.bundleHash}.js" async></script>` +
     '</body></html>'
 
   const response = {
