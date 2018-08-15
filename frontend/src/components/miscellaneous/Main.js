@@ -24,21 +24,25 @@ const Form = Loadable({
 
 class Main extends React.Component {
   render() {
-    return (~
-      .grid-container.full
-        .grid-x
-          %Sidebar(dispatch={this.props.dispatch})
-          .main.cell.medium-12
-            %Switch
-              %PrivateRoute(
+    return (
+      <div className='grid-container full'>
+        <div className='grid-x'>
+          <Sidebar dispatch={this.props.dispatch}/>
+          <div className='main cell medium-12'>
+            <Switch>
+              <PrivateRoute
                 path="/"
                 exact={true}
-                component={Dashboard})
-              %PrivateRoute(
+                component={Dashboard}/>
+              <PrivateRoute
                 path="/form"
                 exact={true}
-                component={Form})
-    ~)
+                component={Form}/>
+            </Switch>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
