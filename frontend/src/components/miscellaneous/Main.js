@@ -21,6 +21,10 @@ const Form = Loadable({
   loader: () => import('_inputs/Form'),
   loading: () => <div></div>,
 })
+const Table = Loadable({
+  loader: () => import('_tables/Table'),
+  loading: () => <div></div>,
+})
 
 class Main extends React.Component {
   render() {
@@ -38,6 +42,10 @@ class Main extends React.Component {
                 path="/form"
                 exact={true}
                 component={Form}/>
+              <PrivateRoute
+                path="/table"
+                exact={true}
+                component={Table}/>
             </Switch>
           </div>
         </div>

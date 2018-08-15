@@ -65,6 +65,9 @@ class Sidebar extends React.Component {
         <SidebarOption
           text="Form"
           dst="/form"/>
+        <SidebarOption
+          text="Table"
+          dst="/table"/>
         <SidebarOptionWithDropdown
           text="Link2"
           dst="#"
