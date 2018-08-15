@@ -1,10 +1,33 @@
 .sidebar
   width: 16.66666667%
-  z-index: 1
   display: block
   height: 100vh
   position: fixed
   transition: margin 350ms ease-in-out
+  z-index: 1
+
+  &.inactive
+    margin-left: -16.66666667%
+    .sidebar-button
+      background-color: $primary-color
+      opacity: 0.5
+
+  .top-section
+    padding: 20px
+
+  .sidebar-button
+    transition: all 350ms ease-in-out
+    position: absolute
+    left: 100%
+    width: 5vw
+    height: 5vw
+    margin-left: -2.5vw
+    top: 50%
+    background-color: white
+    border: 1px $primary-color solid
+    &:hover
+      opacity: 1
+      background-color: $primary-color
 
   .sidebar-background
     position: absolute
@@ -12,34 +35,15 @@
     right: 0
     bottom: 0
     left: 0
-    background-color: $alternative-color
+    background-color: $primary-color
     filter: blur(-4px)
     opacity: 0.9
     z-index: -1
 
-  &.inactive
-    margin-left: -16.66666667%
-    .sidebar-button
-      opacity: 0.5
-
-  .top-section
-    padding: 20px
-
-  .sidebar-button
-    position: absolute
-    left: 100%
-    width: 5vw
-    height: 5vw
-    margin-left: -2.5vw
-    top: 50%
-    &:hover
-      opacity: 1
-
-
 .sidebar-option
   position: relative
   a
-    color: $primary-color
+    color: white
     width: 100%
     display: block
     padding: 1rem
