@@ -51,36 +51,37 @@ class _Login extends React.Component {
 
   render() {
     const { formObject, formErrors } = this.state
-    return (~
-      %AnimationWrapper(
+    return (
+      <AnimationWrapper
         classNames="fade"
         shouldShow={this.state.in}
         render={() => {
-          return (~
-            %main.grid-container
-              .grid-x.grid-margin-x
-                .cell.auto
-                .cell.small-10
-                  %TextField(
+          return (
+            <main className='grid-container'>
+              <div className='grid-x grid-margin-x align-middle login-form-container'>
+                <div className='cell auto'>
+                </div>
+                <div className='cell small-6'>
+                  <TextField
                     name="email"
                     placeholder="Email"
                     type="text"
                     label="Email"
                     error={formErrors.email}
                     value={formObject.email}
-                    onChange={this.onChangeEmail})
+                    onChange={this.onChangeEmail}/>
 
-                  %TextField(
+                  <TextField
                     name="password"
                     placeholder="Password"
                     label="Password"
                     type="password"
                     error={formErrors.password}
                     value={formObject.password}
-                    onChange={this.onChangePassword})
+                    onChange={this.onChangePassword}/>
 
-                  %Button(
-                    className="button"
+                  <Button
+                    className="button login-button"
                     text="Login"
                     onClick={() => {
                       if (this.validateForm()) {
@@ -92,11 +93,15 @@ class _Login extends React.Component {
                           this.login()
                         }
                       }
-                    }})
-                .cell.auto
-          ~)
-        }})
-    ~)
+                    }}/>
+                </div>
+                <div className='cell auto'>
+                </div>
+              </div>
+            </main>
+          )
+        }}/>
+    )
   }
 
   @autobind
