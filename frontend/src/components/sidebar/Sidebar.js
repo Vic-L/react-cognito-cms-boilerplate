@@ -21,9 +21,9 @@ const Button = Loadable({
 })
 
 const Sidebar = ({ dispatch }) => {
-  return (~
-    .sidebar
-      %Button(
+  return (
+    <div className='sidebar'>
+      <Button
         text="Logout"
         className="button"
         onClick={() => {
@@ -35,11 +35,11 @@ const Sidebar = ({ dispatch }) => {
           const cognitoUser = Pool.getCurrentUser()
           cognitoUser.signOut()
           dispatch({type: 'LOADING_END'})
-        }})
-      %SidebarOption(
+        }}/>
+      <SidebarOption
         text="Form"
-        dst="/form")
-      %SidebarOptionWithDropdown(
+        dst="/form"/>
+      <SidebarOptionWithDropdown
         text="Link2"
         dst="#"
         dropdown={[
@@ -51,8 +51,9 @@ const Sidebar = ({ dispatch }) => {
             text: "Link2B",
             dst: "#"
           }
-        ]})
-  ~)
+        ]}/>
+    </div>
+  )
 }
 
 export default Sidebar
