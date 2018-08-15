@@ -27,9 +27,8 @@ class Main extends React.Component {
     return (~
       .grid-container.full
         .grid-x
-          .cell.medium-2
-            %Sidebar(dispatch={this.props.dispatch})
-          .main.cell.medium-10
+          %Sidebar(dispatch={this.props.dispatch})
+          .main.cell.medium-12
             %Switch
               %PrivateRoute(
                 path="/"

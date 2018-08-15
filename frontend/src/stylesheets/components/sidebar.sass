@@ -3,6 +3,25 @@
   display: block
   height: 100vh
   position: fixed
+  transition: margin 350ms ease-in-out
+  &.inactive
+    margin-left: -16.66666667%
+    .sidebar-button
+      opacity: 0.5
+
+  .top-section
+    padding: 20px
+
+  .sidebar-button
+    position: absolute
+    left: 100%
+    width: 5vw
+    height: 5vw
+    margin-left: -2.5vw
+    top: 50%
+    &:hover
+      opacity: 1
+
 
 .sidebar-option
   position: relative
@@ -20,7 +39,6 @@
   position: absolute
   top: 0
   left: 100%
-
 
 .sidebar-dropdown-option
   padding: 1rem
