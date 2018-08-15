@@ -25,6 +25,10 @@ const Table = Loadable({
   loader: () => import('_tables/Table'),
   loading: () => <div></div>,
 })
+const Cards = Loadable({
+  loader: () => import('_cards/Cards'),
+  loading: () => <div></div>,
+})
 
 class Main extends React.Component {
   render() {
@@ -46,6 +50,10 @@ class Main extends React.Component {
                 path="/table"
                 exact={true}
                 component={Table}/>
+              <PrivateRoute
+                path="/cards"
+                exact={true}
+                component={Cards}/>
             </Switch>
           </div>
         </div>
