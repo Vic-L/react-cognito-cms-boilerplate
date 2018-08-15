@@ -16,7 +16,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, "dist", "assets"),
-    publicPath: '/assets/',
+    publicPath: process.env.NODE_ENV === 'production' ? process.env.assetsPublicPathHostName + '/assets/' : '/assets/',
     filename: process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js'
   },
   module: {
