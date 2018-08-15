@@ -30,6 +30,16 @@ provider:
     assetDomainName: ${file(env.yml):assetDomainName}
 
 functions:
+  renderHome:
+    handler: handler.render
+    tags:
+      Name: ${self:custom.awsTagName}
+      Stage: ${opt:stage, 'dev'}
+    events:
+      - http:
+          path: '/'
+          method: get
+          cors: true
   renderHtml:
     handler: handler.render
     tags:
