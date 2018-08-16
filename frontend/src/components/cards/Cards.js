@@ -18,12 +18,13 @@ class Cards extends React.Component {
 
     this.state = {
       cards: [
-        <Card key='card1'>
+        <Card key='card1' cellSize={6}>
           <h2>Card</h2>
         </Card>,
         <DismissableCard
           key='card2'
           onDismiss={this.onDismiss}
+          cellSize={6}
           isDismissable={true}>
           <h2>Dismissable Card</h2>
         </DismissableCard>
