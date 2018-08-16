@@ -5,7 +5,7 @@ class Card extends React.Component {
   render() {
     return (
       <div className='card cell medium-6'>
-        <p>helo</p>
+        <p>Card</p>
       </div>
     )
   }
