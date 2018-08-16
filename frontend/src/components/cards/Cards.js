@@ -17,7 +17,17 @@ class Cards extends React.Component {
     super(props)
 
     this.state = {
-      cards: [<Card key='card1'/>, <DismissableCard key='card2' onClose={this.onClose}/>]
+      cards: [
+        <Card key='card1'>
+          <h2>Card</h2>
+        </Card>,
+        <DismissableCard
+          key='card2'
+          onDismiss={this.onDismiss}
+          isDismissable={true}>
+          <h2>Dismissable Card</h2>
+        </DismissableCard>
+      ]
     }
   }
   render() {
@@ -38,7 +48,7 @@ class Cards extends React.Component {
   }
 
   @autobind
-  onClose() {
+  onDismiss() {
     this.setState({
       cards: [this.state.cards[0]]
     })
