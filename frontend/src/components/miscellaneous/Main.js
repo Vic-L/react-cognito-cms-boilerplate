@@ -37,24 +37,30 @@ class Main extends React.Component {
         <div className='grid-x'>
           <Sidebar dispatch={this.props.dispatch} history={this.props.history}/>
           <div className='main cell medium-12'>
-            <Switch>
-              <PrivateRoute
-                path="/"
-                exact={true}
-                component={Dashboard}/>
-              <PrivateRoute
-                path="/form"
-                exact={true}
-                component={Form}/>
-              <PrivateRoute
-                path="/table"
-                exact={true}
-                component={Table}/>
-              <PrivateRoute
-                path="/cards"
-                exact={true}
-                component={Cards}/>
-            </Switch>
+            <div className='grid-container'>
+              <div className='grid-x'>
+                <div className='cell medium-12'>
+                  <Switch>
+                    <PrivateRoute
+                      path="/"
+                      exact={true}
+                      component={Dashboard}/>
+                    <PrivateRoute
+                      path="/form"
+                      exact={true}
+                      component={Form}/>
+                    <PrivateRoute
+                      path="/table"
+                      exact={true}
+                      component={Table}/>
+                    <PrivateRoute
+                      path="/cards"
+                      exact={true}
+                      component={Cards}/>
+                  </Switch>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
