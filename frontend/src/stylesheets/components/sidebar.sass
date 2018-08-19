@@ -47,26 +47,26 @@
 
 .sidebar-option
   position: relative
-  a
+  a, .sidebar-link
+    color: white
+    width: 100%
+    display: block
+    padding: 1rem
+    cursor: pointer
+    &:hover
+      font-weight: bold
+  &.with-dropdown
+
+.sidebar-dropdown
+  padding-left: 1rem
+  background-color: 'transparent'
+
+.sidebar-dropdown-option
+  padding: 1rem
+  a, .sidebar-dropdown-option
     color: white
     width: 100%
     display: block
     padding: 1rem
     &:hover
       font-weight: bold
-  &.with-dropdown
-
-.sidebar-dropdown
-  position: absolute
-  top: 0
-  left: 100%
-
-.sidebar-dropdown-option
-  padding: 1rem
-  background: $secondary-color
-  &:hover
-    background: $alternative-color
-  a
-    color: white
-    width: 100%
-    display: block

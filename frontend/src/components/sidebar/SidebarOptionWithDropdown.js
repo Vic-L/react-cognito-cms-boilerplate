@@ -12,32 +12,47 @@ class SidebarOptionWithDropdown extends React.Component {
   }
 
   render() {
-    return (~
-      .sidebar-option.with-dropdown(onMouseEnter={this.toggleRevealDropdown} onMouseLeave={this.toggleRevealDropdown})
+    return (
+      <div className='sidebar-option with-dropdown'onMouseEnter={this.toggleRevealDropdown}
+        onMouseLeave={this.toggleRevealDropdown}>
 
-        %Link(to={this.props.dst})
-          {this.props.text}
+        {
+          this.props.dst ? (
+            <Link className='sidebar-link' to={this.props.dst}>
+              {this.props.text}
+            </Link>
+          ) : (
+            <div className='sidebar-link'>{this.props.text}</div>
+          )
+        }
+        
         {
           this.state.revealDropdown ? (
             this.getDropdown()
           ) : null
         }
-    ~)
+      </div>
+    )
   }
 
   @autobind
   getDropdown() {
     const dropdown = this.props.dropdown.map((option, index) => {
-      return (~
-        %Link.sidebar-dropdown-option(to={option.dst} key={`option-${index}`})
+      return (
+        <Link
+          className='sidebar-dropdown-option'
+          to={option.dst}
+          key={`option-${index}`}>
           {option.text}
-      ~)
+        </Link>
+      )
     })
 
-    return (~
-      .sidebar-dropdown
+    return (
+      <div className='sidebar-dropdown'>
         {dropdown}
-    ~)
+      </div>
+    )
   }
 
   @autobind

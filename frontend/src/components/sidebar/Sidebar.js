@@ -74,7 +74,6 @@ class Sidebar extends React.Component {
             dst="/cards"/>
           <SidebarOptionWithDropdown
             text="Link2"
-            dst="#"
             dropdown={[
               {
                 text: "Link2A",
