@@ -36,27 +36,27 @@ class Form extends React.Component {
       <div>
         <TextField
           name="fieldWithNoError"
-          placeholder="placeholder"
+          placeholder="FieldWithNoError"
           type="text"
-          label="FieldWithNoError"
+          label="FIELDWITHNOERROR"
           value={formObject.fieldWithNoError}
           error={formErrors.fieldWithNoError}
           onChange={this.onChangeFieldWithNoError}/>
 
         <TextField
           name="fieldWithError"
-          placeholder="placeholder"
+          placeholder="FieldWithError"
           type="text"
-          label="FieldWithError"
+          label="FIELDWITHERROR"
           value={formObject.fieldWithError}
           error={'fieldWithError'}
           onChange={this.onChangeFieldWithError}/>
 
         <SelectField
           name="selectFieldWithNoError"
-          placeholder="placeholder"
+          placeholder="SelectFieldWithNoError"
           type="text"
-          label="SelectFieldWithNoError"
+          label="SELECTFIELDWITHNOERROR"
           value={formObject.selectFieldWithNoError}
           error={formErrors.selectFieldWithNoError}
           options={this.getOptions()}
