@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
+import Select from 'react-select'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -13,73 +14,81 @@ class SelectField extends React.Component {
     super(props)
 
     this.state = {
-      isDropdownShown: false
+      isDropdownShown: false,
+      selectedOption: null
     }
   }
 
   render() {
-    return (~
-      .select-container
-        .select-field
-          %TextField(
+    const { error } = this.props
+
+    const selectStyle = {
+      option: (base, state) => ({
+        ...base,
+        borderBottom: '1px black solid',
+        color: 'black'
+      }),
+      // 50 is the height of input
+      container: () => ({
+        height: 50,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+      }),
+      control: () => ({
+        opacity: 0,
+      })
+    }
+
+    return (
+      <div className='select-container'>
+        <div className='select-field'>
+          <TextField
             name={this.props.name}
             placeholder={this.props.placeholder}
             type={this.props.type}
             label={this.props.label}
             error={this.props.error}
             value={this.renderOptionLabel()}
-            options={this.props.options}
-            onChange={this.props.onChange})
-          .select-dropdown(onClick={this.toggleDropDown})
-        .options-container(style={{
-          border: this.state.isDropdownShown ? 'red 1px solid' : 'none'
-        }})
-          {this.renderOptions()}
-    ~)
+            onChange={this.props.onChange}/>
+        </div>
+        <Select
+          styles={selectStyle}
+          value={this.renderOptionValue()}
+          onChange={this.onSelectOption}
+          options={this.props.options}/>
+      </div>
+    )
   }
 
   @autobind
   renderOptionLabel() {
     if (this.props.value) {
-      return this.props.options.find((option) => {
+      const option = _.find(this.props.options, (option) => {
         return option.value === this.props.value
-      }).label
+      })
+
+      if (_.isNil(option)) {
+        return ""
+      } else {
+        return option.label
+      }
     } else {
       return ""
     }
   }
 
   @autobind
-  toggleDropDown() {
-    this.setState({
-      isDropdownShown: !this.state.isDropdownShown
-    })
+  renderOptionValue() {
+    return _.find(this.props.options, (option) => {
+      return option.value === this.props.value
+    }) || null
   }
 
   @autobind
-  renderOptions() {
-    if (this.state.isDropdownShown) {
-      return this.props.options.map((option, index) => {
-        return (~
-          %div.option(
-            key={`option-${index}`}
-            value={option.value}
-            onClick={this.onSelectOption.bind(this, index)})
-            {option.label}
-        ~)
-      })
-    } else {
-      return null
-    }
-  }
-
-  @autobind
-  onSelectOption(index) {
-    this.setState({
-      isDropdownShown: false
-    }, () => {
-      this.props.onChange(index)
-    })
+  onSelectOption(selectedOption) {
+    this.props.onChange(selectedOption.value)
   }
 }
 
