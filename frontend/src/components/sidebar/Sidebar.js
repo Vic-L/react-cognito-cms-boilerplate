@@ -47,43 +47,45 @@ class Sidebar extends React.Component {
     return (
       <div className={`sidebar ${isShown ? '' : 'inactive'}`}>
         <div className='sidebar-background'/>
-        <div className='top-section'>
-          <Button
-            text="Logout"
-            className="button"
-            onClick={() => {
-              dispatch({type: 'LOADING_START'})
-              const Pool = new CognitoUserPool({
-                UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
-                ClientId: process.env.COGNITO_ADMIN_CLIENT_ID
-              })
-              const cognitoUser = Pool.getCurrentUser()
-              cognitoUser.signOut()
-              dispatch({type: 'LOADING_END'})
-            }}/>
+        <div className='sidebar-container'>
+          <div className='top-section'>
+            <Button
+              text="Logout"
+              className="button"
+              onClick={() => {
+                dispatch({type: 'LOADING_START'})
+                const Pool = new CognitoUserPool({
+                  UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
+                  ClientId: process.env.COGNITO_ADMIN_CLIENT_ID
+                })
+                const cognitoUser = Pool.getCurrentUser()
+                cognitoUser.signOut()
+                dispatch({type: 'LOADING_END'})
+              }}/>
+          </div>
+          <SidebarOption
+            text="Form"
+            dst="/form"/>
+          <SidebarOption
+            text="Table"
+            dst="/table"/>
+          <SidebarOption
+            text="Cards"
+            dst="/cards"/>
+          <SidebarOptionWithDropdown
+            text="Link2"
+            dst="#"
+            dropdown={[
+              {
+                text: "Link2A",
+                dst: "#"
+              },
+              {
+                text: "Link2B",
+                dst: "#"
+              }
+            ]}/>
         </div>
-        <SidebarOption
-          text="Form"
-          dst="/form"/>
-        <SidebarOption
-          text="Table"
-          dst="/table"/>
-        <SidebarOption
-          text="Cards"
-          dst="/cards"/>
-        <SidebarOptionWithDropdown
-          text="Link2"
-          dst="#"
-          dropdown={[
-            {
-              text: "Link2A",
-              dst: "#"
-            },
-            {
-              text: "Link2B",
-              dst: "#"
-            }
-          ]}/>
 
         <ImageButton
           className='sidebar-button'
