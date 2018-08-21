@@ -20,9 +20,14 @@ class SidebarOptionWithDropdown extends React.Component {
           this.props.dst ? (
             <Link className='sidebar-link' to={this.props.dst}>
               {this.props.text}
+
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
             </Link>
           ) : (
-            <div className='sidebar-link'>{this.props.text}</div>
+            <div className='sidebar-link'>
+              {this.props.text}
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
+            </div>
           )
         }
         
