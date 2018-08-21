@@ -94,11 +94,11 @@ class Form extends React.Component {
   }
 
   @autobind
-  onChangeSelectFieldWithNoError(selectedIndex) {
+  onChangeSelectFieldWithNoError(selectedOptionValue) {
     this.setState({
       formObject: {
         ...this.state.formObject,
-        selectFieldWithNoError: this.getOptions()[selectedIndex].value
+        selectFieldWithNoError: selectedOptionValue
       }
     })
   }
