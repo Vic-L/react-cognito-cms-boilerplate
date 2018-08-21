@@ -10,6 +10,10 @@ const SelectField = Loadable({
   loader: () => import('_inputs/SelectField'),
   loading: () => <div></div>,
 })
+const AutoSuggestField = Loadable({
+  loader: () => import('_inputs/AutoSuggestField'),
+  loading: () => <div></div>,
+})
 
 class Form extends React.Component {
   constructor(props) {
@@ -20,12 +24,8 @@ class Form extends React.Component {
         fieldWithNoError: "",
         fieldWithError: "",
         selectFieldWithNoError: "",
+        autoSuggestFieldWithNoError: ""
       },
-      formErrors: {
-        fieldWithNoError: "",
-        fieldWithError: "",
-        selectFieldWithNoError: "",
-      }
     }
   }
 
@@ -40,7 +40,7 @@ class Form extends React.Component {
           type="text"
           label="FIELDWITHNOERROR"
           value={formObject.fieldWithNoError}
-          error={formErrors.fieldWithNoError}
+          error={""}
           onChange={this.onChangeFieldWithNoError}/>
 
         <TextField
@@ -58,9 +58,20 @@ class Form extends React.Component {
           type="text"
           label="SELECTFIELDWITHNOERROR"
           value={formObject.selectFieldWithNoError}
-          error={formErrors.selectFieldWithNoError}
+          error={""}
           options={this.getOptions()}
           onChange={this.onChangeSelectFieldWithNoError}/>
+
+        <AutoSuggestField
+          name="AutoSuggestFieldWithNoError"
+          placeholder="AutoSuggestFieldWithNoError"
+          type="text"
+          label="AUTOSUGGESTFIELDWITHNOERROR"
+          value={formObject.autoSuggestFieldWithNoError}
+          error={""}
+          suggestionList={['John', 'Paul', 'George', 'Ringo']}
+          onChange={this.onChangeAutoSuggestFieldWithNoError}
+        />
       </div>
     )
   }
@@ -99,6 +110,16 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         selectFieldWithNoError: selectedOptionValue
+      }
+    })
+  }
+
+  @autobind
+  onChangeAutoSuggestFieldWithNoError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        autoSuggestFieldWithNoError: e.target.value
       }
     })
   }
