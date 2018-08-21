@@ -1,6 +1,17 @@
 import React from 'react'
 
-const TextField = ({label, placeholder, type, name, onChange, value, error, ...others}) => {
+const TextField = ({
+  label,
+  placeholder,
+  type,
+  name,
+  onChange,
+  onFocus,
+  onBlur,
+  value,
+  error,
+  ...others
+}) => {
   return (
     <React.Fragment>
       <div className='input-container'>
@@ -9,6 +20,8 @@ const TextField = ({label, placeholder, type, name, onChange, value, error, ...o
           name={name}
           value={value || ""}
           type={type}
+          onFocus={onFocus}
+          onBlur={onBlur}
           onChange={onChange}
           {...others}/>
         <label className={`placeholder ${value ? 'not-empty' : ''}`}>

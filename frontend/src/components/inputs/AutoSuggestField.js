@@ -15,6 +15,7 @@ class AutoSuggestField extends React.Component {
 
     this.state = {
       suggestions: [],
+      inFocus: false
     }
   }
 
@@ -28,6 +29,8 @@ class AutoSuggestField extends React.Component {
           label={this.props.label}
           error={this.props.error}
           value={this.props.value}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onChange={this.onChange}/>
         <Autosuggest
           ref='autosuggest'
@@ -40,10 +43,20 @@ class AutoSuggestField extends React.Component {
             value: this.props.value,
             onChange: null // not needed and should not triggered
           }}
-          alwaysRenderSuggestions={this.shouldRenderSuggestion}
+          alwaysRenderSuggestions={this.state.inFocus}
           shouldRenderSuggestions={(value) => value.trim().length > 1}/>
       </div>
     )
+  }
+
+  @autobind
+  onFocus() {
+    this.setState({inFocus: true})
+  }
+
+  @autobind
+  onBlur() {
+    this.setState({inFocus: false})
   }
 
   @autobind
