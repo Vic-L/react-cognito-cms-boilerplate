@@ -14,6 +14,10 @@ const AutoSuggestField = Loadable({
   loader: () => import('_inputs/AutoSuggestField'),
   loading: () => <div></div>,
 })
+const Button = Loadable({
+  loader: () => import('_buttons/Button'),
+  loading: () => <div></div>,
+})
 
 class Form extends React.Component {
   constructor(props) {
@@ -72,6 +76,10 @@ class Form extends React.Component {
           suggestionList={['John', 'Paul', 'George', 'Ringo']}
           onChange={this.onChangeAutoSuggestFieldWithNoError}
         />
+
+        <Button
+          className="button"
+          text="SUBMIT"/>
       </div>
     )
   }

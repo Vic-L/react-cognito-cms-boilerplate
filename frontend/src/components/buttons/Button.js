@@ -1,14 +1,14 @@
 import React from 'react'
 
 const Button = ({className, onClick, text, ...others}) => {
-  return (~
-    %div(
+  return (
+    <div
       className={className}
       onClick={onClick}
-      {...others}
-    )
+      {...others}>
       {text}
-  ~)
+    </div>
+  )
 }
 
 export default Button
