@@ -3,6 +3,7 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import Autosuggest from 'react-autosuggest'
+import PropTypes from 'prop-types'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -111,6 +112,22 @@ class AutoSuggestField extends React.Component {
       </div>
     )
   }
+}
+
+AutoSuggestField.propTypes = {
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  error: PropTypes.string,
+  suggestionList: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 }
 
 export default AutoSuggestField

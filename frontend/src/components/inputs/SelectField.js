@@ -3,6 +3,7 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -94,6 +95,22 @@ class SelectField extends React.Component {
   onSelectOption(selectedOption) {
     this.props.onChange(selectedOption.value)
   }
+}
+
+SelectField.propTypes = {
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  error: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
 }
 
 export default SelectField
