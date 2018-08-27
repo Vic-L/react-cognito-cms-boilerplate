@@ -10,6 +10,10 @@ const SelectField = Loadable({
   loader: () => import('_inputs/SelectField'),
   loading: () => <div></div>,
 })
+const RestrictedSelectField = Loadable({
+  loader: () => import('_inputs/RestrictedSelectField'),
+  loading: () => <div></div>,
+})
 const CountrySelector = Loadable({
   loader: () => import('_inputs/CountrySelector'),
   loading: () => <div></div>,
@@ -32,8 +36,9 @@ class Form extends React.Component {
         fieldWithNoError: "",
         fieldWithError: "",
         selectFieldWithNoError: "",
+        restrictedSelectField: null,
         countrySelectorField: null,
-        autoSuggestFieldWithNoError: ""
+        autoSuggestFieldWithNoError: "",
       },
     }
   }
@@ -69,6 +74,17 @@ class Form extends React.Component {
           value={formObject.selectFieldWithNoError}
           error={""}
           options={this.getOptions()}
+          onChange={this.onChangeSelectFieldWithNoError}/>
+
+        <RestrictedSelectField
+          name="restrictedSelectField"
+          placeholder="RestrictedSelectField"
+          type="text"
+          label="RESTRICTEDSELECTFIELD"
+          value={formObject.selectFieldWithNoError}
+          error={""}
+          fullOptions={this.getOptions()}
+          selectableOptions={[this.getOptions()[0]]}
           onChange={this.onChangeSelectFieldWithNoError}/>
 
         <CountrySelector
