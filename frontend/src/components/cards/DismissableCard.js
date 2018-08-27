@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 class DismissableCard extends React.Component {
   render() {
     return (
-      <div className={`card dismissable-card cell medium-${this.props.cellSize}`}>
+      <div className={`card dismissable-card cell medium-${this.props.cellSize} ${this.props.className}`}>
         {this.props.children}
         {
           this.props.isDismissable ? (
