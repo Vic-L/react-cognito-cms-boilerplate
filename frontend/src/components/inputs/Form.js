@@ -81,11 +81,11 @@ class Form extends React.Component {
           placeholder="RestrictedSelectField"
           type="text"
           label="RESTRICTEDSELECTFIELD"
-          value={formObject.selectFieldWithNoError}
+          value={formObject.restrictedSelectField}
           error={""}
           fullOptions={this.getOptions()}
           selectableOptions={[this.getOptions()[0]]}
-          onChange={this.onChangeSelectFieldWithNoError}/>
+          onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
 
         <CountrySelector
           name="countrySelectorField"
@@ -150,6 +150,16 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         selectFieldWithNoError: selectedOptionValue
+      }
+    })
+  }
+
+  @autobind
+  onChangeRestrictedSelectFieldWithNoError(selectedOptionValue) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        restrictedSelectField: selectedOptionValue
       }
     })
   }
