@@ -105,7 +105,7 @@ RestrictedSelectField.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ]).isRequired,
+  ]),
   error: PropTypes.string,
   fullOptions: PropTypes.array.isRequired,
   selectableOptions: PropTypes.array.isRequired,

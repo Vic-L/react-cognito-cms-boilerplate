@@ -35,7 +35,7 @@ TextField.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ]).isRequired,
+  ]),
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,

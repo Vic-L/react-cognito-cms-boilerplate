@@ -33,12 +33,12 @@ class Form extends React.Component {
 
     this.state = {
       formObject: {
-        fieldWithNoError: "",
-        fieldWithError: "",
-        selectFieldWithNoError: "",
+        fieldWithNoError: null,
+        fieldWithError: null,
+        selectFieldWithNoError: null,
         restrictedSelectField: null,
         countrySelectorField: null,
-        autoSuggestFieldWithNoError: "",
+        autoSuggestFieldWithNoError: null,
       },
     }
   }

@@ -122,7 +122,7 @@ AutoSuggestField.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ]).isRequired,
+  ]),
   error: PropTypes.string,
   suggestionList: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
