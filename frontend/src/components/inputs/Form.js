@@ -10,6 +10,10 @@ const SelectField = Loadable({
   loader: () => import('_inputs/SelectField'),
   loading: () => <div></div>,
 })
+const CountrySelector = Loadable({
+  loader: () => import('_inputs/CountrySelector'),
+  loading: () => <div></div>,
+})
 const AutoSuggestField = Loadable({
   loader: () => import('_inputs/AutoSuggestField'),
   loading: () => <div></div>,
@@ -28,6 +32,7 @@ class Form extends React.Component {
         fieldWithNoError: "",
         fieldWithError: "",
         selectFieldWithNoError: "",
+        countrySelectorField: null,
         autoSuggestFieldWithNoError: ""
       },
     }
@@ -65,6 +70,17 @@ class Form extends React.Component {
           error={""}
           options={this.getOptions()}
           onChange={this.onChangeSelectFieldWithNoError}/>
+
+        <CountrySelector
+          name="countrySelectorField"
+          placeholder="Select Country"
+          type="text"
+          label="COUNTRY"
+          labelKey="name"
+          valueKey="alpha-2"
+          value={formObject.countrySelectorField}
+          error={""}
+          onChange={this.onChangeCountrySelector}/>
 
         <AutoSuggestField
           name="AutoSuggestFieldWithNoError"
@@ -118,6 +134,16 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         selectFieldWithNoError: selectedOptionValue
+      }
+    })
+  }
+
+  @autobind
+  onChangeCountrySelector(selectedCountry) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        countrySelectorField: selectedCountry
       }
     })
   }
