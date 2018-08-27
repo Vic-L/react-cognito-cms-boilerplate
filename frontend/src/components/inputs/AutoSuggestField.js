@@ -41,7 +41,7 @@ class AutoSuggestField extends React.Component {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            value: this.props.value,
+            value: this.props.value || "", // AutoSuggest need to trim value, so cannot be null
             onChange: null // not needed and should not triggered
           }}
           alwaysRenderSuggestions={this.state.inFocus}
