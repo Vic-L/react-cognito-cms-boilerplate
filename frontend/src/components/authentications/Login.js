@@ -62,6 +62,8 @@ class _Login extends React.Component {
                 <div className='cell auto'>
                 </div>
                 <div className='cell small-6'>
+                  <img src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c' className='logo'/>
+
                   <TextField
                     name="email"
                     placeholder="Email"
