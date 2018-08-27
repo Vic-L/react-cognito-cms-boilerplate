@@ -81,9 +81,13 @@ class SelectField extends React.Component {
 
   @autobind
   renderOptionValue() {
-    return _.find(this.props.options, (option) => {
-      return option.value === this.props.value
-    }) || null
+    if (this.props.value) {
+      return _.find(this.props.options, (option) => {
+        return option.value === this.props.value
+      }) || null
+    } else {
+      return null
+    }
   }
 
   @autobind
