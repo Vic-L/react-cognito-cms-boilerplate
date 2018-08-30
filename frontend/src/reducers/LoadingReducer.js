@@ -7,6 +7,7 @@ const LoadingReducer = (state = false, action) => {
   // not a *_REQUEST / *_SUCCESS /  *_FAILURE actions, so we ignore them
   if (!matches) return state
 
+  // will only add <ACTION>_REQUEST to LoadingReducer to indicate still loading
   const [, requestName, requestState] = matches;
   return {
     ...state,

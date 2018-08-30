@@ -20,13 +20,15 @@ const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
   loading: () => <div></div>,
 })
-const Button = Loadable({
-  loader: () => import('_buttons/Button'),
+const ButtonWithLoader = Loadable({
+  loader: () => import('_buttons/ButtonWithLoader'),
   loading: () => <div></div>,
 })
 
 // utils
 import validate from '_utils/validations'
+
+import SelectLoading from '_selectors/SelectLoading'
 
 class Login extends React.Component {
   constructor(props) {
@@ -83,7 +85,8 @@ class Login extends React.Component {
                     value={formObject.password}
                     onChange={this.onChangePassword}/>
 
-                  <Button
+                  <ButtonWithLoader
+                    isLoading={this.props.isLoggingIn}
                     className="button login-button"
                     text="Login"
                     onClick={() => {
@@ -196,6 +199,12 @@ class Login extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    isLoggingIn: SelectLoading(['LOGIN'])(state)
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     requestLogin: () => {
@@ -213,4 +222,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(Login))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
