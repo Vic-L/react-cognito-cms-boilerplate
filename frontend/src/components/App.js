@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import LoadingModal from '_miscellaneous/LoadingModal'
-
 const TransitionGroup = Loadable({
   loader: () => import('react-transition-group/TransitionGroup'),
   loading: () => <div></div>,
@@ -31,15 +29,10 @@ const Login = Loadable({
   loading: () => <div></div>,
 })
 
-const App = ({ isLoading, dispatch }) => {
+const App = ({ dispatch }) => {
   return (~
     %div
       %AlertModal
-      {
-        isLoading ? (~
-          %LoadingModal
-        ~) : null
-      }
       %TransitionGroup
         %Switch
           %PublicRoute(
@@ -53,8 +46,4 @@ const App = ({ isLoading, dispatch }) => {
   ~)
 }
 
-function mapStateToProps({ isLoading }) {
-  return { isLoading }
-}
-
-export default withRouter(connect(mapStateToProps)(App))
+export default withRouter(App)
