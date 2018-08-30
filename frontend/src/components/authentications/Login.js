@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
+import { withRouter } from 'react-router-dom'
 
 import {
   CognitoUserPool,
@@ -27,7 +28,7 @@ const Button = Loadable({
 // utils
 import validate from '_utils/validations'
 
-class _Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props)
 
@@ -109,8 +110,7 @@ class _Login extends React.Component {
   @autobind
   login() {
     const { formObject } = this.state
-    const { dispatch } = this.props
-    dispatch({type: 'LOADING_START'})
+    this.props.requestLogin()
 
     const Username = formObject.email
     const Password = formObject.password
@@ -127,18 +127,11 @@ class _Login extends React.Component {
 
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
-        dispatch({type: 'LOADING_END'})
+        this.props.succeedLogin()
+        this.props.history.push("/")
       },
       onFailure: (err) => {
-        console.log(err)
-        dispatch({type: 'LOADING_END'})
-        dispatch({
-          type: 'ALERT_SHOW',
-          alert: {
-            title: "Alert",
-            body: err.message
-          }
-        })
+        this.props.failLogin(err.message)
       },
       newPasswordRequired: (userAttributes, requiredAttributes) => {
         // User was signed up by an admin and must provide new
@@ -203,10 +196,21 @@ class _Login extends React.Component {
   }
 }
 
-function mapStateToProps({ isLoading }) {
-  return { isLoading }
+function mapDispatchToProps(dispatch) {
+  return {
+    requestLogin: () => {
+      dispatch({type: 'LOGIN_REQUEST'})
+    },
+    succeedLogin: () => {
+      dispatch({type: 'LOGIN_SUCCESS'})
+    },
+    failLogin: (message) => {
+      dispatch({
+        type: 'LOGIN_FAILURE',
+        message
+      })
+    }
+  }
 }
 
-const Login = connect(mapStateToProps)(_Login)
-
-export default Login
+export default withRouter(connect(null, mapDispatchToProps)(Login))

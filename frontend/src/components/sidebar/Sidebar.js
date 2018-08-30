@@ -1,5 +1,6 @@
 import React from 'react'
 import Loadable from 'react-loadable'
+import { connect } from 'react-redux'
 
 import {
   CognitoUserPool,
@@ -41,7 +42,6 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const { dispatch } = this.props
     const { isShown } = this.state
 
     return (
@@ -53,14 +53,19 @@ class Sidebar extends React.Component {
               text="Logout"
               className="button"
               onClick={() => {
-                dispatch({type: 'LOADING_START'})
+                this.props.requestLogout()
                 const Pool = new CognitoUserPool({
                   UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
                   ClientId: process.env.COGNITO_ADMIN_CLIENT_ID
                 })
                 const cognitoUser = Pool.getCurrentUser()
-                cognitoUser.signOut()
-                dispatch({type: 'LOADING_END'})
+                if (cognitoUser != null) {
+                  cognitoUser.signOut()
+                  this.props.succeedLogout()
+                  this.props.history.push("/login")
+                } else {
+                  this.props.failLogout()
+                }
               }}/>
           </div>
           <SidebarOption
@@ -97,4 +102,18 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar
+function mapDispatchToProps(dispatch) {
+  return {
+    requestLogout: () => {
+      dispatch({type: 'LOGOUT_REQUEST'})
+    },
+    succeedLogout: () => {
+      dispatch({type: 'LOGOUT_SUCCESS'})
+    },
+    failLogout: () => {
+      dispatch({type: 'LOGOUT_FAILURE'})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Sidebar)
