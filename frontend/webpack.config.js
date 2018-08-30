@@ -90,6 +90,7 @@ module.exports = {
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
       _utils: path.resolve(__dirname, "src/utils/"),
+      _services: path.resolve(__dirname, "src/services/"),
       _reducers: path.resolve(__dirname, "src/reducers/"),
     }
   },

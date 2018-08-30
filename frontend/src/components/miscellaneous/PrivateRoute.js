@@ -4,12 +4,14 @@ import {
   Redirect,
 } from 'react-router-dom'
 
+import GetAdminJwt from '_services/GetAdminJwt'
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      localStorage.getItem(`CognitoIdentityServiceProvider.${process.env.COGNITO_ADMIN_CLIENT_ID}.LastAuthUser`) ? (
-        <Component {...props} {...rest}/>
+      GetAdminJwt().next().value ? (
+        <Component {...rest} {...props}/>
       ) : (
         <Redirect to="/login"/>
       )
