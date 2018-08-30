@@ -26,12 +26,17 @@ const Button = Loadable({
   loader: () => import('_buttons/Button'),
   loading: () => <div></div>,
 })
+const ButtonWithLoader = Loadable({
+  loader: () => import('_buttons/ButtonWithLoader'),
+  loading: () => <div></div>,
+})
 
 class Form extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      isLoading: false,
       formObject: {
         fieldWithNoError: null,
         fieldWithError: null,
@@ -112,6 +117,12 @@ class Form extends React.Component {
         <Button
           className="button"
           text="SUBMIT"/>
+
+        <ButtonWithLoader
+          className="button"
+          text="SUBMIT WITH LOADER"
+          isLoading={this.state.isLoading}
+          onClick={this.toggleLoading}/>
       </div>
     )
   }
@@ -182,6 +193,18 @@ class Form extends React.Component {
         autoSuggestFieldWithNoError: e.target.value
       }
     })
+  }
+
+  @autobind
+  toggleLoading() {
+    this.setState({
+      isLoading: !this.state.isLoading
+    })
+    setTimeout(() => {
+      this.setState({
+        isLoading: !this.state.isLoading
+      })
+    }, 2000)
   }
 }
 
