@@ -1,1 +1,34 @@
 @import "~react-datepicker/dist/react-datepicker.css"
+
+.date-picker-container
+  position: relative
+.react-datepicker-wrapper
+  position: absolute
+  margin-top: 
+  top: 50%
+  transform: translateY(-50%)
+  z-index: -1
+
+.react-datepicker__input-container
+  // visibility: hidden
+  input
+    margin: 0
+    height: 50px
+.react-datepicker__header
+  background-color: $primary-color
+.react-datepicker__month-container
+  font-family: $body-font
+
+.react-datepicker__current-month
+  color: white
+  font-weight: bold
+.react-datepicker__day-name
+  color: white
+.react-datepicker__day--sun,
+.react-datepicker__day--sat
+  color: $error-color
+.react-datepicker__day--today
+  background-color: $alternative-color
+  color: black
+.react-datepicker__day--selected
+  background-color: $primary-color

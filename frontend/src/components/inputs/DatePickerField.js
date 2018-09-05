@@ -13,15 +13,6 @@ const TextField = Loadable({
 })
 
 class DatePickerField extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isDropdownShown: false,
-      selectedOption: null
-    }
-  }
-
   render() {
     const { error } = this.props
 
@@ -45,21 +36,19 @@ class DatePickerField extends React.Component {
     }
 
     return (
-      <div className='select-container'>
-        <div className='select-field'>
-          <TextField
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            type={this.props.type}
-            label={this.props.label}
-            error={this.props.error}
-            value={this.renderDate()}
-            onFocus={this.onFocus}
-            onChange={this.props.onChange}/>
-        </div>
+      <div className='date-picker-container'>
+        <TextField
+          name={this.props.name}
+          placeholder={this.props.placeholder}
+          type={this.props.type}
+          label={this.props.label}
+          error={this.props.error}
+          value={this.renderDate()}
+          onFocus={this.onFocus}
+          onChange={this.props.onChange}/>
         <DatePicker
           ref='datepicker'
-          selected={this.state.startDate}
+          selected={this.props.value ? moment(this.props.value) : null}
           onChange={this.onDateChange}
           minDate={this.props.minDate}
           maxDate={this.props.maxDate}/>
