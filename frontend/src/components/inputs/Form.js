@@ -126,7 +126,6 @@ class Form extends React.Component {
           label="DATEPICKERFIELDWITHNOERROR"
           value={formObject.datePickerFieldWithNoError}
           error={""}
-          suggestionList={['John', 'Paul', 'George', 'Ringo']}
           dateDisplayFormat="YYYY/MM/DD"
           minDate={moment().subtract(2, 'weeks')}
           maxDate={moment().add(1, 'year')}
