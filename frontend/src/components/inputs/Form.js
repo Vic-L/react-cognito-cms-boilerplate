@@ -1,6 +1,7 @@
 import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
+import moment from 'moment'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -20,6 +21,10 @@ const CountrySelector = Loadable({
 })
 const AutoSuggestField = Loadable({
   loader: () => import('_inputs/AutoSuggestField'),
+  loading: () => <div></div>,
+})
+const DatePickerField = Loadable({
+  loader: () => import('_inputs/DatePickerField'),
   loading: () => <div></div>,
 })
 const Button = Loadable({
@@ -44,6 +49,7 @@ class Form extends React.Component {
         restrictedSelectField: null,
         countrySelectorField: null,
         autoSuggestFieldWithNoError: null,
+        datePickerFieldWithNoError: null,
       },
     }
   }
@@ -111,8 +117,20 @@ class Form extends React.Component {
           value={formObject.autoSuggestFieldWithNoError}
           error={""}
           suggestionList={['John', 'Paul', 'George', 'Ringo']}
-          onChange={this.onChangeAutoSuggestFieldWithNoError}
-        />
+          onChange={this.onChangeAutoSuggestFieldWithNoError}/>
+
+        <DatePickerField
+          name="DatePickerFieldWithNoError"
+          placeholder="DatePickerFieldWithNoError"
+          type="text"
+          label="DATEPICKERFIELDWITHNOERROR"
+          value={formObject.datePickerFieldWithNoError}
+          error={""}
+          suggestionList={['John', 'Paul', 'George', 'Ringo']}
+          dateDisplayFormat="YYYY/MM/DD"
+          minDate={moment().subtract(2, 'weeks')}
+          maxDate={moment().add(1, 'year')}
+          onChange={this.onChangeDatePickerFieldWithNoError}/>
 
         <Button
           className="button"
@@ -191,6 +209,16 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         autoSuggestFieldWithNoError: e.target.value
+      }
+    })
+  }
+
+  @autobind
+  onChangeDatePickerFieldWithNoError(dateString) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        datePickerFieldWithNoError: dateString
       }
     })
   }
