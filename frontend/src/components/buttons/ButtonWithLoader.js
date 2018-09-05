@@ -1,5 +1,5 @@
 import React from 'react'
-import LaddaButton, { XL, CONTRACT } from 'react-ladda'
+import LaddaButton, { XL, EXPAND_LEFT } from 'react-ladda'
 
 /*
 Sizes
@@ -29,7 +29,7 @@ const ButtonWithLoader = ({containerClassName = "", text, isLoading, ...others})
         loading={isLoading}
         data-color="#eee"
         data-size={XL}
-        data-style={CONTRACT}
+        data-style={EXPAND_LEFT}
         data-spinner-size={30}
         data-spinner-color="#ddd"
         data-spinner-lines={12}
