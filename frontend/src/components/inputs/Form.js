@@ -27,6 +27,10 @@ const DatePickerField = Loadable({
   loader: () => import('_inputs/DatePickerField'),
   loading: () => <div></div>,
 })
+const TextArea = Loadable({
+  loader: () => import('_inputs/TextArea'),
+  loading: () => <div></div>,
+})
 const Button = Loadable({
   loader: () => import('_buttons/Button'),
   loading: () => <div></div>,
@@ -43,6 +47,8 @@ class Form extends React.Component {
     this.state = {
       isLoading: false,
       formObject: {
+        textAreaWithoutError: null,
+        textAreaWithError: null,
         fieldWithNoError: null,
         fieldWithError: null,
         selectFieldWithNoError: null,
@@ -67,6 +73,20 @@ class Form extends React.Component {
           value={formObject.fieldWithNoError}
           error={""}
           onChange={this.onChangeFieldWithNoError}/>
+
+        <TextArea
+          name="textAreaWithoutError"
+          placeholder="Enter text here"
+          value={formObject.textAreaWithoutError}
+          error={""}
+          onChange={this.onChangeTextAreaWithoutError}/>
+
+        <TextArea
+          name="textAreaWithError"
+          placeholder="Enter text here"
+          value={formObject.textAreaWithError}
+          error={"textAreaWithError"}
+          onChange={this.onChangeTextAreaWithError}/>
 
         <TextField
           name="fieldWithError"
@@ -158,6 +178,26 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         fieldWithNoError: e.target.value
+      }
+    })
+  }
+
+  @autobind
+  onChangeTextAreaWithoutError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        textAreaWithoutError: e.target.value
+      }
+    })
+  }
+
+  @autobind
+  onChangeTextAreaWithError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        textAreaWithError: e.target.value
       }
     })
   }

@@ -1,0 +1,10 @@
+.textarea-container
+  position: relative
+  margin-bottom: 1rem
+textarea
+  margin-bottom: 0
+  border-radius: 5px
+  &.with-error
+    border: 1px solid $error-color
+    &::placeholder
+      color: lighten($error-color, 30)
