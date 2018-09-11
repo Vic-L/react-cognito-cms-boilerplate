@@ -27,6 +27,10 @@ const DatePickerField = Loadable({
   loader: () => import('_inputs/DatePickerField'),
   loading: () => <div></div>,
 })
+const FileField = Loadable({
+  loader: () => import('_inputs/FileField'),
+  loading: () => <div></div>,
+})
 const TextArea = Loadable({
   loader: () => import('_inputs/TextArea'),
   loading: () => <div></div>,
@@ -56,6 +60,8 @@ class Form extends React.Component {
         countrySelectorField: null,
         autoSuggestFieldWithNoError: null,
         datePickerFieldWithNoError: null,
+        fileFieldWithoutError: null,
+        fileFieldWithError: null,
       },
     }
   }
@@ -150,6 +156,20 @@ class Form extends React.Component {
           minDate={moment().subtract(2, 'weeks')}
           maxDate={moment().add(1, 'year')}
           onChange={this.onChangeDatePickerFieldWithNoError}/>
+
+        <FileField
+          name="FileFieldWithoutError"
+          text="FileFieldWithoutError"
+          file={formObject.fileFieldWithoutError}
+          error={""}
+          onChange={this.onChangeFileFieldWithoutError}/>
+
+        <FileField
+          name="FileFieldWithError"
+          text="FileFieldWithError"
+          file={formObject.fileFieldWithError}
+          error={"This field is required"}
+          onChange={this.onChangeFileFieldWithError}/>
 
         <Button
           className="button"
@@ -258,6 +278,26 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         datePickerFieldWithNoError: dateString
+      }
+    })
+  }
+
+  @autobind
+  onChangeFileFieldWithoutError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        fileFieldWithoutError: e.target.files[0]
+      }
+    })
+  }
+
+  @autobind
+  onChangeFileFieldWithError(e) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        fileFieldWithError: e.target.files[0]
       }
     })
   }
