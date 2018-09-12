@@ -6,6 +6,7 @@ const FileField = ({
   error,
   text,
   file,
+  containerClassName,
   ...others
 }) => {
   
@@ -22,7 +23,7 @@ const FileField = ({
   // }
 
   return (
-    <label className={`file-field-container ${error ? 'with-error' : ''}`}>
+    <label className={`file-field-container ${error ? 'with-error' : ''} ${containerClassName}`}>
       <span className='file-field-label'>{text} - {file ? file.name : ''}</span>
       <input
         type="file"
@@ -37,6 +38,7 @@ const FileField = ({
 
 FileField.propTypes = {
   name: PropTypes.string.isRequired,
+  containerClassName: PropTypes.string,
   file: PropTypes.object,
   error: PropTypes.string,
   text: PropTypes.string,
