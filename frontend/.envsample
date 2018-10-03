@@ -1,3 +1,4 @@
+COGNITO_REGION="something"
 COGNITO_USER_POOL_ID="something"
 COGNITO_CLIENT_ID="something"
 COGNITO_ADMIN_USER_POOL_ID="something"
