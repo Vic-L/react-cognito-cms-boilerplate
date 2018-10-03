@@ -69,6 +69,9 @@ class Sidebar extends React.Component {
               }}/>
           </div>
           <SidebarOption
+            text="Dashboard"
+            dst="/"/>
+          <SidebarOption
             text="Form"
             dst="/form"/>
           <SidebarOption
