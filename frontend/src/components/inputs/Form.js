@@ -197,7 +197,8 @@ class Form extends React.Component {
               uploadCallback: this.uploadImageCallBack,
               alt: { present: true, mandatory: false },
             },
-          }}/>
+          }}
+          placeholder='Begin typing...'/>
 
         <textarea
           disabled

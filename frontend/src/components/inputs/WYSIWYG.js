@@ -9,6 +9,7 @@ const WYSIWYG = ({
   editorState,
   toolbar,
   onEditorStateChange,
+  ...props
 }) => {
   return (
     <Editor
@@ -21,7 +22,7 @@ const WYSIWYG = ({
       toolbar={toolbar}
       editorState={editorState}
       onEditorStateChange={onEditorStateChange}
-    />
+      {...props}/>
   )
 }
 
