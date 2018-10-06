@@ -31,6 +31,10 @@ const FileField = Loadable({
   loader: () => import('_inputs/FileField'),
   loading: () => <div></div>,
 })
+const WYSIWYG = Loadable({
+  loader: () => import('_inputs/WYSIWYG'),
+  loading: () => <div></div>,
+})
 const TextArea = Loadable({
   loader: () => import('_inputs/TextArea'),
   loading: () => <div></div>,
@@ -180,6 +184,8 @@ class Form extends React.Component {
           text="SUBMIT WITH LOADER"
           isLoading={this.state.isLoading}
           onClick={this.toggleLoading}/>
+
+        <WYSIWYG/>
       </div>
     )
   }
