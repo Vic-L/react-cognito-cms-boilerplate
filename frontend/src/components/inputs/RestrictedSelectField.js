@@ -53,6 +53,7 @@ class RestrictedSelectField extends React.Component {
             error={this.props.error}
             value={this.renderOptionLabel()}
             onChange={this.props.onChange}/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
         </div>
         <Select
           styles={selectStyle}
