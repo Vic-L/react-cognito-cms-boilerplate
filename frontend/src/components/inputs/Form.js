@@ -2,7 +2,9 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import moment from 'moment'
-import { EditorState } from 'draft-js'
+import { EditorState, ContentState, convertToRaw } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -53,6 +55,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props)
 
+    const initialHTML = '<p><strong>ONE PIECE</strong> rox!</p>'
+    const initialContentBlock = htmlToDraft(initialHTML)
     this.state = {
       isLoading: false,
       formObject: {
@@ -69,6 +73,12 @@ class Form extends React.Component {
         fileFieldWithError: null,
         editorState: EditorState.createEmpty(),
       },
+    }
+
+    if (initialContentBlock) {
+      const initialContentState = ContentState.createFromBlockArray(initialContentBlock.contentBlocks)
+      const initialEditorState = EditorState.createWithContent(initialContentState)
+      this.state.formObject.editorState = initialEditorState
     }
   }
 
@@ -180,6 +190,10 @@ class Form extends React.Component {
         <WYSIWYG
           editorState={formObject.editorState}
           onEditorStateChange={this.onEditorStateChange}/>
+
+        <textarea
+          disabled
+          value={draftToHtml(convertToRaw(formObject.editorState.getCurrentContent()))}/>
 
         <Button
           className="button"
