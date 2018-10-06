@@ -7,6 +7,7 @@ const WYSIWYG = ({
   editorStyle,
   toolbarStyle,
   editorState,
+  toolbar,
   onEditorStateChange,
 }) => {
   return (
@@ -17,6 +18,7 @@ const WYSIWYG = ({
       wrapperStyle={wrapperStyle || {}}
       editorStyle={editorStyle || {}}
       toolbarStyle={toolbarStyle || {}}
+      toolbar={toolbar}
       editorState={editorState}
       onEditorStateChange={onEditorStateChange}
     />
@@ -27,6 +29,7 @@ WYSIWYG.propTypes = {
   wrapperStyle: PropTypes.object,
   editorStyle: PropTypes.object,
   toolbarStyle: PropTypes.object,
+  toolbar: PropTypes.object,
   editorState: PropTypes.object.isRequired,
   onEditorStateChange: PropTypes.func.isRequired,
 }

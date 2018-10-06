@@ -72,6 +72,7 @@ class Form extends React.Component {
         fileFieldWithoutError: null,
         fileFieldWithError: null,
         editorState: EditorState.createEmpty(),
+        uploadedImages: [],
       },
     }
 
@@ -189,7 +190,14 @@ class Form extends React.Component {
 
         <WYSIWYG
           editorState={formObject.editorState}
-          onEditorStateChange={this.onEditorStateChange}/>
+          onEditorStateChange={this.onEditorStateChange}
+          toolbar={{
+            image: {
+              previewImage: true,
+              uploadCallback: this.uploadImageCallBack,
+              alt: { present: true, mandatory: false },
+            },
+          }}/>
 
         <textarea
           disabled
@@ -346,6 +354,15 @@ class Form extends React.Component {
         editorState,
       }
     })
+  }
+
+  @autobind
+  uploadImageCallBack(file) {
+    return new Promise(
+      (resolve, reject) => {
+        resolve({ data: { link: URL.createObjectURL(file) } })
+      }
+    )
   }
 }
 
