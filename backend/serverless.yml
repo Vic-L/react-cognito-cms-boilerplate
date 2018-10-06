@@ -5,11 +5,11 @@ custom:
   serverless-offline:
     port: 8000
   customDomain: 
-    domainName: ${file(env.yml):customDomain.${opt:stage, 'dev'}DomainName}
-    certificateName: ${file(env.yml):customDomain.${opt:stage, 'dev'}CertificateName}
-    basePath: ${file(env.yml):customDomain.${opt:stage, 'dev'}BasePath}
+    domainName: ${file(env.yml):customDomain.${opt:stage, 'dev'}.domainName}
+    certificateName: ${file(env.yml):customDomain.${opt:stage, 'dev'}.certificateName}
+    basePath: ${file(env.yml):customDomain.${opt:stage, 'dev'}.basePath}
     stage: ${opt:stage, 'dev'}
-    createRoute53Record: ${file(env.yml):customDomain.${opt:stage, 'dev'}CreateRoute53Record}
+    createRoute53Record: ${file(env.yml):customDomain.${opt:stage, 'dev'}.createRoute53Record}
 
 service: ${self:custom.service}
 
