@@ -2,6 +2,7 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import moment from 'moment'
+import { EditorState } from 'draft-js'
 
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
@@ -66,6 +67,7 @@ class Form extends React.Component {
         datePickerFieldWithNoError: null,
         fileFieldWithoutError: null,
         fileFieldWithError: null,
+        editorState: EditorState.createEmpty(),
       },
     }
   }
@@ -175,6 +177,10 @@ class Form extends React.Component {
           error={"This field is required"}
           onChange={this.onChangeFileFieldWithError}/>
 
+        <WYSIWYG
+          editorState={formObject.editorState}
+          onEditorStateChange={this.onEditorStateChange}/>
+
         <Button
           className="button"
           text="SUBMIT"/>
@@ -184,8 +190,6 @@ class Form extends React.Component {
           text="SUBMIT WITH LOADER"
           isLoading={this.state.isLoading}
           onClick={this.toggleLoading}/>
-
-        <WYSIWYG/>
       </div>
     )
   }
@@ -318,6 +322,16 @@ class Form extends React.Component {
         isLoading: !this.state.isLoading
       })
     }, 2000)
+  }
+
+  @autobind
+  onEditorStateChange(editorState) {
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        editorState,
+      }
+    })
   }
 }
 
