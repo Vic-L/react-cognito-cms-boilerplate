@@ -2,9 +2,7 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 
-import {
-  CognitoUserPool,
-} from "amazon-cognito-identity-js"
+import Auth from '@aws-amplify/auth'
 
 const SidebarOption = Loadable({
   loader: () => import('_sidebar/SidebarOption'),
@@ -54,18 +52,15 @@ class Sidebar extends React.Component {
               className="button"
               onClick={() => {
                 this.props.requestLogout()
-                const Pool = new CognitoUserPool({
-                  UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
-                  ClientId: process.env.COGNITO_ADMIN_CLIENT_ID
-                })
-                const cognitoUser = Pool.getCurrentUser()
-                if (cognitoUser != null) {
-                  cognitoUser.signOut()
+                Auth.signOut()
+                .then(() => {
                   this.props.succeedLogout()
                   this.props.history.push("/login")
-                } else {
-                  this.props.failLogout()
-                }
+                })
+                .catch((err) => {
+                  console.log(err)
+                  this.props.failLogout(err.message || err)
+                })
               }}/>
           </div>
           <SidebarOption
@@ -113,8 +108,11 @@ function mapDispatchToProps(dispatch) {
     succeedLogout: () => {
       dispatch({type: 'LOGOUT_SUCCESS'})
     },
-    failLogout: () => {
-      dispatch({type: 'LOGOUT_FAILURE'})
+    failLogout: (message) => {
+      dispatch({
+        type: 'LOGOUT_FAILURE',
+        message
+      })
     }
   }
 }
