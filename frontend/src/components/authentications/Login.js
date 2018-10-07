@@ -30,6 +30,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
+      checkedAuthentication: false,
       in: true,
       submittedFormBefore: false,
       formObject: {
@@ -43,11 +44,25 @@ class Login extends React.Component {
     }
   }
 
+  componentDidMount() {
+    Auth.currentSession()
+    .then(session => {
+      this.props.history.push('/')
+    })
+    .catch(err => {
+      this.setState({ checkedAuthentication: true })
+    })
+  }
+
   componentWillUnmount() {
     this.setState({in: false})
   }
 
   render() {
+    if (!this.state.checkedAuthentication) {
+      return null
+    }
+
     const { formObject, formErrors } = this.state
     return (
       <AnimationWrapper

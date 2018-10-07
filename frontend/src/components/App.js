@@ -12,14 +12,6 @@ const AlertModal = Loadable({
   loader: () => import('_miscellaneous/AlertModal'),
   loading: () => <div></div>,
 })
-const PrivateRoute = Loadable({
-  loader: () => import('_miscellaneous/PrivateRoute'),
-  loading: () => <div></div>,
-})
-const PublicRoute = Loadable({
-  loader: () => import('_miscellaneous/PublicRoute'),
-  loading: () => <div></div>,
-})
 const Main = Loadable({
   loader: () => import('_miscellaneous/Main'),
   loading: () => <div></div>,
@@ -30,20 +22,23 @@ const Login = Loadable({
 })
 
 const App = ({ dispatch }) => {
-  return (~
-    %div
-      %AlertModal
-      %TransitionGroup
-        %Switch
-          %PublicRoute(
+  return (
+    <div>
+      <AlertModal/>
+      <TransitionGroup>
+        <Switch>
+          <Route
             path="/login"
             exact={true}
-            component={Login})
-          %PrivateRoute(
+            component={Login}/>
+          <Route
             path="/"
             dispatch={dispatch}
-            component={Main})
-  ~)
+            component={Main}/>
+        </Switch>
+      </TransitionGroup>
+    </div>
+  )
 }
 
 export default withRouter(App)
