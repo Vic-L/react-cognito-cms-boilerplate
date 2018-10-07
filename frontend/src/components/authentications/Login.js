@@ -5,12 +5,7 @@ import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import { withRouter } from 'react-router-dom'
 
-import {
-  CognitoUserPool,
-  AuthenticationDetails,
-  CognitoUser,
-  CookieStorage
-} from "amazon-cognito-identity-js"
+import Auth from '@aws-amplify/auth'
 
 const AnimationWrapper = Loadable({
   loader: () => import('_animationWrappers/AnimationWrapper'),
@@ -114,39 +109,13 @@ class Login extends React.Component {
   login() {
     const { formObject } = this.state
     this.props.requestLogin()
-
-    const Username = formObject.email
-    const Password = formObject.password
-
-    const Pool = new CognitoUserPool({
-      UserPoolId: process.env.COGNITO_ADMIN_USER_POOL_ID,
-      ClientId: process.env.COGNITO_ADMIN_CLIENT_ID,
-      Storage: new CookieStorage({domain: "localhost"})
+    Auth.signIn(formObject.email, formObject.password)
+    .then(() => {
+      this.props.succeedLogin()
+      this.props.history.push("/")
     })
-    const cognitoUser = new CognitoUser({ Username, Pool })
-
-    const authenticationData = { Username, Password }
-    const authenticationDetails = new AuthenticationDetails(authenticationData)
-
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
-        this.props.succeedLogin()
-        this.props.history.push("/")
-      },
-      onFailure: (err) => {
-        this.props.failLogin(err.message)
-      },
-      newPasswordRequired: (userAttributes, requiredAttributes) => {
-        // User was signed up by an admin and must provide new
-        // password and required attributes, if any, to complete
-        // authentication.
-
-        // the api doesn't accept this field back
-        delete userAttributes.email_verified
-
-        // Get these details and call
-        cognitoUser.completeNewPasswordChallenge(Password, userAttributes, this)
-      }
+    .catch((err) => {
+      this.props.failLogin(err.message || err)
     })
   }
 
