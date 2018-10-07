@@ -31,9 +31,9 @@ class Dashboard extends React.Component {
     if (_.isNil(this.props.data.allPosts)) {
       return null
     }
-    return this.props.data.allPosts.map((post) => {
+    return this.props.data.allPosts.map((post, index) => {
       return (
-        <p>{post.title}</p>
+        <p key={`post-${index}`}>{post.title}</p>
       )
     })
   }
