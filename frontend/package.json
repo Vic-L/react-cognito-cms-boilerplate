@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "@aws-amplify/auth": "^1.2.5",
-    "amazon-cognito-identity-js": "^2.0.14",
     "apollo-cache-inmemory": "^1.2.10",
     "apollo-client": "^2.4.2",
     "apollo-link-http": "^1.5.5",
@@ -37,7 +36,6 @@
     "html-to-draftjs": "^1.4.0",
     "html-webpack-plugin": "^3.2.0",
     "immutable": "^4.0.0-rc.10",
-    "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "node-sass": "^4.9.2",
@@ -61,7 +59,6 @@
     "react-transition-group": "^2.4.0",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
-    "redux-thunk": "^2.3.0",
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^7.0.3",
     "script-ext-html-webpack-plugin": "^2.0.1",
