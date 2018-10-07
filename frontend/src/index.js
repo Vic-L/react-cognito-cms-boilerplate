@@ -51,34 +51,6 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
 
-// apollo
-import { ApolloClient } from 'apollo-client'
-import { ApolloProvider } from 'react-apollo'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { createNetworkStatusNotifier } from 'react-apollo-network-status'
-
-// for listening to `loading` value in each graphql query/mutation on global level
-const {
-  NetworkStatusNotifier,
-  link: networkStatusNotifierLink
-} = createNetworkStatusNotifier()
-
-const apolloClient = new ApolloClient({
-  link: networkStatusNotifierLink.concat(new HttpLink({ uri: 'https://fakerql.com/graphql' })),
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'ignore',
-    },
-    query: {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'all',
-    },
-  }
-})
-
 // redux related
 import rootReducers from '_reducers'
 
@@ -114,6 +86,72 @@ sagaMiddleware.run(sagas)
 WebFont.load({
   google: {
     families: ['Lato']
+  }
+})
+
+// if using App Sync
+/*
+
+** NOTE: add `cp ./src/configs/<env>/appsync.js ./src/appsync.js &&` to start of scripts in package.json to load the correct env for appsync 
+
+import AWSAppSyncClient from "aws-appsync"
+import { Rehydrated } from 'aws-appsync-react'
+import { ApolloProvider } from 'react-apollo'
+
+import appSyncConfig from './appsync'
+
+console.log("appSyncConfig", appSyncConfig)
+
+const appSyncClient = new AWSAppSyncClient({
+  url: appSyncConfig.aws_appsync_graphqlEndpoint,
+  region: appSyncConfig.aws_appsync_region,
+  auth: {
+    type: appSyncConfig.aws_appsync_authenticationType,
+    apiKey: appSyncConfig.aws_appsync_apiKey,
+  },
+  disableOffline: true,
+  cacheOptions: {
+    dataIdFromObject: o => {o.id ? `${o.__typename}-${o.id}`: `${o.__typename}-${o.cursor}`},
+  }
+});
+
+render((
+  <ApolloProvider client={appSyncClient}>
+    <Rehydrated>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Rehydrated>
+  </ApolloProvider>
+), document.getElementById("app"))
+
+*/
+
+// if using apollo
+import { ApolloClient } from 'apollo-client'
+import { ApolloProvider } from 'react-apollo'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { createNetworkStatusNotifier } from 'react-apollo-network-status'
+
+// for listening to `loading` value in each graphql query/mutation on global level
+const {
+  NetworkStatusNotifier,
+  link: networkStatusNotifierLink
+} = createNetworkStatusNotifier()
+
+const apolloClient = new ApolloClient({
+  link: networkStatusNotifierLink.concat(new HttpLink({ uri: 'https://fakerql.com/graphql' })),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
   }
 })
 
