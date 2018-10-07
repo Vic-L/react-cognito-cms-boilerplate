@@ -4,21 +4,20 @@ import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import Loadable from 'react-loadable'
 import { withRouter } from 'react-router-dom'
+
+import * as ContentLoaders from '_contentLoaders'
+
+import AnimationWrapper from '_animationWrappers/AnimationWrapper'
+
 import Auth from '@aws-amplify/auth'
 
-import requireUnauth from '_hocs/requireUnauth'
-
-const AnimationWrapper = Loadable({
-  loader: () => import('_animationWrappers/AnimationWrapper'),
-  loading: () => <div></div>,
-})
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const ButtonWithLoader = Loadable({
   loader: () => import('_buttons/ButtonWithLoader'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.Button/>,
 })
 
 // utils
@@ -31,6 +30,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
+      checkedAuthentication: false,
       in: true,
       submittedFormBefore: false,
       formObject: {
@@ -44,11 +44,25 @@ class Login extends React.Component {
     }
   }
 
+  componentDidMount() {
+    Auth.currentSession()
+    .then(session => {
+      this.props.history.push('/')
+    })
+    .catch(err => {
+      this.setState({ checkedAuthentication: true })
+    })
+  }
+
   componentWillUnmount() {
     this.setState({in: false})
   }
 
   render() {
+    if (!this.state.checkedAuthentication) {
+      return null
+    }
+
     const { formObject, formErrors } = this.state
     return (
       <AnimationWrapper
@@ -192,4 +206,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(requireUnauth(Login)))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

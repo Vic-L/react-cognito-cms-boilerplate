@@ -6,33 +6,35 @@ import { EditorState, ContentState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 
+import * as ContentLoaders from '_contentLoaders'
+
 const TextField = Loadable({
   loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const SelectField = Loadable({
   loader: () => import('_inputs/SelectField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const RestrictedSelectField = Loadable({
   loader: () => import('_inputs/RestrictedSelectField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const CountrySelector = Loadable({
   loader: () => import('_inputs/CountrySelector'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const AutoSuggestField = Loadable({
   loader: () => import('_inputs/AutoSuggestField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const DatePickerField = Loadable({
   loader: () => import('_inputs/DatePickerField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const FileField = Loadable({
   loader: () => import('_inputs/FileField'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.InputField/>,
 })
 const WYSIWYG = Loadable({
   loader: () => import('_inputs/WYSIWYG'),
@@ -40,15 +42,15 @@ const WYSIWYG = Loadable({
 })
 const TextArea = Loadable({
   loader: () => import('_inputs/TextArea'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.TextAreaField/>,
 })
 const Button = Loadable({
   loader: () => import('_buttons/Button'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.Button/>,
 })
 const ButtonWithLoader = Loadable({
   loader: () => import('_buttons/ButtonWithLoader'),
-  loading: () => <div></div>,
+  loading: () => <ContentLoaders.Button/>,
 })
 
 class Form extends React.Component {
@@ -87,6 +89,8 @@ class Form extends React.Component {
 
     return (
       <div>
+        <ContentLoaders.Button/>
+        <ContentLoaders.InputField/>
         <TextField
           name="fieldWithNoError"
           placeholder="FieldWithNoError"
