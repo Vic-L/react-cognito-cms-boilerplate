@@ -72,7 +72,6 @@ class Form extends React.Component {
         fileFieldWithoutError: null,
         fileFieldWithError: null,
         editorState: EditorState.createEmpty(),
-        uploadedImages: [],
       },
     }
 
@@ -206,7 +205,8 @@ class Form extends React.Component {
 
         <Button
           className="button"
-          text="SUBMIT"/>
+          text="SUBMIT"
+          onClick={this.onSubmit}/>
 
         <ButtonWithLoader
           className="button"
@@ -364,6 +364,11 @@ class Form extends React.Component {
         resolve({ data: { link: URL.createObjectURL(file) } })
       }
     )
+  }
+
+  @autobind
+  onSubmit() {
+    console.log("this.state", this.state)
   }
 }
 

@@ -86,6 +86,7 @@ module.exports = {
       _sidebar: path.resolve(__dirname, "src/components/sidebar/"),
       _tables: path.resolve(__dirname, "src/components/tables/"),
       _cards: path.resolve(__dirname, "src/components/cards/"),
+      _hocs: path.resolve(__dirname, "src/components/hocs/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),

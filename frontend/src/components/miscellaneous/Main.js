@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import Auth from '@aws-amplify/auth'
 
+import requireAuth from '_hocs/requireAuth'
+
 const Sidebar = Loadable({
   loader: () => import('_sidebar/Sidebar'),
   loading: () => <div></div>,
@@ -26,29 +28,7 @@ const Cards = Loadable({
 })
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      checkedAuthentication: false
-    }
-  }
-
-  componentDidMount() {
-    Auth.currentSession()
-    .then(session => {
-      this.setState({ checkedAuthentication: true })
-    })
-    .catch(err => {
-      this.props.history.push('/login')
-    })
-  }
-
   render() {
-    if (!this.state.checkedAuthentication) {
-      return null
-    }
-
     return (
       <div className='grid-container full'>
         <div className='grid-x'>
@@ -85,4 +65,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main
+export default requireAuth(Main)
