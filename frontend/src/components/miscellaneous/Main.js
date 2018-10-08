@@ -26,6 +26,10 @@ const Cards = Loadable({
   loader: () => import('_cards/Cards'),
   loading: () => <div></div>,
 })
+const Charts = Loadable({
+  loader: () => import('_charts/Charts'),
+  loading: () => <div></div>,
+})
 
 class Main extends React.Component {
   render() {
@@ -54,6 +58,10 @@ class Main extends React.Component {
                       path="/cards"
                       exact={true}
                       component={Cards}/>
+                    <Route
+                      path="/charts"
+                      exact={true}
+                      component={Charts}/>
                   </Switch>
                 </div>
               </div>

@@ -75,6 +75,9 @@ class Sidebar extends React.Component {
           <SidebarOption
             text="Cards"
             dst="/cards"/>
+          <SidebarOption
+            text="Charts"
+            dst="/charts"/>
           <SidebarOptionWithDropdown
             text="Link2"
             dropdown={[
