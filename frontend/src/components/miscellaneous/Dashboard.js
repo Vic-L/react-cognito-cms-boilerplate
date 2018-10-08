@@ -10,7 +10,7 @@ const Table = Loadable({
 
 const getPostsQuery = gql`
   query getPosts {
-    allPosts(count: 100) {
+    allPosts(count: 10) {
       id
       title
     }
