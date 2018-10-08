@@ -117,11 +117,13 @@ const appSyncClient = new AWSAppSyncClient({
 
 render((
   <ApolloProvider client={appSyncClient}>
-    <Rehydrated>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Rehydrated>
+    <Provider store={store}>
+      <Rehydrated>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Rehydrated>
+    </Provider>
   </ApolloProvider>
 ), document.getElementById("app"))
 
