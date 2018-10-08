@@ -76,3 +76,4 @@ jspm_packages
 dist
 .env.*
 env.yml
+appsync.js
