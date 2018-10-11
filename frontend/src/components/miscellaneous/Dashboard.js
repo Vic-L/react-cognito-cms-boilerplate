@@ -1,7 +1,7 @@
 import React from 'react'
 import Loadable from 'react-loadable'
 import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
+import { Query } from 'react-apollo'
 
 const Table = Loadable({
   loader: () => import('_tables/Table'),
@@ -9,8 +9,8 @@ const Table = Loadable({
 })
 
 const getPostsQuery = gql`
-  query getPosts {
-    allPosts(count: 10) {
+  query getPosts($count: Int!) {
+    allPosts(count: $count) {
       id
       title
     }
@@ -22,21 +22,29 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h1>GRAPHQL Posts</h1>
-        {this.renderPosts()}
+        <Query
+          fetchPolicy='network-only'
+          query={getPostsQuery}
+          variables={{ count: 10 }}>
+
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading..."</p>;
+            if (error) return <p>Error! {error.message}</p>;
+
+            if (_.isNil(data.allPosts)) {
+              return <p>No posts!</p>
+            }
+
+            return data.allPosts.map((post, index) => {
+              return (
+                <p key={`post-${index}`}>{post.title}</p>
+              )
+            })
+          }}
+        </Query>
       </div>
     )
   }
-
-  renderPosts() {
-    if (_.isNil(this.props.data.allPosts)) {
-      return null
-    }
-    return this.props.data.allPosts.map((post, index) => {
-      return (
-        <p key={`post-${index}`}>{post.title}</p>
-      )
-    })
-  }
 }
 
-export default graphql(getPostsQuery)(Dashboard)
+export default Dashboard
