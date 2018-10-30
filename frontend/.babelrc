@@ -1,9 +1,12 @@
 {
-  "presets": ["react", ['env', { modules: false }], "stage-3"],
-  "plugins": [
-    "transform-decorators-legacy",
-    "transform-runtime",
-    "transform-async-to-generator",
-    "syntax-dynamic-import"
+  "presets": [
+    '@babel/preset-react',
+    ['@babel/preset-env', { modules: false }]
+  ],
+  plugins: [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-async-to-generator",
+    "@babel/plugin-syntax-dynamic-import",
   ]
 }
