@@ -1,14 +1,12 @@
 import _ from 'lodash'
 import React from 'react'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
-})
+import { InputField } from '_contentLoaders'
+
+const TextField = React.lazy(() => import('_inputs/TextField'))
 
 class SelectField extends React.Component {
   constructor(props) {
@@ -45,15 +43,17 @@ class SelectField extends React.Component {
     return (
       <div className='select-container'>
         <div className='select-field'>
-          <TextField
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            type={this.props.type}
-            label={this.props.label}
-            error={this.props.error}
-            value={this.renderOptionLabel()}
-            onChange={this.props.onChange}/>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
+          <React.Suspense fallback={<InputField/>}>
+            <TextField
+              name={this.props.name}
+              placeholder={this.props.placeholder}
+              type={this.props.type}
+              label={this.props.label}
+              error={this.props.error}
+              value={this.renderOptionLabel()}
+              onChange={this.props.onChange}/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
+          </React.Suspense>
         </div>
         <Select
           styles={selectStyle}

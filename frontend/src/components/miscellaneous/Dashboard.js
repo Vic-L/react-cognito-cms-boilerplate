@@ -1,12 +1,6 @@
 import React from 'react'
-import Loadable from 'react-loadable'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
-
-const Table = Loadable({
-  loader: () => import('_tables/Table'),
-  loading: () => <div></div>,
-})
 
 const getPostsQuery = gql`
   query getPosts($count: Int!) {

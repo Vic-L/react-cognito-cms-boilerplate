@@ -3,14 +3,12 @@ import React from 'react';
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import PropTypes from 'prop-types'
 import momentPropTypes from 'react-moment-proptypes'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
-})
+import { InputField } from '_contentLoaders'
+
+const TextField = React.lazy(() => import('_inputs/TextField'))
 
 class DatePickerField extends React.Component {
   render() {
@@ -37,21 +35,23 @@ class DatePickerField extends React.Component {
 
     return (
       <div className='date-picker-container'>
-        <TextField
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          type={this.props.type}
-          label={this.props.label}
-          error={this.props.error}
-          value={this.renderDate()}
-          onFocus={this.onFocus}
-          onChange={this.props.onChange}/>
-        <DatePicker
-          ref='datepicker'
-          selected={this.props.value ? moment(this.props.value) : null}
-          onChange={this.onDateChange}
-          minDate={this.props.minDate}
-          maxDate={this.props.maxDate}/>
+        <React.Suspense fallback={<InputField/>}>
+          <TextField
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            type={this.props.type}
+            label={this.props.label}
+            error={this.props.error}
+            value={this.renderDate()}
+            onFocus={this.onFocus}
+            onChange={this.props.onChange}/>
+          <DatePicker
+            ref='datepicker'
+            selected={this.props.value ? moment(this.props.value) : null}
+            onChange={this.onDateChange}
+            minDate={this.props.minDate}
+            maxDate={this.props.maxDate}/>
+        </React.Suspense>
       </div>
     )
   }

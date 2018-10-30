@@ -1,14 +1,11 @@
 import _ from 'lodash'
 import React from 'react'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import Autosuggest from 'react-autosuggest'
 import PropTypes from 'prop-types'
+import { InputField } from '_contentLoaders'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
-})
+const TextField = React.lazy(() => import('_inputs/TextField'))
 
 class AutoSuggestField extends React.Component {
   constructor(props) {
@@ -23,29 +20,31 @@ class AutoSuggestField extends React.Component {
   render() {
     return (
       <div className='auto-suggest-field-container'>
-        <TextField
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          type={this.props.type}
-          label={this.props.label}
-          error={this.props.error}
-          value={this.props.value}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onChange={this.onChange}/>
-        <Autosuggest
-          ref='autosuggest'
-          suggestions={this.state.suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={this.getSuggestionValue}
-          renderSuggestion={this.renderSuggestion}
-          inputProps={{
-            value: this.props.value || "", // AutoSuggest need to trim value, so cannot be null
-            onChange: null // not needed and should not triggered
-          }}
-          alwaysRenderSuggestions={this.state.inFocus}
-          shouldRenderSuggestions={(value) => value.trim().length > 1}/>
+        <React.Suspense fallback={<InputField/>}>
+          <TextField
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            type={this.props.type}
+            label={this.props.label}
+            error={this.props.error}
+            value={this.props.value}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onChange={this.onChange}/>
+          <Autosuggest
+            ref='autosuggest'
+            suggestions={this.state.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={{
+              value: this.props.value || "", // AutoSuggest need to trim value, so cannot be null
+              onChange: null // not needed and should not triggered
+            }}
+            alwaysRenderSuggestions={this.state.inFocus}
+            shouldRenderSuggestions={(value) => value.trim().length > 1}/>
+        </React.Suspense>
       </div>
     )
   }

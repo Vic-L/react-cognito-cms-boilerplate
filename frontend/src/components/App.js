@@ -1,25 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
-import Loadable from 'react-loadable'
 
-const TransitionGroup = Loadable({
-  loader: () => import('react-transition-group/TransitionGroup'),
-  loading: () => <div></div>,
-})
-
-const AlertModal = Loadable({
-  loader: () => import('_miscellaneous/AlertModal'),
-  loading: () => <div></div>,
-})
-const Main = Loadable({
-  loader: () => import('_miscellaneous/Main'),
-  loading: () => <div></div>,
-})
-const Login = Loadable({
-  loader: () => import('_authentications/Login'),
-  loading: () => <div></div>,
-})
+import TransitionGroup from 'react-transition-group/TransitionGroup'
+import AlertModal from '_miscellaneous/AlertModal'
+import Main from '_miscellaneous/Main'
+import Login from '_authentications/Login'
 
 const App = ({ dispatch }) => {
   return (

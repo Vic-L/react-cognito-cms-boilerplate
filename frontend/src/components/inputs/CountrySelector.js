@@ -1,14 +1,11 @@
 import _ from 'lodash'
 import React from 'react'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
+import { InputField } from '_contentLoaders'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <div></div>,
-})
+const TextField = React.lazy(() => import('_inputs/TextField'))
 
 class CountrySelector extends React.Component {
   constructor(props) {
@@ -45,14 +42,16 @@ class CountrySelector extends React.Component {
     return (
       <div className='select-container'>
         <div className='select-field'>
-          <TextField
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            type={this.props.type}
-            label={this.props.label}
-            error={this.props.error}
-            value={this.renderOptionLabel()}
-            onChange={this.props.onChange}/>
+          <React.Suspense fallback={<InputField/>}>
+            <TextField
+              name={this.props.name}
+              placeholder={this.props.placeholder}
+              type={this.props.type}
+              label={this.props.label}
+              error={this.props.error}
+              value={this.renderOptionLabel()}
+              onChange={this.props.onChange}/>
+          </React.Suspense>
         </div>
         <Select
           styles={selectStyle}

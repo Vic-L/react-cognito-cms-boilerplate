@@ -1,5 +1,4 @@
 import React from 'react'
-import Loadable from 'react-loadable'
 import PropTypes from 'prop-types'
 
 class DismissableCard extends React.Component {

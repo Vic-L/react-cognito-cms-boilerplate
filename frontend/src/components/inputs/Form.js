@@ -1,6 +1,5 @@
 import React from 'react'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import moment from 'moment'
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
@@ -8,50 +7,17 @@ import htmlToDraft from 'html-to-draftjs'
 
 import * as ContentLoaders from '_contentLoaders'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const SelectField = Loadable({
-  loader: () => import('_inputs/SelectField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const RestrictedSelectField = Loadable({
-  loader: () => import('_inputs/RestrictedSelectField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const CountrySelector = Loadable({
-  loader: () => import('_inputs/CountrySelector'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const AutoSuggestField = Loadable({
-  loader: () => import('_inputs/AutoSuggestField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const DatePickerField = Loadable({
-  loader: () => import('_inputs/DatePickerField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const FileField = Loadable({
-  loader: () => import('_inputs/FileField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const WYSIWYG = Loadable({
-  loader: () => import('_inputs/WYSIWYG'),
-  loading: () => <div></div>,
-})
-const TextArea = Loadable({
-  loader: () => import('_inputs/TextArea'),
-  loading: () => <ContentLoaders.TextAreaField/>,
-})
-const Button = Loadable({
-  loader: () => import('_buttons/Button'),
-  loading: () => <ContentLoaders.Button/>,
-})
-const ButtonWithLoader = Loadable({
-  loader: () => import('_buttons/ButtonWithLoader'),
-  loading: () => <ContentLoaders.Button/>,
-})
+const TextField = React.lazy(() => import('_inputs/TextField'))
+const SelectField = React.lazy(() => import('_inputs/SelectField'))
+const RestrictedSelectField = React.lazy(() => import('_inputs/RestrictedSelectField'))
+const CountrySelector = React.lazy(() => import('_inputs/CountrySelector'))
+const AutoSuggestField = React.lazy(() => import('_inputs/AutoSuggestField'))
+const DatePickerField = React.lazy(() => import('_inputs/DatePickerField'))
+const FileField = React.lazy(() => import('_inputs/FileField'))
+const WYSIWYG = React.lazy(() => import('_inputs/WYSIWYG'))
+const TextArea = React.lazy(() => import('_inputs/TextArea'))
+const Button = React.lazy(() => import('_buttons/Button'))
+const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
 class Form extends React.Component {
   constructor(props) {
@@ -91,132 +57,160 @@ class Form extends React.Component {
       <div>
         <ContentLoaders.Button/>
         <ContentLoaders.InputField/>
-        <TextField
-          name="fieldWithNoError"
-          placeholder="FieldWithNoError"
-          type="text"
-          label="FIELDWITHNOERROR"
-          value={formObject.fieldWithNoError}
-          error={""}
-          onChange={this.onChangeFieldWithNoError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <TextField
+            name="fieldWithNoError"
+            placeholder="FieldWithNoError"
+            type="text"
+            label="FIELDWITHNOERROR"
+            value={formObject.fieldWithNoError}
+            error={""}
+            onChange={this.onChangeFieldWithNoError}/>
+        </React.Suspense>
 
-        <TextArea
-          name="textAreaWithoutError"
-          placeholder="Enter text here"
-          value={formObject.textAreaWithoutError}
-          error={""}
-          onChange={this.onChangeTextAreaWithoutError}/>
+        <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+          <TextArea
+            name="textAreaWithoutError"
+            placeholder="Enter text here"
+            value={formObject.textAreaWithoutError}
+            error={""}
+            onChange={this.onChangeTextAreaWithoutError}/>
+        </React.Suspense>
 
-        <TextArea
-          name="textAreaWithError"
-          placeholder="Enter text here"
-          value={formObject.textAreaWithError}
-          error={"textAreaWithError"}
-          onChange={this.onChangeTextAreaWithError}/>
+        <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+          <TextArea
+            name="textAreaWithError"
+            placeholder="Enter text here"
+            value={formObject.textAreaWithError}
+            error={"textAreaWithError"}
+            onChange={this.onChangeTextAreaWithError}/>
+        </React.Suspense>
 
-        <TextField
-          name="fieldWithError"
-          placeholder="FieldWithError"
-          type="text"
-          label="FIELDWITHERROR"
-          value={formObject.fieldWithError}
-          error={'fieldWithError'}
-          onChange={this.onChangeFieldWithError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <TextField
+            name="fieldWithError"
+            placeholder="FieldWithError"
+            type="text"
+            label="FIELDWITHERROR"
+            value={formObject.fieldWithError}
+            error={'fieldWithError'}
+            onChange={this.onChangeFieldWithError}/>
+        </React.Suspense>
 
-        <SelectField
-          name="selectFieldWithNoError"
-          placeholder="SelectFieldWithNoError"
-          type="text"
-          label="SELECTFIELDWITHNOERROR"
-          value={formObject.selectFieldWithNoError}
-          error={""}
-          options={this.getOptions()}
-          onChange={this.onChangeSelectFieldWithNoError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <SelectField
+            name="selectFieldWithNoError"
+            placeholder="SelectFieldWithNoError"
+            type="text"
+            label="SELECTFIELDWITHNOERROR"
+            value={formObject.selectFieldWithNoError}
+            error={""}
+            options={this.getOptions()}
+            onChange={this.onChangeSelectFieldWithNoError}/>
+        </React.Suspense>
 
-        <RestrictedSelectField
-          name="restrictedSelectField"
-          placeholder="RestrictedSelectField"
-          type="text"
-          label="RESTRICTEDSELECTFIELD"
-          value={formObject.restrictedSelectField}
-          error={""}
-          fullOptions={this.getOptions()}
-          selectableOptions={[this.getOptions()[0]]}
-          onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <RestrictedSelectField
+            name="restrictedSelectField"
+            placeholder="RestrictedSelectField"
+            type="text"
+            label="RESTRICTEDSELECTFIELD"
+            value={formObject.restrictedSelectField}
+            error={""}
+            fullOptions={this.getOptions()}
+            selectableOptions={[this.getOptions()[0]]}
+            onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
+        </React.Suspense>
 
-        <CountrySelector
-          name="countrySelectorField"
-          placeholder="Select Country"
-          type="text"
-          label="COUNTRY"
-          labelKey="name"
-          valueKey="alpha-2"
-          value={formObject.countrySelectorField}
-          error={""}
-          onChange={this.onChangeCountrySelector}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <CountrySelector
+            name="countrySelectorField"
+            placeholder="Select Country"
+            type="text"
+            label="COUNTRY"
+            labelKey="name"
+            valueKey="alpha-2"
+            value={formObject.countrySelectorField}
+            error={""}
+            onChange={this.onChangeCountrySelector}/>
+        </React.Suspense>
 
-        <AutoSuggestField
-          name="AutoSuggestFieldWithNoError"
-          placeholder="AutoSuggestFieldWithNoError"
-          type="text"
-          label="AUTOSUGGESTFIELDWITHNOERROR"
-          value={formObject.autoSuggestFieldWithNoError}
-          error={""}
-          suggestionList={['John', 'Paul', 'George', 'Ringo']}
-          onChange={this.onChangeAutoSuggestFieldWithNoError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <AutoSuggestField
+            name="AutoSuggestFieldWithNoError"
+            placeholder="AutoSuggestFieldWithNoError"
+            type="text"
+            label="AUTOSUGGESTFIELDWITHNOERROR"
+            value={formObject.autoSuggestFieldWithNoError}
+            error={""}
+            suggestionList={['John', 'Paul', 'George', 'Ringo']}
+            onChange={this.onChangeAutoSuggestFieldWithNoError}/>
+        </React.Suspense>
 
-        <DatePickerField
-          name="DatePickerFieldWithNoError"
-          placeholder="DatePickerFieldWithNoError"
-          type="text"
-          label="DATEPICKERFIELDWITHNOERROR"
-          value={formObject.datePickerFieldWithNoError}
-          error={""}
-          dateDisplayFormat="YYYY/MM/DD"
-          minDate={moment().subtract(2, 'weeks')}
-          maxDate={moment().add(1, 'year')}
-          onChange={this.onChangeDatePickerFieldWithNoError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <DatePickerField
+            name="DatePickerFieldWithNoError"
+            placeholder="DatePickerFieldWithNoError"
+            type="text"
+            label="DATEPICKERFIELDWITHNOERROR"
+            value={formObject.datePickerFieldWithNoError}
+            error={""}
+            dateDisplayFormat="YYYY/MM/DD"
+            minDate={moment().subtract(2, 'weeks')}
+            maxDate={moment().add(1, 'year')}
+            onChange={this.onChangeDatePickerFieldWithNoError}/>
+        </React.Suspense>
 
-        <FileField
-          name="FileFieldWithoutError"
-          text="FileFieldWithoutError"
-          file={formObject.fileFieldWithoutError}
-          error={""}
-          onChange={this.onChangeFileFieldWithoutError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <FileField
+            name="FileFieldWithoutError"
+            text="FileFieldWithoutError"
+            file={formObject.fileFieldWithoutError}
+            error={""}
+            onChange={this.onChangeFileFieldWithoutError}/>
+        </React.Suspense>
 
-        <FileField
-          name="FileFieldWithError"
-          text="FileFieldWithError"
-          file={formObject.fileFieldWithError}
-          error={"This field is required"}
-          onChange={this.onChangeFileFieldWithError}/>
+        <React.Suspense fallback={<ContentLoaders.InputField/>}>
+          <FileField
+            name="FileFieldWithError"
+            text="FileFieldWithError"
+            file={formObject.fileFieldWithError}
+            error={"This field is required"}
+            onChange={this.onChangeFileFieldWithError}/>
+        </React.Suspense>
 
-        <WYSIWYG
-          editorState={formObject.editorState}
-          onEditorStateChange={this.onEditorStateChange}
-          toolbar={{
-            image: {
-              previewImage: true,
-              uploadCallback: this.uploadImageCallBack,
-              alt: { present: true, mandatory: false },
-            },
-          }}
-          placeholder='Begin typing...'/>
+        <React.Suspense fallback={<div/>}>
+          <WYSIWYG
+            editorState={formObject.editorState}
+            onEditorStateChange={this.onEditorStateChange}
+            toolbar={{
+              image: {
+                previewImage: true,
+                uploadCallback: this.uploadImageCallBack,
+                alt: { present: true, mandatory: false },
+              },
+            }}
+            placeholder='Begin typing...'/>
+        </React.Suspense>
 
         <textarea
           disabled
           value={draftToHtml(convertToRaw(formObject.editorState.getCurrentContent()))}/>
 
-        <Button
-          className="button"
-          text="SUBMIT"
-          onClick={this.onSubmit}/>
+        <React.Suspense fallback={<ContentLoaders.Button/>}>
+          <Button
+            className="button"
+            text="SUBMIT"
+            onClick={this.onSubmit}/>
+        </React.Suspense>
 
-        <ButtonWithLoader
-          className="button"
-          text="SUBMIT WITH LOADER"
-          isLoading={this.state.isLoading}
-          onClick={this.toggleLoading}/>
+        <React.Suspense fallback={<ContentLoaders.Button/>}>
+          <ButtonWithLoader
+            className="button"
+            text="SUBMIT WITH LOADER"
+            isLoading={this.state.isLoading}
+            onClick={this.toggleLoading}/>
+        </React.Suspense>
       </div>
     )
   }

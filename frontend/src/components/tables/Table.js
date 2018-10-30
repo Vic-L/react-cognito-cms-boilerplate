@@ -1,10 +1,6 @@
 import React from 'react'
-import Loadable from 'react-loadable'
 
-const ClickableTableHeader = Loadable({
-  loader: () => import('_tables/ClickableTableHeader'),
-  loading: () => <th></th>,
-})
+const ClickableTableHeader = React.lazy(() => import('_tables/ClickableTableHeader'))
 
 // Delete this component
 class Table extends React.Component {
@@ -14,9 +10,11 @@ class Table extends React.Component {
         <thead>
           <tr>
             <th>Header 1</th>
-            <ClickableTableHeader
-              title="Sortable Header 2"
-              onClick={this.handleHeader2Change}/>
+            <React.Suspense fallback={<th>Sortable Header 2</th>}>
+              <ClickableTableHeader
+                title="Sortable Header 2"
+                onClick={this.handleHeader2Change}/>
+            </React.Suspense>
             <th>Header 3</th>
           </tr>
         </thead>

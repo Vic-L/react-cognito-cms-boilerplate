@@ -1,35 +1,16 @@
 import _ from 'lodash'
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Loadable from 'react-loadable'
 import Auth from '@aws-amplify/auth'
 
 import requireAuth from '_hocs/requireAuth'
 
-const Sidebar = Loadable({
-  loader: () => import('_sidebar/Sidebar'),
-  loading: () => <div></div>,
-})
-const Dashboard = Loadable({
-  loader: () => import('_miscellaneous/Dashboard'),
-  loading: () => <div></div>,
-})
-const Form = Loadable({
-  loader: () => import('_inputs/Form'),
-  loading: () => <div></div>,
-})
-const Table = Loadable({
-  loader: () => import('_tables/Table'),
-  loading: () => <div></div>,
-})
-const Cards = Loadable({
-  loader: () => import('_cards/Cards'),
-  loading: () => <div></div>,
-})
-const Charts = Loadable({
-  loader: () => import('_charts/Charts'),
-  loading: () => <div></div>,
-})
+import Sidebar from '_sidebar/Sidebar'
+import Dashboard from '_miscellaneous/Dashboard'
+import Form from '_inputs/Form'
+import Table from '_tables/Table'
+import Cards from '_cards/Cards'
+import Charts from '_charts/Charts'
 
 class Main extends React.Component {
   render() {

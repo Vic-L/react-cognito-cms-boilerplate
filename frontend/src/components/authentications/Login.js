@@ -2,7 +2,6 @@ import _ from 'lodash'
 import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
-import Loadable from 'react-loadable'
 import { withRouter } from 'react-router-dom'
 
 import * as ContentLoaders from '_contentLoaders'
@@ -11,14 +10,8 @@ import AnimationWrapper from '_animationWrappers/AnimationWrapper'
 
 import Auth from '@aws-amplify/auth'
 
-const TextField = Loadable({
-  loader: () => import('_inputs/TextField'),
-  loading: () => <ContentLoaders.InputField/>,
-})
-const ButtonWithLoader = Loadable({
-  loader: () => import('_buttons/ButtonWithLoader'),
-  loading: () => <ContentLoaders.Button/>,
-})
+const TextField = React.lazy(() => import('_inputs/TextField'))
+const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
 // utils
 import validate from '_utils/validations'
@@ -77,39 +70,45 @@ class Login extends React.Component {
                 <div className='cell small-6'>
                   <img src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c' className='logo'/>
 
-                  <TextField
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    label="Email"
-                    error={formErrors.email}
-                    value={formObject.email}
-                    onChange={this.onChangeEmail}/>
+                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                    <TextField
+                      name="email"
+                      placeholder="Email"
+                      type="text"
+                      label="Email"
+                      error={formErrors.email}
+                      value={formObject.email}
+                      onChange={this.onChangeEmail}/>
+                  </React.Suspense>
 
-                  <TextField
-                    name="password"
-                    placeholder="Password"
-                    label="Password"
-                    type="password"
-                    error={formErrors.password}
-                    value={formObject.password}
-                    onChange={this.onChangePassword}/>
+                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                    <TextField
+                      name="password"
+                      placeholder="Password"
+                      label="Password"
+                      type="password"
+                      error={formErrors.password}
+                      value={formObject.password}
+                      onChange={this.onChangePassword}/>
+                  </React.Suspense>
 
-                  <ButtonWithLoader
-                    isLoading={this.props.isLoggingIn}
-                    className="button login-button"
-                    text="Login"
-                    onClick={() => {
-                      if (this.validateForm()) {
-                        if (!this.state.submittedFormBefore) {
-                          this.setState({
-                            submittedFormBefore: true,
-                          }, this.login)
-                        } else {
-                          this.login()
+                  <React.Suspense fallback={<ContentLoaders.Button/>}>
+                    <ButtonWithLoader
+                      isLoading={this.props.isLoggingIn}
+                      className="button login-button"
+                      text="Login"
+                      onClick={() => {
+                        if (this.validateForm()) {
+                          if (!this.state.submittedFormBefore) {
+                            this.setState({
+                              submittedFormBefore: true,
+                            }, this.login)
+                          } else {
+                            this.login()
+                          }
                         }
-                      }
-                    }}/>
+                      }}/>
+                  </React.Suspense>
                 </div>
                 <div className='cell auto'>
                 </div>

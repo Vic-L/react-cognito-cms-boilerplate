@@ -1,28 +1,14 @@
 import React from 'react'
-import Loadable from 'react-loadable'
 import { connect } from 'react-redux'
 
 import Auth from '@aws-amplify/auth'
 
-const SidebarOption = Loadable({
-  loader: () => import('_sidebar/SidebarOption'),
-  loading: () => <div></div>,
-})
+import * as ContentLoaders from '_contentLoaders'
 
-const SidebarOptionWithDropdown = Loadable({
-  loader: () => import('_sidebar/SidebarOptionWithDropdown'),
-  loading: () => <div></div>,
-})
-
-const Button = Loadable({
-  loader: () => import('_buttons/Button'),
-  loading: () => <div></div>,
-})
-
-const ImageButton = Loadable({
-  loader: () => import('_buttons/ImageButton'),
-  loading: () => <div></div>,
-})
+const SidebarOption = React.lazy(() => import('_sidebar/SidebarOption'))
+const SidebarOptionWithDropdown = React.lazy(() => import('_sidebar/SidebarOptionWithDropdown'))
+const Button = React.lazy(() => import('_buttons/Button'))
+const ImageButton = React.lazy(() => import('_buttons/ImageButton'))
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -47,57 +33,73 @@ class Sidebar extends React.Component {
         <div className='sidebar-background'/>
         <div className='sidebar-container'>
           <div className='top-section'>
-            <Button
-              text="Logout"
-              className="button"
-              onClick={() => {
-                this.props.requestLogout()
-                Auth.signOut()
-                .then(() => {
-                  this.props.succeedLogout()
-                  this.props.history.push("/login")
-                })
-                .catch((err) => {
-                  console.log(err)
-                  this.props.failLogout(err.message || err)
-                })
-              }}/>
+            <React.Suspense fallback={<ContentLoaders.Button/>}>
+              <Button
+                text="Logout"
+                className="button"
+                onClick={() => {
+                  this.props.requestLogout()
+                  Auth.signOut()
+                  .then(() => {
+                    this.props.succeedLogout()
+                    this.props.history.push("/login")
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                    this.props.failLogout(err.message || err)
+                  })
+                }}/>
+            </React.Suspense>
           </div>
-          <SidebarOption
-            text="Dashboard"
-            dst="/"/>
-          <SidebarOption
-            text="Form"
-            dst="/form"/>
-          <SidebarOption
-            text="Table"
-            dst="/table"/>
-          <SidebarOption
-            text="Cards"
-            dst="/cards"/>
-          <SidebarOption
-            text="Charts"
-            dst="/charts"/>
-          <SidebarOptionWithDropdown
-            text="Link2"
-            dropdown={[
-              {
-                text: "Link2A",
-                dst: "#"
-              },
-              {
-                text: "Link2B",
-                dst: "#"
-              }
-            ]}/>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOption
+              text="Dashboard"
+              dst="/"/>
+          </React.Suspense>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOption
+              text="Form"
+              dst="/form"/>
+          </React.Suspense>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOption
+              text="Table"
+              dst="/table"/>
+          </React.Suspense>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOption
+              text="Cards"
+              dst="/cards"/>
+          </React.Suspense>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOption
+              text="Charts"
+              dst="/charts"/>
+          </React.Suspense>
+          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+            <SidebarOptionWithDropdown
+              text="Link2"
+              dropdown={[
+                {
+                  text: "Link2A",
+                  dst: "#"
+                },
+                {
+                  text: "Link2B",
+                  dst: "#"
+                }
+              ]}/>
+          </React.Suspense>
         </div>
 
-        <ImageButton
-          className='sidebar-button'
-          imageUri='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'
-          onClick={() =>{
-            this.setState({ isShown: !isShown })
-          }}/>
+        <React.Suspense fallback={<div></div>}>
+          <ImageButton
+            className='sidebar-button'
+            imageUri='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'
+            onClick={() =>{
+              this.setState({ isShown: !isShown })
+            }}/>
+        </React.Suspense>
       </div>
     )
   }
