@@ -13,8 +13,8 @@ import Auth from '@aws-amplify/auth'
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
-// utils
-import validate from '_utils/validations'
+import ValidateField from '_services/ValidateField'
+import ValidateFormObject from '_services/ValidateFormObject'
 
 import SelectLoading from '_selectors/SelectLoading'
 
@@ -27,12 +27,8 @@ class Login extends React.Component {
       in: true,
       submittedFormBefore: false,
       formObject: {
-        email: "",
-        password: "",
-      },
-      formErrors: {
-        email: "",
-        password: ""
+        email: '',
+        password: '',
       }
     }
   }
@@ -56,7 +52,8 @@ class Login extends React.Component {
       return null
     }
 
-    const { formObject, formErrors } = this.state
+    const { formObject, submittedFormBefore } = this.state
+
     return (
       <AnimationWrapper
         classNames="fade"
@@ -76,7 +73,7 @@ class Login extends React.Component {
                       placeholder="Email"
                       type="text"
                       label="Email"
-                      error={formErrors.email}
+                      error={ValidateField('login-email', formObject.email, submittedFormBefore)}
                       value={formObject.email}
                       onChange={this.onChangeEmail}/>
                   </React.Suspense>
@@ -87,7 +84,7 @@ class Login extends React.Component {
                       placeholder="Password"
                       label="Password"
                       type="password"
-                      error={formErrors.password}
+                      error={ValidateField('login-password', formObject.password, submittedFormBefore)}
                       value={formObject.password}
                       onChange={this.onChangePassword}/>
                   </React.Suspense>
@@ -98,14 +95,12 @@ class Login extends React.Component {
                       className="button login-button"
                       text="Login"
                       onClick={() => {
-                        if (this.validateForm()) {
-                          if (!this.state.submittedFormBefore) {
-                            this.setState({
-                              submittedFormBefore: true,
-                            }, this.login)
-                          } else {
-                            this.login()
-                          }
+                        if (!this.state.submittedFormBefore) {
+                          this.setState({
+                            submittedFormBefore: true,
+                          }, this.login)
+                        } else {
+                          this.login()
                         }
                       }}/>
                   </React.Suspense>
@@ -122,76 +117,51 @@ class Login extends React.Component {
   @autobind
   login() {
     const { formObject } = this.state
-    this.props.requestLogin()
-    Auth.signIn(formObject.email, formObject.password)
-    .then((user) => {
-      switch(user.challengeName) {
-        case 'NEW_PASSWORD_REQUIRED':
-          Auth.completeNewPassword(user, formObject.password, user.challengeParam.requiredAttributes)
-          .then(() => {
+
+    if (ValidateFormObject('login', formObject)) {
+      this.props.requestLogin()
+      Auth.signIn(formObject.email, formObject.password)
+      .then((user) => {
+        switch(user.challengeName) {
+          case 'NEW_PASSWORD_REQUIRED':
+            Auth.completeNewPassword(user, formObject.password, user.challengeParam.requiredAttributes)
+            .then(() => {
+              this.props.succeedLogin()
+              this.props.history.push('/')
+            })
+            .catch(error => {
+              console.log('completeNewPassword error', error)
+            })
+            break
+          default:
             this.props.succeedLogin()
-            this.props.history.push('/')
-          })
-          .catch(error => {
-            console.log('completeNewPassword error', error)
-          })
-          break
-        default:
-          this.props.succeedLogin()
-          this.props.history.push("/")
-      }
-    })
-    .catch((err) => {
-      this.props.failLogin(err.message || err)
-    })
+            this.props.history.push("/")
+        }
+      })
+      .catch((err) => {
+        this.props.failLogin(err.message || err)
+      })
+    }
   }
 
   @autobind
   onChangeEmail(e) {
-    this.updateForm('email', e.target.value)
+    this.setState({
+      formObject: {
+        ...this.state.formObject,
+        email: e.target.value
+      }
+    })
   }
 
   @autobind
   onChangePassword(e) {
-    this.updateForm('password', e.target.value)
-  }
-
-  // form methods
-  @autobind
-  updateForm(fieldName, fieldValue) {
-    let newState = {
+    this.setState({
       formObject: {
-          ...this.state.formObject,
-          [fieldName]: fieldValue
-        }
-    }
-    if (this.state.submittedFormBefore) {
-      newState["formErrors"] = {
-        ...this.state.formErrors,
-        [fieldName]: validate(fieldName, fieldValue)
+        ...this.state.formObject,
+        password: e.target.value
       }
-      
-    }
-    this.setState(newState)
-  }
-
-  @autobind
-  validateForm() {
-    const { formObject } = this.state
-    const formErrors = _.cloneDeep(this.state.formErrors)
-
-    let isValid = true
-    for (let key of Object.keys(formErrors)) {
-      let message = validate(key, formObject[key])
-      formErrors[key] = message
-      if (message) {
-        isValid = false
-      }
-    }
-
-    this.setState({formErrors})
-
-    return isValid
+    })
   }
 }
 

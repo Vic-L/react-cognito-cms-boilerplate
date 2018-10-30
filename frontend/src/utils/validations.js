@@ -3,7 +3,7 @@ import validation from 'validate.js'
 
 const constraints = {
   // login form
-  email: {
+  'login-email': {
     presence: {
       message: '^Please enter an email address'
     },
@@ -11,7 +11,7 @@ const constraints = {
       message: '^Please enter a valid email address'
     }
   },
-  password: {
+  'login-password': {
     presence: {
       message: '^Please enter a password'
     },
