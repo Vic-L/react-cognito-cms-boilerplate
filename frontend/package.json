@@ -1,6 +1,10 @@
 {
   "name": "react-cognito-cms-boilerplate",
-  "version": "1.0.0",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vic-L/react-cognito-cms-boilerplate"
+  },
   "description": "Boilerplate for react application",
   "main": "index.js",
   "scripts": {
