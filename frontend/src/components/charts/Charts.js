@@ -1,5 +1,5 @@
 import React from 'react'
-import { Line, Pie } from 'react-chartjs'
+import { Line, Pie } from 'react-chartjs-2'
 
 class Charts extends React.Component {
   render() {
