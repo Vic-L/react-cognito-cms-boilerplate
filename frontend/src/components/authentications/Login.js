@@ -124,9 +124,22 @@ class Login extends React.Component {
     const { formObject } = this.state
     this.props.requestLogin()
     Auth.signIn(formObject.email, formObject.password)
-    .then(() => {
-      this.props.succeedLogin()
-      this.props.history.push("/")
+    .then((user) => {
+      switch(user.challengeName) {
+        case 'NEW_PASSWORD_REQUIRED':
+          Auth.completeNewPassword(user, formObject.password, user.challengeParam.requiredAttributes)
+          .then(() => {
+            this.props.succeedLogin()
+            this.props.history.push('/')
+          })
+          .catch(error => {
+            console.log('completeNewPassword error', error)
+          })
+          break
+        default:
+          this.props.succeedLogin()
+          this.props.history.push("/")
+      }
     })
     .catch((err) => {
       this.props.failLogin(err.message || err)
