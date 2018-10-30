@@ -11,16 +11,18 @@ npm start
 ```
 
 ### Front End
-1. Run these commands:
+
+1. Create file `.env.development` and replace the corresponding values.
+2. Run these commands:
 ```
 # in root directory, for frontend dependencies
 $ cd frontend && npm install
 $ npm start
 ```
 
-2. Open `http://localhost:8080` in browser
+3. Open `http://localhost:8080` in browser
 
-3. Develop the front end as usual. The backend will only be needed for deployment.
+4. Develop the front end as usual. The backend will only be needed for deployment.
 
 ### Backend
 Only used during deployment.
