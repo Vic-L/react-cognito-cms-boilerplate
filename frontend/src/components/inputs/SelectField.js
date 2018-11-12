@@ -66,24 +66,24 @@ class SelectField extends React.Component {
 
   @autobind
   renderOptionLabel() {
-    if (this.props.value) {
+    if (!_.isNil(this.props.value)) {
       const option = _.find(this.props.options, (option) => {
         return option.value === this.props.value
       })
 
       if (_.isNil(option)) {
-        return ""
+        return null
       } else {
         return option.label
       }
     } else {
-      return ""
+      return null
     }
   }
 
   @autobind
   renderOptionValue() {
-    if (this.props.value) {
+    if (!_.isNil(this.props.value)) {
       return _.find(this.props.options, (option) => {
         return option.value === this.props.value
       }) || null
