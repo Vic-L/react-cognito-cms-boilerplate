@@ -57,6 +57,10 @@ module.exports = {
       template: process.env.NODE_ENV === 'production' ? "./src/index.production.html" : "./src/index.html",
       filename: "../index.html"
     }),
+    new webpack.DefinePlugin({
+      PRIMARY_COLOR: JSON.stringify('#E92430'),
+      SECONDARY_COLOR: JSON.stringify('mediumseagreen'),
+    }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
     }),
