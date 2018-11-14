@@ -206,7 +206,6 @@ class Form extends React.Component {
 
         <React.Suspense fallback={<ContentLoaders.Button/>}>
           <ButtonWithLoader
-            className="button"
             text="SUBMIT WITH LOADER"
             isLoading={this.state.isLoading}
             onClick={this.toggleLoading}/>
