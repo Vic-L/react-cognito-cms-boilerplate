@@ -1,6 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styled, { ThemeProvider } from 'styled-components'
+
+const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
+
+const TextAreaContainer = styled.div`
+  position: relative;
+  margin-bottom: 1rem;
+`
+
+const TextAreaInput = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0;
+  border-radius: 5px;
+  border: 1px solid ${props => props.theme.borderColor};
+`
+
+const errorTheme = {
+  borderColor: ERROR_COLOR,
+  errorContainerHeight: 'auto',
+  errorContainerPaddingTop: '5px',
+  errorContainerPaddingBottom: '5px',
+}
+
+const noErrorTheme = {
+  borderColor: '#ccc',
+  errorContainerHeight: 0,
+  errorContainerPaddingTop: 0,
+  errorContainerPaddingBottom: 0,
+}
+
 const TextArea = ({
   placeholder,
   rows,
@@ -9,18 +40,17 @@ const TextArea = ({
   ...others
 }) => {
   return (
-    <div className='textarea-container'>
-      <textarea
-        rows={rows || '4'}
-        placeholder={placeholder}
-        className={`textarea ${error ? 'with-error' : ''}`}
-        value={value || ""}
-        {...others}/>
+    <ThemeProvider theme={error ? errorTheme : noErrorTheme}>
+      <TextAreaContainer>
+        <TextAreaInput
+          rows={rows || '4'}
+          placeholder={placeholder}
+          value={value || ''}
+          {...others}/>
       
-      <div className={`error-container ${error ? 'not-empty' : ''}`}>
-        <label className='error'>{error}</label>
-      </div>
-    </div>
+        <ErrorContainer>{error}</ErrorContainer>
+      </TextAreaContainer>
+    </ThemeProvider>
   )
 }
 
