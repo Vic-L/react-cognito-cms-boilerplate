@@ -25,18 +25,19 @@ class SelectField extends React.Component {
       option: (base, state) => ({
         ...base,
         borderBottom: '1px black solid',
-        color: 'black'
+        color: 'black',
       }),
       // 50 is the height of input
       container: () => ({
-        height: 50,
         position: 'absolute',
         top: 0,
-        left: 0,
         width: '100%',
       }),
       control: () => ({
         opacity: 0,
+        width: '100%',
+        overflow: 'hidden',
+        height: 50,
       })
     }
 
