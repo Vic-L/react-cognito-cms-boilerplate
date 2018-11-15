@@ -2,19 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const theme = {
-  backgroundColor: PRIMARY_COLOR,
-  hoverBackgroundColor: SECONDARY_COLOR,
-}
+const TableHeader = React.lazy(() => import('_tables/TableHeader'))
 
-const Header = styled.th`
+const Header = styled(TableHeader)`
   background-color: ${PRIMARY_COLOR};
   position: relative;
   cursor: pointer;
-  padding: 0.5rem 0.625rem 0.625rem;
-  font-weight: bold;
-  text-align: left;
-  line-height: 1.5;
   &:hover {
     background-color: ${SECONDARY_COLOR};
   }

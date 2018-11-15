@@ -1,8 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
-const _Button = styled.div`
+const Button = styled.div`
   text-align: center;
   margin: auto;
   vertical-align: middle;
@@ -19,24 +17,10 @@ const _Button = styled.div`
   background-color: ${PRIMARY_COLOR};
   color: white;
   display: inline-block;
+  border-radius: 0.25rem;
+  &:hover {
+    background-color: ${SECONDARY_COLOR};
+  }
 `
-
-const Button = ({
-  onClick,
-  text,
-}) => {
-  return (
-    <_Button
-      onClick={onClick}>
-      
-      {text}
-    </_Button>
-  )
-}
-
-Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
 
 export default Button

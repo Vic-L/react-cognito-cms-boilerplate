@@ -8,9 +8,10 @@ import requireAuth from '_hocs/requireAuth'
 import Sidebar from '_sidebar/Sidebar'
 import Dashboard from '_miscellaneous/Dashboard'
 import Form from '_inputs/Form'
-import Table from '_tables/Table'
 import Cards from '_cards/Cards'
 import Charts from '_charts/Charts'
+
+import TableScreen from '_screens/TableScreen'
 
 class Main extends React.Component {
   render() {
@@ -34,7 +35,7 @@ class Main extends React.Component {
                     <Route
                       path="/table"
                       exact={true}
-                      component={Table}/>
+                      component={TableScreen}/>
                     <Route
                       path="/cards"
                       exact={true}

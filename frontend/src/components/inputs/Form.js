@@ -250,10 +250,9 @@ class Form extends React.Component {
         <div className='grid-x grid-margin-x'>
           <div className='cell medium-6 text-center'>
             <React.Suspense fallback={<ContentLoaders.Button/>}>
-              <Button
-                className="button"
-                text="SUBMIT"
-                onClick={this.onSubmit}/>
+              <Button onClick={this.onSubmit}>
+                SUBMIT
+              </Button>
             </React.Suspense>
           </div>
         </div>

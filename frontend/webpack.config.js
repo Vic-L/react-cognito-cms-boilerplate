@@ -92,6 +92,7 @@ module.exports = {
       _charts: path.resolve(__dirname, "src/components/charts/"),
       _hocs: path.resolve(__dirname, "src/components/hocs/"),
       _contentLoaders: path.resolve(__dirname, "src/components/contentLoaders/"),
+      _screens: path.resolve(__dirname, "src/components/screens/"),
       _src: path.resolve(__dirname, "src/"),
       _images: path.resolve(__dirname, "src/images/"),
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
