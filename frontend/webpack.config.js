@@ -60,6 +60,7 @@ module.exports = {
     new webpack.DefinePlugin({
       PRIMARY_COLOR: JSON.stringify('#E92430'),
       SECONDARY_COLOR: JSON.stringify('mediumseagreen'),
+      ERROR_COLOR: JSON.stringify('#CD3C14'),
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
