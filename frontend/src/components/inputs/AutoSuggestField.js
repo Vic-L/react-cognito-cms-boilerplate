@@ -3,9 +3,16 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Autosuggest from 'react-autosuggest'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
 import { InputField } from '_contentLoaders'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
+
+const AutoSuggestFieldContainer = styled.div`
+  position: relative;
+  display: block;
+`
 
 class AutoSuggestField extends React.Component {
   constructor(props) {
@@ -19,7 +26,7 @@ class AutoSuggestField extends React.Component {
 
   render() {
     return (
-      <div className='auto-suggest-field-container'>
+      <AutoSuggestFieldContainer>
         <React.Suspense fallback={<InputField/>}>
           <TextField
             name={this.props.name}
@@ -45,7 +52,7 @@ class AutoSuggestField extends React.Component {
             alwaysRenderSuggestions={this.state.inFocus}
             shouldRenderSuggestions={(value) => value.trim().length > 1}/>
         </React.Suspense>
-      </div>
+      </AutoSuggestFieldContainer>
     )
   }
 
