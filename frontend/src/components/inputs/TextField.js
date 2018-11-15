@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 // COMPONENTS
 const StringInput = React.lazy(() => import('_inputs/StringInput'))
+const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
 
 const InputContainer = styled.div`
   position: relative;
@@ -38,13 +39,6 @@ const Label = styled.label`;
   text-overflow: ellipsis;
   transform: ${props => props.theme.transform};
   opacity: ${props => props.theme.opacity};
-`
-
-const ErrorContainer = styled.div`
-  color: ${ERROR_COLOR};
-  height: ${props => props.theme.errorContainerHeight};
-  padding-top: ${props => props.theme.errorContainerPaddingTop};
-  padding-bottom: ${props => props.theme.errorContainerPaddingBottom};
 `
 
 // THEMES
