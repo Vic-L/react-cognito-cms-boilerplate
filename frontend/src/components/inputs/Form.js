@@ -15,6 +15,7 @@ const AutoSuggestField = React.lazy(() => import('_inputs/AutoSuggestField'))
 const DatePickerField = React.lazy(() => import('_inputs/DatePickerField'))
 const FileField = React.lazy(() => import('_inputs/FileField'))
 const WYSIWYG = React.lazy(() => import('_inputs/WYSIWYG'))
+const Checkbox = React.lazy(() => import('_inputs/Checkbox'))
 const TextArea = React.lazy(() => import('_inputs/TextArea'))
 const Button = React.lazy(() => import('_buttons/Button'))
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
@@ -40,6 +41,8 @@ class Form extends React.Component {
         fileFieldWithoutError: null,
         fileFieldWithError: null,
         editorState: EditorState.createEmpty(),
+        isMaleChecked: true,
+        isFemaleChecked: false,
       },
     }
 
@@ -57,6 +60,24 @@ class Form extends React.Component {
       <div>
         <ContentLoaders.Button/>
         <ContentLoaders.InputField/>
+
+        <div className='grid-x grid-margin-x'>
+          <div className='cell medium-6 text-center'>
+            <React.Suspense fallback={<div/>}>
+              <Checkbox
+                text="Male"
+                isChecked={formObject.isMaleChecked}
+                onClick={this.onCheckMale}/>
+            </React.Suspense>
+            <React.Suspense fallback={<div/>}>
+              <Checkbox
+                text="Female"
+                isChecked={formObject.isFemaleChecked}
+                onClick={this.onCheckFemale}/>
+            </React.Suspense>
+          </div>
+        </div>
+
         <div className='grid-x grid-margin-x'>
           <div className='cell medium-6'>
             <React.Suspense fallback={<ContentLoaders.InputField/>}>
@@ -267,6 +288,7 @@ class Form extends React.Component {
             </React.Suspense>
           </div>
         </div>
+
       </div>
     )
   }
@@ -385,6 +407,28 @@ class Form extends React.Component {
       formObject: {
         ...this.state.formObject,
         fileFieldWithError: e.target.files[0]
+      }
+    })
+  }
+
+  @autobind
+  onCheckMale() {
+    const { formObject } = this.state
+    this.setState({
+      formObject: {
+        ...formObject,
+        isMaleChecked: !formObject.isMaleChecked
+      }
+    })
+  }
+
+  @autobind
+  onCheckFemale() {
+    const { formObject } = this.state
+    this.setState({
+      formObject: {
+        ...formObject,
+        isFemaleChecked: !formObject.isFemaleChecked
       }
     })
   }
