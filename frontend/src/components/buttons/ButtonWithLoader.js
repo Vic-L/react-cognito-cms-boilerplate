@@ -27,8 +27,9 @@ Styles
 */
 
 const _Button = styled(Button)`
+  padding: 0;
   ${props => props.isLoading && css`
-     cursor: progress;
+    cursor: progress;
   `}
 `
 
@@ -41,30 +42,34 @@ const ButtonWithLoader = ({
 }) => {
   return (
 
-      <_Button
-        isLoading={isLoading}>
-        <LaddaButton
-          loading={isLoading}
-          data-color="#eee"
-          data-size={XL}
-          data-style={EXPAND_LEFT}
-          data-spinner-size={30}
-          data-spinner-color="#ddd"
-          data-spinner-lines={12}
-          onClick={onClick}
-          className='ladda-button'
-          style={{
-            color: 'inherit',
-            cursor: 'inherit',
-            backgroundColor: 'none',
-            ...style
-          }}
-          {...others}>
+    <_Button
+      isLoading={isLoading}>
+      <LaddaButton
+        loading={isLoading}
+        data-color="#eee"
+        data-size={XL}
+        data-style={EXPAND_LEFT}
+        data-spinner-size={30}
+        data-spinner-color="#ddd"
+        data-spinner-lines={12}
+        onClick={onClick}
+        className='ladda-button'
+        style={{
+          paddingTop: '0.85em',
+          paddingBottom: '0.85em',
+          paddingRight: '1em',
+          paddingLeft: isLoading ? '' : '1em',
+          color: 'inherit',
+          cursor: 'inherit',
+          backgroundColor: 'none',
+          ...style
+        }}
+        {...others}>
 
-          {text}
+        {text}
 
-        </LaddaButton>
-      </_Button>
+      </LaddaButton>
+    </_Button>
 
   )
 }
