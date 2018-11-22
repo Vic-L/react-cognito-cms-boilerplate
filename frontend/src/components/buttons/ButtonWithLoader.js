@@ -27,7 +27,7 @@ Styles
 */
 
 const _Button = styled(Button)`
-  padding: 0;
+  padding: 0 !important;
   ${props => props.isLoading && css`
     cursor: progress;
   `}
