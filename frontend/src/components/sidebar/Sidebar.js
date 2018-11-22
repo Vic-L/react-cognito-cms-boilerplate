@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import autobind from 'autobind-decorator'
 import Auth from '@aws-amplify/auth'
 
 import * as ContentLoaders from '_contentLoaders'
@@ -34,21 +34,9 @@ class Sidebar extends React.Component {
         <div className='sidebar-container'>
           <div className='top-section'>
             <React.Suspense fallback={<ContentLoaders.Button/>}>
-              <Button
-                text="Logout"
-                className="button"
-                onClick={() => {
-                  this.props.requestLogout()
-                  Auth.signOut()
-                  .then(() => {
-                    this.props.succeedLogout()
-                    this.props.history.push("/login")
-                  })
-                  .catch((err) => {
-                    console.log(err)
-                    this.props.failLogout(err.message || err)
-                  })
-                }}/>
+              <Button onClick={this.onLogout}>
+                Logout
+              </Button>
             </React.Suspense>
           </div>
           <React.Suspense fallback={<div/>}>
@@ -102,6 +90,20 @@ class Sidebar extends React.Component {
         </React.Suspense>
       </div>
     )
+  }
+
+  @autobind
+  async onLogout() {
+    this.props.requestLogout()
+    try {
+      await Auth.signOut()
+
+      this.props.succeedLogout()
+      this.props.history.push("/login")
+    } catch (err) {
+      console.log(err)
+      this.props.failLogout(err.message || err)
+    }
   }
 }
 
