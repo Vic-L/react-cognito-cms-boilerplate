@@ -55,7 +55,6 @@ Auth.configure({
 import rootReducers from '_reducers'
 
 import App from '_components/App'
-import Loader from '_components/Loader'
 
 import WebFont from 'webfontloader'
 
@@ -134,16 +133,9 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { createNetworkStatusNotifier } from 'react-apollo-network-status'
-
-// for listening to `loading` value in each graphql query/mutation on global level
-const {
-  NetworkStatusNotifier,
-  link: networkStatusNotifierLink
-} = createNetworkStatusNotifier()
 
 const apolloClient = new ApolloClient({
-  link: networkStatusNotifierLink.concat(new HttpLink({ uri: 'https://fakerql.com/graphql' })),
+  link: new HttpLink({ uri: 'https://fakerql.com/graphql' }),
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
@@ -161,12 +153,7 @@ render((
   <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <Router history={history}>
-        <div>
-          <NetworkStatusNotifier render={({loading, error}) => (
-            <Loader loading={loading} error={error}/>
-          )}/>
-          <App />
-        </div>
+        <App />
       </Router>
     </Provider>
   </ApolloProvider>
