@@ -51,32 +51,32 @@ class Sidebar extends React.Component {
                 }}/>
             </React.Suspense>
           </div>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Dashboard"
               dst="/"/>
           </React.Suspense>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Form"
               dst="/form"/>
           </React.Suspense>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Table"
               dst="/table"/>
           </React.Suspense>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Cards"
               dst="/cards"/>
           </React.Suspense>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Charts"
               dst="/charts"/>
           </React.Suspense>
-          <React.Suspense fallback={<ContentLoaders.SidebarOption/>}>
+          <React.Suspense fallback={<div/>}>
             <SidebarOptionWithDropdown
               text="Link2"
               dropdown={[
