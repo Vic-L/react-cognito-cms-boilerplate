@@ -40,19 +40,18 @@ class Cards extends React.Component {
     return(
       <AnimationWrapper
         classNames="fade"
-        shouldShow={this.state.in}
-        render={() => {
-          return (
-            <React.Fragment>
-              <div className="grid-container">
-                <h2>Cards</h2>
-                <div className='grid-x grid-margin-x'>
-                  {this.renderCards()}
-                </div>
+        shouldShow={this.state.in}>
+        {() => (
+          <React.Fragment>
+            <div className="grid-container">
+              <h2>Cards</h2>
+              <div className='grid-x grid-margin-x'>
+                {this.renderCards()}
               </div>
-            </React.Fragment>
-          )
-        }}/>
+            </div>
+          </React.Fragment>
+        )}
+      </AnimationWrapper>
     )
   }
 

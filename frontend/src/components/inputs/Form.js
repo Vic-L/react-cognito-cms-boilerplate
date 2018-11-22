@@ -65,244 +65,243 @@ class Form extends React.Component {
     return (
       <AnimationWrapper
         classNames="fade"
-        shouldShow={this.state.in}
-        render={() => {
-          return (
-            <div>
-              <ContentLoaders.Button/>
-              <ContentLoaders.InputField/>
+        shouldShow={this.state.in}>
+        {() => (
+          <div>
+            <ContentLoaders.Button/>
+            <ContentLoaders.InputField/>
 
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6 text-center'>
-                  <React.Suspense fallback={<div/>}>
-                    <Checkbox
-                      text="Male"
-                      isChecked={formObject.isMaleChecked}
-                      onClick={this.onCheckMale}/>
-                  </React.Suspense>
-                  <React.Suspense fallback={<div/>}>
-                    <Checkbox
-                      text="Female"
-                      isChecked={formObject.isFemaleChecked}
-                      onClick={this.onCheckFemale}/>
-                  </React.Suspense>
-                </div>
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6 text-center'>
+                <React.Suspense fallback={<div/>}>
+                  <Checkbox
+                    text="Male"
+                    isChecked={formObject.isMaleChecked}
+                    onClick={this.onCheckMale}/>
+                </React.Suspense>
+                <React.Suspense fallback={<div/>}>
+                  <Checkbox
+                    text="Female"
+                    isChecked={formObject.isFemaleChecked}
+                    onClick={this.onCheckFemale}/>
+                </React.Suspense>
               </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <TextField
-                      name="fieldWithNoError"
-                      placeholder="FieldWithNoError"
-                      type="text"
-                      label="FIELDWITHNOERROR"
-                      value={formObject.fieldWithNoError}
-                      error={""}
-                      onChange={this.onChangeFieldWithNoError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
-                    <TextArea
-                      name="textAreaWithoutError"
-                      placeholder="Enter text here"
-                      value={formObject.textAreaWithoutError}
-                      error={""}
-                      onChange={this.onChangeTextAreaWithoutError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
-                    <TextArea
-                      name="textAreaWithError"
-                      placeholder="Enter text here"
-                      value={formObject.textAreaWithError}
-                      error={"textAreaWithError"}
-                      onChange={this.onChangeTextAreaWithError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <TextField
-                      name="fieldWithError"
-                      placeholder="FieldWithError"
-                      type="text"
-                      label="FIELDWITHERROR"
-                      value={formObject.fieldWithError}
-                      error={'fieldWithError'}
-                      onChange={this.onChangeFieldWithError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <SelectField
-                      name="selectFieldWithNoError"
-                      placeholder="SelectFieldWithNoError"
-                      type="text"
-                      label="SELECTFIELDWITHNOERROR"
-                      value={formObject.selectFieldWithNoError}
-                      error={""}
-                      options={this.getOptions()}
-                      onChange={this.onChangeSelectFieldWithNoError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <RestrictedSelectField
-                      name="restrictedSelectField"
-                      placeholder="RestrictedSelectField"
-                      type="text"
-                      label="RESTRICTEDSELECTFIELD"
-                      value={formObject.restrictedSelectField}
-                      error={""}
-                      fullOptions={this.getOptions()}
-                      selectableOptions={[this.getOptions()[0]]}
-                      onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <CountrySelector
-                      name="countrySelectorField"
-                      placeholder="Select Country"
-                      type="text"
-                      label="COUNTRY"
-                      labelKey="name"
-                      valueKey="alpha-2"
-                      value={formObject.countrySelectorField}
-                      error={""}
-                      onChange={this.onChangeCountrySelector}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <AutoSuggestField
-                      name="AutoSuggestFieldWithNoError"
-                      placeholder="AutoSuggestFieldWithNoError"
-                      type="text"
-                      label="AUTOSUGGESTFIELDWITHNOERROR"
-                      value={formObject.autoSuggestFieldWithNoError}
-                      error={""}
-                      suggestionList={['John', 'Paul', 'George', 'Ringo']}
-                      onChange={this.onChangeAutoSuggestFieldWithNoError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <DatePickerField
-                      name="DatePickerFieldWithNoError"
-                      placeholder="DatePickerFieldWithNoError"
-                      type="text"
-                      label="DATEPICKERFIELDWITHNOERROR"
-                      value={formObject.datePickerFieldWithNoError}
-                      error={""}
-                      dateDisplayFormat="YYYY/MM/DD"
-                      minDate={moment().subtract(2, 'weeks')}
-                      maxDate={moment().add(1, 'year')}
-                      onChange={this.onChangeDatePickerFieldWithNoError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <FileField
-                      name="FileFieldWithoutError"
-                      text="FileFieldWithoutError"
-                      file={formObject.fileFieldWithoutError}
-                      error={""}
-                      onChange={this.onChangeFileFieldWithoutError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                    <FileField
-                      name="FileFieldWithError"
-                      text="FileFieldWithError"
-                      file={formObject.fileFieldWithError}
-                      error={"This field is required"}
-                      onChange={this.onChangeFileFieldWithError}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6'>
-                  <React.Suspense fallback={<div/>}>
-                    <WYSIWYG
-                      editorState={formObject.editorState}
-                      onEditorStateChange={this.onEditorStateChange}
-                      toolbar={{
-                        image: {
-                          previewImage: true,
-                          uploadCallback: this.uploadImageCallBack,
-                          alt: { present: true, mandatory: false },
-                        },
-                      }}
-                      placeholder='Begin typing...'/>
-                  </React.Suspense>
-                </div>
-
-                <div className='cell medium-6'>
-                  <textarea
-                    disabled
-                    value={draftToHtml(convertToRaw(formObject.editorState.getCurrentContent()))}/>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6 text-center'>
-                  <React.Suspense fallback={<ContentLoaders.Button/>}>
-                    <Button onClick={this.onSubmit}>
-                      SUBMIT
-                    </Button>
-                  </React.Suspense>
-                </div>
-              </div>
-
-              <div className='grid-x grid-margin-x'>
-                <div className='cell medium-6 text-center'>
-                  <React.Suspense fallback={<ContentLoaders.Button/>}>
-                    <ButtonWithLoader
-                      text="SUBMIT WITH LOADER"
-                      isLoading={this.state.isLoading}
-                      onClick={this.toggleLoading}/>
-                  </React.Suspense>
-                </div>
-              </div>
-
             </div>
-          )
-        }}/>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <TextField
+                    name="fieldWithNoError"
+                    placeholder="FieldWithNoError"
+                    type="text"
+                    label="FIELDWITHNOERROR"
+                    value={formObject.fieldWithNoError}
+                    error={""}
+                    onChange={this.onChangeFieldWithNoError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+                  <TextArea
+                    name="textAreaWithoutError"
+                    placeholder="Enter text here"
+                    value={formObject.textAreaWithoutError}
+                    error={""}
+                    onChange={this.onChangeTextAreaWithoutError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+                  <TextArea
+                    name="textAreaWithError"
+                    placeholder="Enter text here"
+                    value={formObject.textAreaWithError}
+                    error={"textAreaWithError"}
+                    onChange={this.onChangeTextAreaWithError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <TextField
+                    name="fieldWithError"
+                    placeholder="FieldWithError"
+                    type="text"
+                    label="FIELDWITHERROR"
+                    value={formObject.fieldWithError}
+                    error={'fieldWithError'}
+                    onChange={this.onChangeFieldWithError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <SelectField
+                    name="selectFieldWithNoError"
+                    placeholder="SelectFieldWithNoError"
+                    type="text"
+                    label="SELECTFIELDWITHNOERROR"
+                    value={formObject.selectFieldWithNoError}
+                    error={""}
+                    options={this.getOptions()}
+                    onChange={this.onChangeSelectFieldWithNoError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <RestrictedSelectField
+                    name="restrictedSelectField"
+                    placeholder="RestrictedSelectField"
+                    type="text"
+                    label="RESTRICTEDSELECTFIELD"
+                    value={formObject.restrictedSelectField}
+                    error={""}
+                    fullOptions={this.getOptions()}
+                    selectableOptions={[this.getOptions()[0]]}
+                    onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <CountrySelector
+                    name="countrySelectorField"
+                    placeholder="Select Country"
+                    type="text"
+                    label="COUNTRY"
+                    labelKey="name"
+                    valueKey="alpha-2"
+                    value={formObject.countrySelectorField}
+                    error={""}
+                    onChange={this.onChangeCountrySelector}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <AutoSuggestField
+                    name="AutoSuggestFieldWithNoError"
+                    placeholder="AutoSuggestFieldWithNoError"
+                    type="text"
+                    label="AUTOSUGGESTFIELDWITHNOERROR"
+                    value={formObject.autoSuggestFieldWithNoError}
+                    error={""}
+                    suggestionList={['John', 'Paul', 'George', 'Ringo']}
+                    onChange={this.onChangeAutoSuggestFieldWithNoError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <DatePickerField
+                    name="DatePickerFieldWithNoError"
+                    placeholder="DatePickerFieldWithNoError"
+                    type="text"
+                    label="DATEPICKERFIELDWITHNOERROR"
+                    value={formObject.datePickerFieldWithNoError}
+                    error={""}
+                    dateDisplayFormat="YYYY/MM/DD"
+                    minDate={moment().subtract(2, 'weeks')}
+                    maxDate={moment().add(1, 'year')}
+                    onChange={this.onChangeDatePickerFieldWithNoError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <FileField
+                    name="FileFieldWithoutError"
+                    text="FileFieldWithoutError"
+                    file={formObject.fileFieldWithoutError}
+                    error={""}
+                    onChange={this.onChangeFileFieldWithoutError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <FileField
+                    name="FileFieldWithError"
+                    text="FileFieldWithError"
+                    file={formObject.fileFieldWithError}
+                    error={"This field is required"}
+                    onChange={this.onChangeFileFieldWithError}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6'>
+                <React.Suspense fallback={<div/>}>
+                  <WYSIWYG
+                    editorState={formObject.editorState}
+                    onEditorStateChange={this.onEditorStateChange}
+                    toolbar={{
+                      image: {
+                        previewImage: true,
+                        uploadCallback: this.uploadImageCallBack,
+                        alt: { present: true, mandatory: false },
+                      },
+                    }}
+                    placeholder='Begin typing...'/>
+                </React.Suspense>
+              </div>
+
+              <div className='cell medium-6'>
+                <textarea
+                  disabled
+                  value={draftToHtml(convertToRaw(formObject.editorState.getCurrentContent()))}/>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6 text-center'>
+                <React.Suspense fallback={<ContentLoaders.Button/>}>
+                  <Button onClick={this.onSubmit}>
+                    SUBMIT
+                  </Button>
+                </React.Suspense>
+              </div>
+            </div>
+
+            <div className='grid-x grid-margin-x'>
+              <div className='cell medium-6 text-center'>
+                <React.Suspense fallback={<ContentLoaders.Button/>}>
+                  <ButtonWithLoader
+                    text="SUBMIT WITH LOADER"
+                    isLoading={this.state.isLoading}
+                    onClick={this.toggleLoading}/>
+                </React.Suspense>
+              </div>
+            </div>
+
+          </div>
+        )}
+      </AnimationWrapper>
     )
   }
 

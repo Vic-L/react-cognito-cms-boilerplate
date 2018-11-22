@@ -30,34 +30,33 @@ class Dashboard extends React.Component {
     return(
       <AnimationWrapper
         classNames="fade"
-        shouldShow={this.state.in}
-        render={() => {
-          return (
-            <div>
-              <h1>GRAPHQL Posts</h1>
-              <Query
-                fetchPolicy='network-only'
-                query={getPostsQuery}
-                variables={{ count: 10 }}>
+        shouldShow={this.state.in}>
+        {() => (
+          <div>
+            <h1>GRAPHQL Posts</h1>
+            <Query
+              fetchPolicy='network-only'
+              query={getPostsQuery}
+              variables={{ count: 10 }}>
 
-                {({ loading, error, data }) => {
-                  if (loading) return <p>Loading..."</p>;
-                  if (error) return <p>Error! {error.message}</p>;
+              {({ loading, error, data }) => {
+                if (loading) return <p>Loading..."</p>;
+                if (error) return <p>Error! {error.message}</p>;
 
-                  if (_.isNil(data.allPosts)) {
-                    return <p>No posts!</p>
-                  }
+                if (_.isNil(data.allPosts)) {
+                  return <p>No posts!</p>
+                }
 
-                  return data.allPosts.map((post, index) => {
-                    return (
-                      <p key={`post-${index}`}>{post.title}</p>
-                    )
-                  })
-                }}
-              </Query>
-            </div>
-          )
-        }}/>
+                return data.allPosts.map((post, index) => {
+                  return (
+                    <p key={`post-${index}`}>{post.title}</p>
+                  )
+                })
+              }}
+            </Query>
+          </div>
+        )}
+      </AnimationWrapper>
     )
   }
 }

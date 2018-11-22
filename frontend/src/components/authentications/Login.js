@@ -57,9 +57,8 @@ class Login extends React.Component {
     return (
       <AnimationWrapper
         classNames="fade"
-        shouldShow={this.state.in}
-        render={() => {
-          return (
+        shouldShow={this.state.in}>
+          {() => (
             <main className='grid-container'>
               <div className='grid-x grid-margin-x align-middle login-form-container'>
                 
@@ -122,8 +121,8 @@ class Login extends React.Component {
 
               </div>
             </main>
-          )
-        }}/>
+          )}
+      </AnimationWrapper>
     )
   }
 

@@ -4,14 +4,13 @@ import CSSTransition from 'react-transition-group/CSSTransition'
 class AnimationWrapper extends React.Component {
 
   render() {
-    const { shouldShow, timeout, classNames } = this.props
     return (
       <CSSTransition
-        timeout={timeout || 400}
-        classNames={classNames}
-        in={shouldShow}>
+        timeout={this.props.timeout || 400}
+        classNames={this.props.classNames}
+        in={this.props.shouldShow}>
 
-        {this.props.render()}
+        {this.props.children}
 
       </CSSTransition>
     )
