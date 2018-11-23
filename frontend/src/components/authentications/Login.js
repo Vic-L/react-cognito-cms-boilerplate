@@ -24,7 +24,6 @@ class Login extends React.Component {
 
     this.state = {
       checkedAuthentication: false,
-      in: true,
       submittedFormBefore: false,
       formObject: {
         email: '',
@@ -41,10 +40,6 @@ class Login extends React.Component {
     .catch(err => {
       this.setState({ checkedAuthentication: true })
     })
-  }
-
-  componentWillUnmount() {
-    this.setState({in: false})
   }
 
   render() {
