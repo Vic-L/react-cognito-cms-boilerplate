@@ -6,7 +6,7 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 
 import * as ContentLoaders from '_contentLoaders'
-import TransitionWrapper from '_animations/TransitionWrapper'
+import TransitionWrapper from '_transitions/TransitionWrapper'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const SelectField = React.lazy(() => import('_inputs/SelectField'))

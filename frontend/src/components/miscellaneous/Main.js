@@ -7,8 +7,8 @@ import CSSTransition from 'react-transition-group/CSSTransition'
 
 import requireAuth from '_hocs/requireAuth'
 
-import TransitionGroupWrapper from '_animations/TransitionGroupWrapper'
-import TransitionWrapper from '_animations/TransitionWrapper'
+import TransitionGroupWrapper from '_transitions/TransitionGroupWrapper'
+import TransitionWrapper from '_transitions/TransitionWrapper'
 import Sidebar from '_sidebar/Sidebar'
 import Dashboard from '_miscellaneous/Dashboard'
 import Form from '_inputs/Form'

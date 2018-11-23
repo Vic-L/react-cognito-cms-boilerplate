@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator'
 const Card = React.lazy(() => import('_cards/Card'))
 const DismissableCard = React.lazy(() => import('_cards/DismissableCard'))
 
-import TransitionWrapper from '_animations/TransitionWrapper'
+import TransitionWrapper from '_transitions/TransitionWrapper'
 
 // Delete this component
 class Cards extends React.Component {

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 import * as ContentLoaders from '_contentLoaders'
 
-import TransitionWrapper from '_animations/TransitionWrapper'
+import TransitionWrapper from '_transitions/TransitionWrapper'
 
 import Auth from '@aws-amplify/auth'
 

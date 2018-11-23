@@ -2,7 +2,7 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
-import TransitionWrapper from '_animations/TransitionWrapper'
+import TransitionWrapper from '_transitions/TransitionWrapper'
 
 const getPostsQuery = gql`
   query getPosts($count: Int!) {

@@ -5,7 +5,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 import CSSTransition from 'react-transition-group/CSSTransition'
 
-import TransitionGroupWrapper from '_animations/TransitionGroupWrapper'
+import TransitionGroupWrapper from '_transitions/TransitionGroupWrapper'
 import AlertModal from '_miscellaneous/AlertModal'
 import Main from '_miscellaneous/Main'
 import Login from '_authentications/Login'
