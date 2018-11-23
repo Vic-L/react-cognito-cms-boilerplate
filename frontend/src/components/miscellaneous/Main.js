@@ -36,7 +36,7 @@ const Main = ({
                   <TransitionGroup>
                     <CSSTransition
                       key={transitionComponentKey}
-                      timeout={500}
+                      timeout={Number(TRANSITION_TIMEOUT)}
                       classNames="fade"
                       appear>
 

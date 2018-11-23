@@ -19,7 +19,7 @@ const App = ({ dispatch, location }) => {
         <TransitionGroup>
           <CSSTransition
             key={transitionComponentKey}
-            timeout={500}
+            timeout={Number(TRANSITION_TIMEOUT)}
             classNames='fade'
             appear>
             <Switch location={location}>
