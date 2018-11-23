@@ -122,13 +122,14 @@ class Login extends React.Component {
   }
 
   @autobind
-  login() {
+  async login() {
     const { formObject } = this.state
 
     if (ValidateFormObject('login', formObject)) {
       this.props.requestLogin()
-      Auth.signIn(formObject.email, formObject.password)
-      .then((user) => {
+      try {
+        const user = await Auth.signIn(formObject.email, formObject.password)
+
         switch(user.challengeName) {
           case 'NEW_PASSWORD_REQUIRED':
             Auth.completeNewPassword(user, formObject.password, user.challengeParam.requiredAttributes)
@@ -144,10 +145,9 @@ class Login extends React.Component {
             this.props.succeedLogin()
             this.props.history.push("/")
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         this.props.failLogin(err.message || err)
-      })
+      }
     }
   }
 
