@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
 import * as ContentLoaders from '_contentLoaders'
 
@@ -10,13 +11,19 @@ import TransitionWrapper from '_transitions/TransitionWrapper'
 
 import Auth from '@aws-amplify/auth'
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
-const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
-
 import ValidateField from '_services/ValidateField'
 import ValidateFormObject from '_services/ValidateFormObject'
 
 import SelectLoading from '_selectors/SelectLoading'
+
+const TextField = React.lazy(() => import('_inputs/TextField'))
+const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
+
+const Logo = styled.img`
+  margin: auto;
+  display: block;
+  margin-bottom: 1rem;
+`
 
 class Login extends React.Component {
   constructor(props) {
@@ -50,12 +57,12 @@ class Login extends React.Component {
 
     return (
       <main className='grid-container'>
-        <div className='grid-x grid-margin-x align-middle login-form-container'>
+        <div className='grid-x grid-margin-x align-middle'>
           
           <div className='cell auto'/>
           
           <div className='cell small-6'>
-            <img src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c' className='logo'/>
+            <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
             <div className='grid-x grid-margin-x align-middle'>
               <div className='cell'>

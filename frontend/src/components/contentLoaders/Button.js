@@ -6,6 +6,7 @@ import { shimmerKeyframe } from '_contentLoaders'
 const Button = styled.div`
   height: 40px;
   width: 150px;
+  margin: auto;
   position: relative;
   margin-bottom: 1rem;
   background: ${PRIMARY_COLOR};
