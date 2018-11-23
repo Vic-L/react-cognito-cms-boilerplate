@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator'
 const Card = React.lazy(() => import('_cards/Card'))
 const DismissableCard = React.lazy(() => import('_cards/DismissableCard'))
 
-import AnimationWrapper from '_animationWrappers/AnimationWrapper'
+import TransitionWrapper from '_animations/TransitionWrapper'
 
 // Delete this component
 class Cards extends React.Component {
@@ -12,7 +12,6 @@ class Cards extends React.Component {
     super(props)
 
     this.state = {
-      in: true,
       cards: [
         <React.Suspense fallback={<div></div>}>
           <Card key='card1' cellSize={6}>
@@ -32,29 +31,20 @@ class Cards extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.setState({in: false})
-  }
-
   render() {
     return(
-      <AnimationWrapper
-        classNames="fade"
-        shouldShow={this.state.in}>
-        {() => (
-          <React.Fragment>
-            <div className="grid-container">
-              <h2>Cards</h2>
-              <div className='grid-x grid-margin-x'>
-                {this.renderCards()}
-              </div>
-            </div>
-          </React.Fragment>
-        )}
-      </AnimationWrapper>
+      <React.Fragment>
+        <div className="grid-container">
+          <h2>Cards</h2>
+          <div className='grid-x grid-margin-x'>
+            {this.renderCards()}
+          </div>
+        </div>
+      </React.Fragment>
     )
   }
 
+  @autobind
   renderCards() {
     return this.state.cards
   }
@@ -67,4 +57,4 @@ class Cards extends React.Component {
   }
 }
 
-export default Cards
+export default TransitionWrapper(Cards)

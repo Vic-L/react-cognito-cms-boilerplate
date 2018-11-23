@@ -2,7 +2,7 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
-import AnimationWrapper from '_animationWrappers/AnimationWrapper'
+import TransitionWrapper from '_animations/TransitionWrapper'
 
 const getPostsQuery = gql`
   query getPosts($count: Int!) {
@@ -13,52 +13,32 @@ const getPostsQuery = gql`
   }
 `
 
-class Dashboard extends React.Component {
-  constructor(props) {
-    super(props)
+const Dashboard = () => {
+  return(
+    <div>
+      <h1>GRAPHQL Posts</h1>
+      <Query
+        fetchPolicy='network-only'
+        query={getPostsQuery}
+        variables={{ count: 10 }}>
 
-    this.state = {
-      in: true,
-    }
-  }
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading..."</p>;
+          if (error) return <p>Error! {error.message}</p>;
 
-  componentWillUnmount() {
-    this.setState({in: false})
-  }
+          if (_.isNil(data.allPosts)) {
+            return <p>No posts!</p>
+          }
 
-  render() {
-    return(
-      <AnimationWrapper
-        classNames="fade"
-        shouldShow={this.state.in}>
-        {() => (
-          <div>
-            <h1>GRAPHQL Posts</h1>
-            <Query
-              fetchPolicy='network-only'
-              query={getPostsQuery}
-              variables={{ count: 10 }}>
-
-              {({ loading, error, data }) => {
-                if (loading) return <p>Loading..."</p>;
-                if (error) return <p>Error! {error.message}</p>;
-
-                if (_.isNil(data.allPosts)) {
-                  return <p>No posts!</p>
-                }
-
-                return data.allPosts.map((post, index) => {
-                  return (
-                    <p key={`post-${index}`}>{post.title}</p>
-                  )
-                })
-              }}
-            </Query>
-          </div>
-        )}
-      </AnimationWrapper>
-    )
-  }
+          return data.allPosts.map((post, index) => {
+            return (
+              <p key={`post-${index}`}>{post.title}</p>
+            )
+          })
+        }}
+      </Query>
+    </div>
+  )
 }
 
-export default Dashboard
+export default TransitionWrapper(Dashboard)
