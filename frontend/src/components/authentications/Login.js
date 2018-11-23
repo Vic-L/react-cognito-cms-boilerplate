@@ -32,14 +32,13 @@ class Login extends React.Component {
     }
   }
 
-  componentDidMount() {
-    Auth.currentSession()
-    .then(session => {
+  async componentDidMount() {
+    try {
+      const session = await Auth.currentSession()
       this.props.history.push('/')
-    })
-    .catch(err => {
+    } catch (err) {
       this.setState({ checkedAuthentication: true })
-    })
+    }
   }
 
   render() {
