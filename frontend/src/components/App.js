@@ -11,7 +11,8 @@ import Main from '_miscellaneous/Main'
 import Login from '_authentications/Login'
 
 const App = ({ dispatch, location }) => {
-  const transitionComponentKey = location.pathname.split('/')[1] || '/'
+  const transitionComponentKey = location.pathname === 'login' ? 'login' : 'main'
+
   return (
     <div>
       <AlertModal/>
