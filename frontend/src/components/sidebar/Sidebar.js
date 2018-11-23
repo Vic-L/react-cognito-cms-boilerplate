@@ -2,13 +2,68 @@ import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import Auth from '@aws-amplify/auth'
-
+import styled, { css } from 'styled-components'
 import * as ContentLoaders from '_contentLoaders'
 
 const SidebarOption = React.lazy(() => import('_sidebar/SidebarOption'))
 const SidebarOptionWithDropdown = React.lazy(() => import('_sidebar/SidebarOptionWithDropdown'))
 const Button = React.lazy(() => import('_buttons/Button'))
-const ImageButton = React.lazy(() => import('_buttons/ImageButton'))
+
+const SidebarContainer = styled.div`
+  width: 16.66666667%;
+  display: block;
+  height: 100vh;
+  position: fixed;
+  transition: margin 350ms ease-in-out;
+  z-index: 1;
+  margin-left: ${props => props.isShown ? '0' : '-16.66666667%'}
+`
+
+const SidebarBackground = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: ${PRIMARY_COLOR};
+  opacity: 0.9;
+  z-index: -1;
+`
+
+const SidebarWrapper = styled.div`
+  position: relative
+  height: 100%
+  overflow-y: scroll
+`
+
+const SidebarTopSection = styled.div`
+  padding: 20px
+`
+
+const SidebarButton = styled.div`
+  border-radius: 5000px;
+  background-color: ${PRIMARY_COLOR};
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+  position: absolute;
+  left: ${props => props.isShown ? '0' : '100%'};
+  width: 44px;
+  height: 44px;
+  margin-left: ${props => props.isShown ? 'calc(100% - 22px)' : '-22px'};
+  top: 50%;
+  border: 1px ${SECONDARY_COLOR} solid;
+  text-align: center;
+  &:hover {
+    background-color: ${SECONDARY_COLOR};
+    opacity: 1;
+  }
+`
+
+const SidebarButtonContent = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -29,16 +84,16 @@ class Sidebar extends React.Component {
     const { isShown } = this.state
 
     return (
-      <div className={`sidebar ${isShown ? '' : 'inactive'}`}>
-        <div className='sidebar-background'/>
-        <div className='sidebar-container'>
-          <div className='top-section'>
+      <SidebarContainer isShown={isShown}>
+        <SidebarBackground/>
+        <SidebarWrapper>
+          <SidebarTopSection>
             <React.Suspense fallback={<ContentLoaders.Button/>}>
               <Button onClick={this.onLogout}>
                 Logout
               </Button>
             </React.Suspense>
-          </div>
+          </SidebarTopSection>
           <React.Suspense fallback={<div/>}>
             <SidebarOption
               text="Dashboard"
@@ -78,17 +133,18 @@ class Sidebar extends React.Component {
                 }
               ]}/>
           </React.Suspense>
-        </div>
+        </SidebarWrapper>
 
-        <React.Suspense fallback={<div></div>}>
-          <ImageButton
-            className='sidebar-button'
-            imageUri='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'
-            onClick={() =>{
-              this.setState({ isShown: !isShown })
-            }}/>
-        </React.Suspense>
-      </div>
+        <SidebarButton
+          isShown={isShown}
+          onClick={() =>{
+            this.setState({ isShown: !isShown })
+          }}>
+          <SidebarButtonContent>
+            <img src='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'/>
+          </SidebarButtonContent>
+        </SidebarButton>
+      </SidebarContainer>
     )
   }
 

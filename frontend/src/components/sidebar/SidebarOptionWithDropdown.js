@@ -1,6 +1,36 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import autobind from 'autobind-decorator'
+import styled from 'styled-components'
+
+const SidebarOptionContainer = React.lazy(() => import('_sidebar/SidebarOptionContainer'))
+const SidebarLink = React.lazy(() => import('_sidebar/SidebarLink'))
+
+const SidebarDropdownChevron = styled.img`
+  position: absolute;
+  margin-left: 5%;
+  transition: transform 350ms ease-in-out;
+`
+
+const SidebarDropdownLink = styled.div`
+  color: white;
+  width: 100%;
+  display: block;
+  padding: 1rem;
+  cursor: pointer;
+  &:hover ${SidebarDropdownChevron} {
+    transform: rotate(180deg)
+  }
+`
+
+const SidebarOptionDropdownContainer = styled(SidebarOptionContainer)`
+  &:hover ${SidebarDropdownChevron} {
+    transform: rotate(180deg)
+  }
+`
+
+const SidebarSubLink = styled(SidebarLink)`
+  margin-left: 1rem;
+`
 
 class SidebarOptionWithDropdown extends React.Component {
   constructor(props) {
@@ -13,51 +43,55 @@ class SidebarOptionWithDropdown extends React.Component {
 
   render() {
     return (
-      <div className='sidebar-option with-dropdown'onMouseEnter={this.toggleRevealDropdown}
-        onMouseLeave={this.toggleRevealDropdown}>
+      <React.Suspense fallback={<div/>}>
+        <SidebarOptionDropdownContainer
+          onMouseEnter={this.toggleRevealDropdown}
+          onMouseLeave={this.toggleRevealDropdown}>
 
-        {
-          this.props.dst ? (
-            <Link className='sidebar-link' to={this.props.dst}>
-              {this.props.text}
+          {
+            this.props.dst ? (
+              <React.Suspense fallback={<div/>}>
+                <SidebarLink to={this.props.dst}>
+                  {this.props.text}
 
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
-            </Link>
-          ) : (
-            <div className='sidebar-link'>
-              {this.props.text}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
-            </div>
-          )
-        }
-        
-        {
-          this.state.revealDropdown ? (
-            this.getDropdown()
-          ) : null
-        }
-      </div>
+                  <SidebarDropdownChevron src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg"/>
+                </SidebarLink>
+              </React.Suspense>
+            ) : (
+              <React.Suspense fallback={<div/>}>
+                <SidebarDropdownLink>
+                  {this.props.text}
+                  <SidebarDropdownChevron src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg"/>
+                </SidebarDropdownLink>
+              </React.Suspense>
+            )
+          }
+          
+          {
+            this.state.revealDropdown ? (
+              this.getDropdown()
+            ) : null
+          }
+        </SidebarOptionDropdownContainer>
+      </React.Suspense>
     )
   }
 
   @autobind
   getDropdown() {
-    const dropdown = this.props.dropdown.map((option, index) => {
+    return this.props.dropdown.map((option, index) => {
       return (
-        <Link
-          className='sidebar-dropdown-option'
-          to={option.dst}
-          key={`option-${index}`}>
-          {option.text}
-        </Link>
+        <React.Suspense key={`dropdown-option-suspense-${index}`} fallback={<div key={`dropdown-option-placeholder-${index}`}/>}>
+          <SidebarSubLink
+            key={`dropdown-option-${index}`}
+            to={option.dst}>
+            
+            {option.text}
+
+          </SidebarSubLink>
+        </React.Suspense>
       )
     })
-
-    return (
-      <div className='sidebar-dropdown'>
-        {dropdown}
-      </div>
-    )
   }
 
   @autobind
