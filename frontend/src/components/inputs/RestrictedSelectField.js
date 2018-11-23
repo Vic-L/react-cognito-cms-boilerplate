@@ -7,6 +7,8 @@ import PropTypes from 'prop-types'
 import { InputField } from '_contentLoaders'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
+const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
+const DropdownChevron = React.lazy(() => import('_inputs/DropdownChevron'))
 
 class RestrictedSelectField extends React.Component {
   constructor(props) {
@@ -41,26 +43,31 @@ class RestrictedSelectField extends React.Component {
     }
 
     return (
-      <div className='select-container'>
-        <div className='select-field'>
-          <React.Suspense fallback={<InputField/>}>
-            <TextField
-              name={this.props.name}
-              placeholder={this.props.placeholder}
-              type={this.props.type}
-              label={this.props.label}
-              error={this.props.error}
-              value={this.renderOptionLabel()}
-              onChange={this.props.onChange}/>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg" className="dropdown-chevron"/>
-          </React.Suspense>
-        </div>
-        <Select
-          styles={selectStyle}
-          value={this.renderOptionValue()}
-          onChange={this.onSelectOption}
-          options={this.props.selectableOptions}/>
-      </div>
+      <React.Suspense fallback={<InputField/>}>
+        <SelectContainer>
+          <div>
+            <React.Suspense fallback={<InputField/>}>
+              <TextField
+                name={this.props.name}
+                placeholder={this.props.placeholder}
+                type={this.props.type}
+                label={this.props.label}
+                error={this.props.error}
+                value={this.renderOptionLabel()}
+                onChange={this.props.onChange}/>
+              <React.Suspense fallback={null}>
+                <DropdownChevron
+                  src='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'/>
+              </React.Suspense>
+            </React.Suspense>
+          </div>
+          <Select
+            styles={selectStyle}
+            value={this.renderOptionValue()}
+            onChange={this.onSelectOption}
+            options={this.props.selectableOptions}/>
+        </SelectContainer>
+      </React.Suspense>
     )
   }
 
