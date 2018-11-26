@@ -7,7 +7,6 @@ const Button = styled.div`
   padding: 1rem;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   font-family: inherit;
-  font-size: 0.9rem;
   -webkit-appearance: none;
   line-height: 1;
   text-align: center;
