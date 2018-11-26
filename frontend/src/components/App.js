@@ -14,7 +14,7 @@ const App = ({ dispatch, location }) => {
   const transitionComponentKey = location.pathname === 'login' ? 'login' : 'main'
 
   return (
-    <div>
+    <React.Fragment>
       <AlertModal/>
       <TransitionGroupWrapper>
         <TransitionGroup>
@@ -36,7 +36,7 @@ const App = ({ dispatch, location }) => {
           </CSSTransition>
         </TransitionGroup>
       </TransitionGroupWrapper>
-    </div>
+    </React.Fragment>
   )
 }
 
