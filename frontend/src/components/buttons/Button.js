@@ -5,8 +5,6 @@ const Button = styled.div`
   margin: auto;
   vertical-align: middle;
   padding: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
   font-family: inherit;
   font-size: 0.9rem;

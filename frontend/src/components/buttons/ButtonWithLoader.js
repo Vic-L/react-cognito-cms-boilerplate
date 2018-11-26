@@ -55,7 +55,7 @@ const ButtonWithLoader = ({
         onClick={onClick}
         className='ladda-button'
         style={{
-          border: 0,
+          borderRadius: '0.25rem',
           paddingTop: '1rem',
           paddingBottom: '1rem',
           paddingRight: '1rem',
