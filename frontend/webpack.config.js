@@ -50,8 +50,8 @@ module.exports = {
                 `$secondary-color: ${SECONDARY_COLOR};` +
                 `$alternative-color: ${ALTERNATIVE_COLOR};` +
                 `$error-color: ${ERROR_COLOR};` +
-                `$body-font: ${PRIMARY_FONT};` + 
-                `$header-font: ${SECONDARY_FONT};`
+                `$primary-font: ${PRIMARY_FONT};` + 
+                `$secondary-font: ${SECONDARY_FONT};`
             }
           }
         ],
