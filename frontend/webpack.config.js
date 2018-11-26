@@ -8,6 +8,14 @@ const pathsToClean = ["dist"]
 const cleanOptions = {}
 const Dotenv = require('dotenv-webpack')
 
+const PRIMARY_COLOR = '#E92430'
+const SECONDARY_COLOR = 'mediumseagreen'
+const ALTERNATIVE_COLOR = 'mediumseagreen'
+const ERROR_COLOR = '#CD3C14'
+const TRANSITION_TIMEOUT = '350'
+const PRIMARY_FONT = 'Karla'
+const SECONDARY_FONT = 'Montserrat'
+
 module.exports = {
   entry: [
     './src/index.js',
@@ -30,14 +38,24 @@ module.exports = {
       // custom stylesheets
       {
         test: /\.sass$/,
-        use: ["style-loader", "css-loader", "resolve-url-loader", "sass-loader"]
+        use: [
+          {loader: "style-loader"},
+          {loader: "css-loader"},
+          {loader: "resolve-url-loader"},
+          {
+            loader: "sass-loader",
+            options: {
+              data: 
+                `$primary-color: ${PRIMARY_COLOR};` +
+                `$secondary-color: ${SECONDARY_COLOR};` +
+                `$alternative-color: ${ALTERNATIVE_COLOR};` +
+                `$error-color: ${ERROR_COLOR};` +
+                `$body-font: ${PRIMARY_FONT};` + 
+                `$header-font: ${SECONDARY_FONT};`
+            }
+          }
+        ],
       },
-
-      // font-awesome
-      // {
-      //   test: /(font-awesome)+.scss?$/,
-      //   use: ["style-loader", "css-loader", "sass-loader"]
-      // },
     ]
   },
 
@@ -50,11 +68,12 @@ module.exports = {
       filename: "../index.html"
     }),
     new webpack.DefinePlugin({
-      PRIMARY_COLOR: JSON.stringify('#E92430'),
-      SECONDARY_COLOR: JSON.stringify('mediumseagreen'),
-      ERROR_COLOR: JSON.stringify('#CD3C14'),
-      TRANSITION_TIMEOUT: JSON.stringify('350'),
-      PRIMARY_FONT: JSON.stringify('Karla'),
+      PRIMARY_COLOR: JSON.stringify(PRIMARY_COLOR),
+      SECONDARY_COLOR: JSON.stringify(SECONDARY_COLOR),
+      ERROR_COLOR: JSON.stringify(ERROR_COLOR),
+      TRANSITION_TIMEOUT: JSON.stringify(TRANSITION_TIMEOUT),
+      PRIMARY_FONT: JSON.stringify(PRIMARY_FONT),
+      SECONDARY_FONT: JSON.stringify(SECONDARY_FONT),
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
