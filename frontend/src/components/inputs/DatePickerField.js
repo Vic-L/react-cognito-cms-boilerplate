@@ -4,11 +4,15 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import autobind from 'autobind-decorator'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import momentPropTypes from 'react-moment-proptypes'
 
 import { InputField } from '_contentLoaders'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
+const DatePickerContainer = styled.div`
+  position: relative;
+`
 
 class DatePickerField extends React.Component {
   render() {
@@ -34,7 +38,7 @@ class DatePickerField extends React.Component {
     }
 
     return (
-      <div className='date-picker-container'>
+      <DatePickerContainer>
         <React.Suspense fallback={<InputField/>}>
           <TextField
             name={this.props.name}
@@ -52,7 +56,7 @@ class DatePickerField extends React.Component {
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}/>
         </React.Suspense>
-      </div>
+      </DatePickerContainer>
     )
   }
 
