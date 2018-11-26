@@ -11,6 +11,7 @@ const SidebarLink = styled(Link)`
   &:hover {
     color: ${SECONDARY_COLOR}
   }
+  text-decoration: none;
 `
 
 export default SidebarLink
