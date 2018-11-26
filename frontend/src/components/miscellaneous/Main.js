@@ -23,8 +23,6 @@ const Main = ({
   dispatch,
   history
 }) => {
-  const transitionComponentKey = location.pathname.split('/')[1] || '/'
-
   return(
     <React.Fragment>
       <Sidebar dispatch={dispatch} history={history}/>
@@ -37,7 +35,7 @@ const Main = ({
         <TransitionGroupWrapper>
           <TransitionGroup>
             <CSSTransition
-              key={transitionComponentKey}
+              key={`Main_${location.pathname}`}
               timeout={Number(TRANSITION_TIMEOUT)}
               classNames="fade"
               appear>
