@@ -11,7 +11,7 @@ import Main from '_miscellaneous/Main'
 import Login from '_authentications/Login'
 
 const App = ({ dispatch, location }) => {
-  const transitionComponentKey = location.pathname === 'login' ? 'login' : 'main'
+  const transitionComponentKey = location.pathname === '/login' ? 'login' : 'main'
 
   return (
     <React.Fragment>
