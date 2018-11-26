@@ -34,7 +34,6 @@
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "file-loader": "^2.0.0",
-    "foundation-sites": "^6.5.0-rc.4",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "haml-jsx-loader": "^1.0.2",

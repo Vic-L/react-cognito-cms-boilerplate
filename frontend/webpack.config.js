@@ -38,14 +38,6 @@ module.exports = {
       //   test: /(font-awesome)+.scss?$/,
       //   use: ["style-loader", "css-loader", "sass-loader"]
       // },
-      
-      //** foundation; should not be using foundation js
-      // {
-      //   test: /(foundation)+.*\.js$/,
-      //   use: "babel-loader",
-      //   exclude: path.join(__dirname, "src"),
-      //   include: /node_modules/,
-      // },
     ]
   },
 
