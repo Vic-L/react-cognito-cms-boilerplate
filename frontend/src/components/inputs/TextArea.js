@@ -16,6 +16,7 @@ const TextAreaInput = styled.textarea`
   margin-bottom: 0;
   border-radius: 5px;
   border: 1px solid ${props => props.theme.borderColor};
+  box-sizing: border-box;
 `
 
 const errorTheme = {
