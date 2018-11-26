@@ -30,7 +30,10 @@ const Main = ({
       <Sidebar dispatch={dispatch} history={history}/>
       <Box
         width={1}
-        px='3rem'>
+        px='3rem'
+        css={{
+          fontFamily: PRIMARY_FONT
+        }}>
         <TransitionGroupWrapper>
           <TransitionGroup>
             <CSSTransition

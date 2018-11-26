@@ -10,7 +10,7 @@ const CheckboxContainer = styled.label`
 const CheckboxImage = styled.img`
   display: inline-block;
   width: 1rem;
-  margin-right: 0.25rem
+  margin-right: 0.25rem;
 `
 
 const CheckboxText = styled.span`

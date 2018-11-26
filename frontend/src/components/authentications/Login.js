@@ -57,7 +57,12 @@ class Login extends React.Component {
     const { formObject, submittedFormBefore } = this.state
 
     return (
-      <Box width={1/3} mx='auto'>
+      <Box
+        width={1/3}
+        mx='auto'
+        css={{
+          fontFamily: PRIMARY_FONT
+        }}>
 
         <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
