@@ -65,6 +65,11 @@ const SidebarButtonContent = styled.div`
   height: 100%;
 `
 
+const SidebarButtonImage = styled.img`
+  max-width:100%;
+  max-height:100%;
+`
+
 class Sidebar extends React.Component {
   constructor(props) {
     super(props)
@@ -141,7 +146,7 @@ class Sidebar extends React.Component {
             this.setState({ isShown: !isShown })
           }}>
           <SidebarButtonContent>
-            <img src='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'/>
+            <SidebarButtonImage src='https://cdn1.iconfinder.com/data/icons/simple-icons/4096/github-4096-black.png'/>
           </SidebarButtonContent>
         </SidebarButton>
       </SidebarContainer>
