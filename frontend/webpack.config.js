@@ -62,6 +62,7 @@ module.exports = {
       SECONDARY_COLOR: JSON.stringify('mediumseagreen'),
       ERROR_COLOR: JSON.stringify('#CD3C14'),
       TRANSITION_TIMEOUT: JSON.stringify('350'),
+      PRIMARY_FONT: JSON.stringify('Karla'),
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'

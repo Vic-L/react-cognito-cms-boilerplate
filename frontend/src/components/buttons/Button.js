@@ -4,7 +4,7 @@ const Button = styled.div`
   text-align: center;
   margin: auto;
   vertical-align: middle;
-  padding: 0.85em 1em;
+  padding: 1rem;
   border: 1px solid transparent;
   border-radius: 0;
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
@@ -18,6 +18,7 @@ const Button = styled.div`
   color: white;
   display: inline-block;
   border-radius: 0.25rem;
+  font-size: 1rem;
   &:hover {
     background-color: ${SECONDARY_COLOR};
   }

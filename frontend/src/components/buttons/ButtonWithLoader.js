@@ -55,13 +55,16 @@ const ButtonWithLoader = ({
         onClick={onClick}
         className='ladda-button'
         style={{
-          paddingTop: '0.85em',
-          paddingBottom: '0.85em',
-          paddingRight: '1em',
-          paddingLeft: isLoading ? '' : '1em',
+          border: 0,
+          paddingTop: '1rem',
+          paddingBottom: '1rem',
+          paddingRight: '1rem',
+          paddingLeft: isLoading ? '' : '1rem',
           color: 'inherit',
           cursor: 'inherit',
-          backgroundColor: 'none',
+          backgroundColor: 'inherit',
+          fontFamily: PRIMARY_FONT,
+          fontSize: '1rem',
           ...style
         }}
         {...others}>

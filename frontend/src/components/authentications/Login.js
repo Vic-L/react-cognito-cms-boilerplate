@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
+import { Box } from '@rebass/grid'
 
 import * as ContentLoaders from '_contentLoaders'
 
@@ -56,68 +57,63 @@ class Login extends React.Component {
     const { formObject, submittedFormBefore } = this.state
 
     return (
-      <main className='grid-container'>
-        <div className='grid-x grid-margin-x align-middle'>
-          
-          <div className='cell auto'/>
-          
-          <div className='cell small-6'>
-            <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
+      <Box width={1/3} mx='auto'>
 
-            <div className='grid-x grid-margin-x align-middle'>
-              <div className='cell'>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                  <TextField
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    label="Email"
-                    error={ValidateField('login-email', formObject.email, submittedFormBefore)}
-                    value={formObject.email}
-                    onChange={this.onChangeEmail}/>
-                </React.Suspense>
-              </div>
-            </div>
+        <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
-            <div className='grid-x grid-margin-x align-middle'>
-              <div className='cell'>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                  <TextField
-                    name="password"
-                    placeholder="Password"
-                    label="Password"
-                    type="password"
-                    error={ValidateField('login-password', formObject.password, submittedFormBefore)}
-                    value={formObject.password}
-                    onChange={this.onChangePassword}/>
-                </React.Suspense>
-              </div>
-            </div>
+        <Box
+          width={1}
+          alignSelf='center'>
+          <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <TextField
+              name="email"
+              placeholder="Email"
+              type="text"
+              label="Email"
+              error={ValidateField('login-email', formObject.email, submittedFormBefore)}
+              value={formObject.email}
+              onChange={this.onChangeEmail}/>
+          </React.Suspense>
+        </Box>
 
-            <div className='grid-x grid-margin-x align-middle text-center'>
-              <div className='cell'>
-                <React.Suspense fallback={<ContentLoaders.Button/>}>
-                  <ButtonWithLoader
-                    isLoading={this.props.isLoggingIn}
-                    text="Login"
-                    onClick={() => {
-                      if (!this.state.submittedFormBefore) {
-                        this.setState({
-                          submittedFormBefore: true,
-                        }, this.login)
-                      } else {
-                        this.login()
-                      }
-                    }}/>
-                </React.Suspense>
-              </div>
-            </div>
-          </div>
+        <Box
+          width={1}
+          alignSelf='center'>
+          <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <TextField
+              name="password"
+              placeholder="Password"
+              label="Password"
+              type="password"
+              error={ValidateField('login-password', formObject.password, submittedFormBefore)}
+              value={formObject.password}
+              onChange={this.onChangePassword}/>
+          </React.Suspense>
+        </Box>
+      
+        <Box
+          width={1}
+          alignSelf='center'
+          css={{
+            textAlign: 'center'
+          }}>
+          <React.Suspense fallback={<ContentLoaders.Button/>}>
+            <ButtonWithLoader
+              isLoading={this.props.isLoggingIn}
+              text="Login"
+              onClick={() => {
+                if (!this.state.submittedFormBefore) {
+                  this.setState({
+                    submittedFormBefore: true,
+                  }, this.login)
+                } else {
+                  this.login()
+                }
+              }}/>
+          </React.Suspense>
+        </Box>
 
-          <div className='cell auto'/>
-
-        </div>
-      </main>
+      </Box>
     )
   }
 

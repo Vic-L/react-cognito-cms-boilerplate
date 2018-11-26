@@ -1,28 +1,37 @@
 import React from 'react'
 import { Line, Pie } from 'react-chartjs-2'
+import { Flex, Box } from '@rebass/grid'
+
+const Card = React.lazy(() => import('_cards/Card'))
 
 class Charts extends React.Component {
   render() {
     return (
-      <div className="grid-container">
-        <h2>Charts</h2>
-        <div className='grid-x grid-margin-x'>
-          <div className='cell medium-6'>
-            <div className='chart'>
-              <Line
-                data={this.getLineChartData()}
-                options={this.getLineChartOptions()}/>
-            </div>
-          </div>
-          <div className='cell medium-6'>
-            <div className='chart'>
-              <Pie
-                data={this.getPieChartData()}
-                options={this.getPieChartOptions()}/>
-            </div>
-          </div>
-        </div>
-      </div>
+      <React.Fragment>
+        <Box width={1} mx='1rem'>
+          <h2>Charts</h2>
+        </Box>
+        <Flex>
+          <Box width={1/2}>
+            <React.Suspense fallback={<div></div>}>
+              <Card>
+                <Line
+                  data={this.getLineChartData()}
+                  options={this.getLineChartOptions()}/>
+              </Card>
+            </React.Suspense>
+          </Box>
+          <Box width={1/2}>
+            <React.Suspense fallback={<div></div>}>
+              <Card>
+                <Pie
+                  data={this.getPieChartData()}
+                  options={this.getPieChartOptions()}/>
+              </Card>
+            </React.Suspense>
+          </Box>
+        </Flex>
+      </React.Fragment>
     )
   }
 
@@ -109,26 +118,18 @@ class Charts extends React.Component {
   }
 
   getPieChartData() {
-    return [
-    {
-      value: 300,
-      color:"#F7464A",
-      highlight: "#FF5A5E",
-      label: "Red"
-    },
-    {
-      value: 50,
-      color: "#46BFBD",
-      highlight: "#5AD3D1",
-      label: "Green"
-    },
-    {
-      value: 100,
-      color: "#FDB45C",
-      highlight: "#FFC870",
-      label: "Yellow"
+    return {
+      datasets: [{
+        data: [10, 20, 30]
+      }],
+
+      // These labels appear in the legend and in the tooltips when hovering different arcs
+      labels: [
+        'Red',
+        'Yellow',
+        'Blue'
+      ]
     }
-    ]
   }
 
   getPieChartOptions() {

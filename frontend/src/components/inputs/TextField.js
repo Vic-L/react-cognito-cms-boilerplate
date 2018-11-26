@@ -20,12 +20,12 @@ const Input = styled(StringInput)`
 const Label = styled.label`;
   position: absolute
   pointer-events: none;
-  top: 13px;
+  top: 1rem;
   right: 10px;
   bottom: auto;
   left: 10px;
   width: calc(100% - (2 * 10px));
-  font-size: 14px;
+  font-size: 1rem;
   color: #999;
   padding: 0;
   box-sizing: border-box;

@@ -149,11 +149,16 @@ const apolloClient = new ApolloClient({
   }
 })
 
+import { Normalize } from 'styled-normalize'
+
 render((
   <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <Router history={history}>
-        <App />
+        <React.Fragment>
+          <Normalize/>
+          <App />
+        </React.Fragment>
       </Router>
     </Provider>
   </ApolloProvider>

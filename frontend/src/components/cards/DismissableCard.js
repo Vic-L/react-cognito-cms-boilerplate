@@ -2,14 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const Card = styled.div`
-  border-radius: 5px
-  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 20px -5px
-  background-color: ${PRIMARY_COLOR}
-  padding: 1rem
-  position: relative
-  margin-bottom: 1rem
-`
+const Card = React.lazy(() => import('_cards/Card'))
 
 const DismissButton = styled.div`
   position: absolute;
@@ -28,19 +21,20 @@ const DismissableCard = ({
   onDismiss,
 }) => {
   return (
-    <Card className={`cell medium-${cellSize}`}>
+    <React.Suspense fallback={<div></div>}>
+      <Card cellSize={1/2}>
+        {children}
 
-      {children}
-
-      {
-        isDismissable ? (
-          <DismissButton
-            onClick={onDismiss}>
-            <span>&times;</span>
-          </DismissButton>
-        ) : null
-      }
-    </Card>
+        {
+          isDismissable ? (
+            <DismissButton
+              onClick={onDismiss}>
+              <span>&times;</span>
+            </DismissButton>
+          ) : null
+        }
+      </Card>
+    </React.Suspense>
   )
 }
 

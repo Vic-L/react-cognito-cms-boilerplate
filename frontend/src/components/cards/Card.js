@@ -1,22 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-
-const _Card = styled.div`
-  border-radius: 5px
-  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 20px -5px
-  background-color: ${PRIMARY_COLOR}
-  padding: 1rem
-`
+import { Box } from '@rebass/grid'
 
 const Card = ({
   cellSize,
   children,
 }) => {
   return (
-    <_Card className={`cell medium-${cellSize}`}>
+    <Box
+      mx='1rem'
+      width={cellSize}
+      css={{
+        borderRadius: '5px',
+        boxShadow: 'rgba(0, 0, 0, 0.75) 0px 0px 20px -5px',
+        padding: '1rem',
+        position: 'relative',
+        marginBottom: '1rem'
+      }}>
       {children}
-    </_Card>
+    </Box>
   )
 }
 

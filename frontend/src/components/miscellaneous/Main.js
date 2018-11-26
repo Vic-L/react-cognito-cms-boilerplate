@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Auth from '@aws-amplify/auth'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 import CSSTransition from 'react-transition-group/CSSTransition'
+import { Box } from '@rebass/grid'
 
 import requireAuth from '_hocs/requireAuth'
 
@@ -25,52 +26,46 @@ const Main = ({
   const transitionComponentKey = location.pathname.split('/')[1] || '/'
 
   return(
-    <div className='grid-container full'>
-      <div className='grid-x'>
-        <Sidebar dispatch={dispatch} history={history}/>
-        <div className='main cell medium-12'>
-          <div className='grid-container'>
-            <div className='grid-x'>
-              <div className='cell medium-12'>
-                <TransitionGroupWrapper>
-                  <TransitionGroup>
-                    <CSSTransition
-                      key={transitionComponentKey}
-                      timeout={Number(TRANSITION_TIMEOUT)}
-                      classNames="fade"
-                      appear>
+    <React.Fragment>
+      <Sidebar dispatch={dispatch} history={history}/>
+      <Box
+        width={1}
+        px='3rem'>
+        <TransitionGroupWrapper>
+          <TransitionGroup>
+            <CSSTransition
+              key={transitionComponentKey}
+              timeout={Number(TRANSITION_TIMEOUT)}
+              classNames="fade"
+              appear>
 
-                      <Switch location={location}>
-                        <Route
-                          path="/"
-                          exact={true}
-                          component={Dashboard}/>
-                        <Route
-                          path="/form"
-                          exact={true}
-                          component={Form}/>
-                        <Route
-                          path="/table"
-                          exact={true}
-                          component={TableScreen}/>
-                        <Route
-                          path="/cards"
-                          exact={true}
-                          component={Cards}/>
-                        <Route
-                          path="/charts"
-                          exact={true}
-                          component={Charts}/>
-                      </Switch>
-                    </CSSTransition>
-                  </TransitionGroup>
-                </TransitionGroupWrapper>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              <Switch location={location}>
+                <Route
+                  path="/"
+                  exact={true}
+                  component={Dashboard}/>
+                <Route
+                  path="/form"
+                  exact={true}
+                  component={Form}/>
+                <Route
+                  path="/table"
+                  exact={true}
+                  component={TableScreen}/>
+                <Route
+                  path="/cards"
+                  exact={true}
+                  component={Cards}/>
+                <Route
+                  path="/charts"
+                  exact={true}
+                  component={Charts}/>
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        </TransitionGroupWrapper>
+      </Box>
+    </React.Fragment>
   )
 }
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import autobind from 'autobind-decorator'
 
+import { Flex, Box } from '@rebass/grid'
+
 const Card = React.lazy(() => import('_cards/Card'))
 const DismissableCard = React.lazy(() => import('_cards/DismissableCard'))
 
@@ -14,7 +16,7 @@ class Cards extends React.Component {
     this.state = {
       cards: [
         <React.Suspense fallback={<div></div>}>
-          <Card key='card1' cellSize={6}>
+          <Card key='card1' cellSize={1/2}>
             <h2>Card</h2>
           </Card>
         </React.Suspense>,
@@ -22,7 +24,7 @@ class Cards extends React.Component {
           <DismissableCard
             key='card2'
             onDismiss={this.onDismiss}
-            cellSize={6}
+            cellSize={1/2}
             isDismissable={true}>
             <h2>Dismissable Card</h2>
           </DismissableCard>
@@ -34,12 +36,12 @@ class Cards extends React.Component {
   render() {
     return(
       <React.Fragment>
-        <div className="grid-container">
+        <Box width={1} mx='1rem'>
           <h2>Cards</h2>
-          <div className='grid-x grid-margin-x'>
-            {this.renderCards()}
-          </div>
-        </div>
+        </Box>
+        <Flex>
+          {this.renderCards()}
+        </Flex>
       </React.Fragment>
     )
   }
