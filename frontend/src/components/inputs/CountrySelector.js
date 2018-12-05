@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { InputField } from '_contentLoaders'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
+const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
 
 class CountrySelector extends React.Component {
   constructor(props) {
@@ -36,29 +37,29 @@ class CountrySelector extends React.Component {
       }),
       control: () => ({
         opacity: 0,
+        height: 50,
+        display: 'flex',
       })
     }
 
     return (
-      <div className='select-container'>
-        <div className='select-field'>
-          <React.Suspense fallback={<InputField/>}>
-            <TextField
-              name={this.props.name}
-              placeholder={this.props.placeholder}
-              type={this.props.type}
-              label={this.props.label}
-              error={this.props.error}
-              value={this.renderOptionLabel()}
-              onChange={this.props.onChange}/>
-          </React.Suspense>
-        </div>
+      <SelectContainer>
+        <React.Suspense fallback={<InputField/>}>
+          <TextField
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            type={this.props.type}
+            label={this.props.label}
+            error={this.props.error}
+            value={this.renderOptionLabel()}
+            onChange={this.props.onChange}/>
+        </React.Suspense>
         <Select
           styles={selectStyle}
           value={this.renderOptionValue()}
           onChange={this.onSelectOption}
           options={this.getCountryCodes()}/>
-      </div>
+      </SelectContainer>
     )
   }
 
