@@ -1,4 +1,5 @@
 import React from 'react'
+import { fromJS } from 'immutable'
 import autobind from 'autobind-decorator'
 import moment from 'moment'
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
@@ -30,7 +31,7 @@ class Form extends React.Component {
     const initialContentBlock = htmlToDraft(initialHTML)
     this.state = {
       isLoading: false,
-      formObject: {
+      formObject: fromJS({
         textAreaWithoutError: null,
         textAreaWithError: null,
         fieldWithNoError: null,
@@ -45,18 +46,18 @@ class Form extends React.Component {
         editorState: EditorState.createEmpty(),
         isMaleChecked: true,
         isFemaleChecked: false,
-      },
+      }),
     }
 
     if (initialContentBlock) {
       const initialContentState = ContentState.createFromBlockArray(initialContentBlock.contentBlocks)
       const initialEditorState = EditorState.createWithContent(initialContentState)
-      this.state.formObject.editorState = initialEditorState
+      this.state.formObject.set('editorState', initialEditorState)
     }
   }
 
   render() {
-    const { formObject, formErrors } = this.state
+    const { formObject } = this.state
 
     return (
       <React.Fragment>
@@ -71,13 +72,13 @@ class Form extends React.Component {
           <React.Suspense fallback={<div/>}>
             <Checkbox
               text="Male"
-              isChecked={formObject.isMaleChecked}
+              isChecked={formObject.get('isMaleChecked')}
               onClick={this.onCheckMale}/>
           </React.Suspense>
           <React.Suspense fallback={<div/>}>
             <Checkbox
               text="Female"
-              isChecked={formObject.isFemaleChecked}
+              isChecked={formObject.get('isFemaleChecked')}
               onClick={this.onCheckFemale}/>
           </React.Suspense>
         </Box>
@@ -89,7 +90,7 @@ class Form extends React.Component {
               placeholder="FieldWithNoError"
               type="text"
               label="FIELDWITHNOERROR"
-              value={formObject.fieldWithNoError}
+              value={formObject.get('fieldWithNoError')}
               error={""}
               onChange={this.onChangeFieldWithNoError}/>
           </React.Suspense>
@@ -100,7 +101,7 @@ class Form extends React.Component {
             <TextArea
               name="textAreaWithoutError"
               placeholder="Enter text here"
-              value={formObject.textAreaWithoutError}
+              value={formObject.get('textAreaWithoutError')}
               error={""}
               onChange={this.onChangeTextAreaWithoutError}/>
           </React.Suspense>
@@ -111,7 +112,7 @@ class Form extends React.Component {
             <TextArea
               name="textAreaWithError"
               placeholder="Enter text here"
-              value={formObject.textAreaWithError}
+              value={formObject.get('textAreaWithError')}
               error={"textAreaWithError"}
               onChange={this.onChangeTextAreaWithError}/>
           </React.Suspense>
@@ -124,7 +125,7 @@ class Form extends React.Component {
               placeholder="FieldWithError"
               type="text"
               label="FIELDWITHERROR"
-              value={formObject.fieldWithError}
+              value={formObject.get('fieldWithError')}
               error={'fieldWithError'}
               onChange={this.onChangeFieldWithError}/>
           </React.Suspense>
@@ -137,7 +138,7 @@ class Form extends React.Component {
               placeholder="SelectFieldWithNoError"
               type="text"
               label="SELECTFIELDWITHNOERROR"
-              value={formObject.selectFieldWithNoError}
+              value={formObject.get('selectFieldWithNoError')}
               error={""}
               options={this.getOptions()}
               onChange={this.onChangeSelectFieldWithNoError}/>
@@ -151,7 +152,7 @@ class Form extends React.Component {
               placeholder="RestrictedSelectField"
               type="text"
               label="RESTRICTEDSELECTFIELD"
-              value={formObject.restrictedSelectField}
+              value={formObject.get('restrictedSelectField')}
               error={""}
               fullOptions={this.getOptions()}
               selectableOptions={[this.getOptions()[0]]}
@@ -168,7 +169,7 @@ class Form extends React.Component {
               label="COUNTRY"
               labelKey="name"
               valueKey="alpha-2"
-              value={formObject.countrySelectorField}
+              value={formObject.get('countrySelectorField')}
               error={""}
               onChange={this.onChangeCountrySelector}/>
           </React.Suspense>
@@ -181,7 +182,7 @@ class Form extends React.Component {
               placeholder="AutoSuggestFieldWithNoError"
               type="text"
               label="AUTOSUGGESTFIELDWITHNOERROR"
-              value={formObject.autoSuggestFieldWithNoError}
+              value={formObject.get('autoSuggestFieldWithNoError')}
               error={""}
               suggestionList={['John', 'Paul', 'George', 'Ringo']}
               onChange={this.onChangeAutoSuggestFieldWithNoError}/>
@@ -195,7 +196,7 @@ class Form extends React.Component {
               placeholder="DatePickerFieldWithNoError"
               type="text"
               label="DATEPICKERFIELDWITHNOERROR"
-              value={formObject.datePickerFieldWithNoError}
+              value={formObject.get('datePickerFieldWithNoError')}
               error={""}
               dateDisplayFormat="YYYY/MM/DD"
               minDate={moment().subtract(2, 'weeks')}
@@ -209,7 +210,7 @@ class Form extends React.Component {
             <FileField
               name="FileFieldWithoutError"
               text="FileFieldWithoutError"
-              file={formObject.fileFieldWithoutError}
+              file={formObject.get('fileFieldWithoutError')}
               error={""}
               onChange={this.onChangeFileFieldWithoutError}/>
           </React.Suspense>
@@ -220,7 +221,7 @@ class Form extends React.Component {
             <FileField
               name="FileFieldWithError"
               text="FileFieldWithError"
-              file={formObject.fileFieldWithError}
+              file={formObject.get('fileFieldWithError')}
               error={"This field is required"}
               onChange={this.onChangeFileFieldWithError}/>
           </React.Suspense>
@@ -230,7 +231,7 @@ class Form extends React.Component {
           <Box width={1/2}>
             <React.Suspense fallback={<div/>}>
               <WYSIWYG
-                editorState={formObject.editorState}
+                editorState={formObject.get('editorState')}
                 onEditorStateChange={this.onEditorStateChange}
                 toolbar={{
                   image: {
@@ -246,7 +247,7 @@ class Form extends React.Component {
           <Box width={1/2}>
             <textarea
               disabled
-              value={draftToHtml(convertToRaw(formObject.editorState.getCurrentContent()))}/>
+              value={draftToHtml(convertToRaw(formObject.get('editorState').getCurrentContent()))}/>
           </Box>
         </Box>
 
@@ -285,134 +286,100 @@ class Form extends React.Component {
 
   @autobind
   onChangeFieldWithNoError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        fieldWithNoError: e.target.value
-      }
-    })
+    const fieldWithNoError = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('fieldWithNoError', fieldWithNoError)
+    }))
   }
 
   @autobind
   onChangeTextAreaWithoutError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        textAreaWithoutError: e.target.value
-      }
-    })
+    const textAreaWithoutError = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('textAreaWithoutError', textAreaWithoutError)
+    }))
   }
 
   @autobind
   onChangeTextAreaWithError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        textAreaWithError: e.target.value
-      }
-    })
+    const textAreaWithError = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('textAreaWithError', textAreaWithError)
+    }))
   }
 
   @autobind
   onChangeFieldWithError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        fieldWithError: e.target.value
-      }
-    })
+    const fieldWithError = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('fieldWithError', fieldWithError)
+    }))
   }
 
   @autobind
   onChangeSelectFieldWithNoError(selectedOptionValue) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        selectFieldWithNoError: selectedOptionValue
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('selectFieldWithNoError', selectedOptionValue)
+    }))
   }
 
   @autobind
   onChangeRestrictedSelectFieldWithNoError(selectedOptionValue) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        restrictedSelectField: selectedOptionValue
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('restrictedSelectField', selectedOptionValue)
+    }))
   }
 
   @autobind
   onChangeCountrySelector(selectedCountry) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        countrySelectorField: selectedCountry
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('countrySelectorField', selectedCountry)
+    }))
   }
 
   @autobind
   onChangeAutoSuggestFieldWithNoError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        autoSuggestFieldWithNoError: e.target.value
-      }
-    })
+    const autoSuggestFieldWithNoError = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('autoSuggestFieldWithNoError', autoSuggestFieldWithNoError)
+    }))
   }
 
   @autobind
   onChangeDatePickerFieldWithNoError(dateString) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        datePickerFieldWithNoError: dateString
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('datePickerFieldWithNoError', dateString)
+    }))
   }
 
   @autobind
   onChangeFileFieldWithoutError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        fileFieldWithoutError: e.target.files[0]
-      }
-    })
+    const fileFieldWithoutError = e.target.files[0]
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('fileFieldWithoutError', fileFieldWithoutError)
+    }))
   }
 
   @autobind
   onChangeFileFieldWithError(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        fileFieldWithError: e.target.files[0]
-      }
-    })
+    const fileFieldWithError = e.target.files[0]
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('fileFieldWithError', fileFieldWithError)
+    }))
   }
 
   @autobind
   onCheckMale() {
-    const { formObject } = this.state
-    this.setState({
-      formObject: {
-        ...formObject,
-        isMaleChecked: !formObject.isMaleChecked
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('isMaleChecked', !formObject.get('isMaleChecked'))
+    }))
   }
 
   @autobind
   onCheckFemale() {
-    const { formObject } = this.state
-    this.setState({
-      formObject: {
-        ...formObject,
-        isFemaleChecked: !formObject.isFemaleChecked
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('isFemaleChecked', !formObject.get('isFemaleChecked'))
+    }))
   }
 
   @autobind
@@ -429,12 +396,9 @@ class Form extends React.Component {
 
   @autobind
   onEditorStateChange(editorState) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        editorState,
-      }
-    })
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('editorState', editorState)
+    }))
   }
 
   @autobind
