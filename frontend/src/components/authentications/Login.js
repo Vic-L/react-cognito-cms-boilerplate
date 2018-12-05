@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { fromJS } from 'immutable'
 import React from 'react'
 import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
@@ -33,10 +34,10 @@ class Login extends React.Component {
     this.state = {
       checkedAuthentication: false,
       submittedFormBefore: false,
-      formObject: {
+      formObject: fromJS({
         email: '',
         password: '',
-      }
+      })
     }
   }
 
@@ -75,8 +76,8 @@ class Login extends React.Component {
               placeholder="Email"
               type="text"
               label="Email"
-              error={ValidateField('login-email', formObject.email, submittedFormBefore)}
-              value={formObject.email}
+              error={ValidateField('login-email', formObject.get('email'), submittedFormBefore)}
+              value={formObject.get('email')}
               onChange={this.onChangeEmail}/>
           </React.Suspense>
         </Box>
@@ -90,12 +91,12 @@ class Login extends React.Component {
               placeholder="Password"
               label="Password"
               type="password"
-              error={ValidateField('login-password', formObject.password, submittedFormBefore)}
-              value={formObject.password}
+              error={ValidateField('login-password', formObject.get('password'), submittedFormBefore)}
+              value={formObject.get('password')}
               onChange={this.onChangePassword}/>
           </React.Suspense>
         </Box>
-      
+
         <Box
           width={1}
           alignSelf='center'
@@ -129,11 +130,11 @@ class Login extends React.Component {
     if (ValidateFormObject('login', formObject)) {
       this.props.requestLogin()
       try {
-        const user = await Auth.signIn(formObject.email, formObject.password)
+        const user = await Auth.signIn(formObject.get('email'), formObject.get('password'))
 
         switch(user.challengeName) {
           case 'NEW_PASSWORD_REQUIRED':
-            Auth.completeNewPassword(user, formObject.password, user.challengeParam.requiredAttributes)
+            Auth.completeNewPassword(user, formObject.get('password'), user.challengeParam.requiredAttributes)
             .then(() => {
               this.props.succeedLogin()
               this.props.history.push('/')
@@ -154,28 +155,25 @@ class Login extends React.Component {
 
   @autobind
   onChangeEmail(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        email: e.target.value
-      }
-    })
+    const email = e.target.value
+    this.state.formObject.set('email', email)
+    this.setState(({formObject}) => (
+      {formObject: formObject.set('email', email)
+    }))
   }
 
   @autobind
   onChangePassword(e) {
-    this.setState({
-      formObject: {
-        ...this.state.formObject,
-        password: e.target.value
-      }
-    })
+    const password = e.target.value
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('password', password)
+    }))
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({loading}) {
   return {
-    isLoggingIn: SelectLoading(['LOGIN'])(state)
+    isLoggingIn: SelectLoading(['LOGIN'])(loading)
   }
 }
 

@@ -6,6 +6,7 @@ const Table = styled.table`
   margin-bottom: 1rem;
   border-radius: 0;
   overflow-x: auto;
+  display: block;
 `
 
 export default Table
