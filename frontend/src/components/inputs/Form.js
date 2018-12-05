@@ -184,7 +184,7 @@ class Form extends React.Component {
               label="AUTOSUGGESTFIELDWITHNOERROR"
               value={formObject.get('autoSuggestFieldWithNoError')}
               error={""}
-              suggestionList={['John', 'Paul', 'George', 'Ringo']}
+              suggestionList={fromJS(['John', 'Paul', 'George', 'Ringo'])}
               onChange={this.onChangeAutoSuggestFieldWithNoError}/>
           </React.Suspense>
         </Box>

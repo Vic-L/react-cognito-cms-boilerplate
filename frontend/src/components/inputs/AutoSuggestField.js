@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { fromJS } from 'immutable'
 import React from 'react'
 import autobind from 'autobind-decorator'
 import Autosuggest from 'react-autosuggest'
@@ -19,7 +19,7 @@ class AutoSuggestField extends React.Component {
     super(props)
 
     this.state = {
-      suggestions: [],
+      suggestions: fromJS([]),
       inFocus: false
     }
   }
@@ -40,7 +40,7 @@ class AutoSuggestField extends React.Component {
             onChange={this.onChange}/>
           <Autosuggest
             ref='autosuggest'
-            suggestions={this.state.suggestions}
+            suggestions={this.state.suggestions.toArray()}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={this.getSuggestionValue}
@@ -65,7 +65,7 @@ class AutoSuggestField extends React.Component {
   onBlur() {
     // delay blur() so that suggestions stays rendered under `alwaysRenderSuggestions`
     setTimeout(() => {
-      if (_.includes(this.state.suggestions, this.props.value)) {
+      if (this.state.suggestions.includes(this.props.value)) {
         this.setState({inFocus: false})
       } else {
         // mock a synthetic event object with only the neccessary keys to reuse method
@@ -98,7 +98,9 @@ class AutoSuggestField extends React.Component {
 
   @autobind
   onSuggestionsFetchRequested({ value }) {
-    this.setState({suggestions: this.getSuggestions(value)})
+    this.setState(({suggestions}) => ({
+      suggestions: this.getSuggestions(value)
+    }))
   }
 
   @autobind
@@ -109,7 +111,7 @@ class AutoSuggestField extends React.Component {
         return suggestion.toLowerCase().match(regexp)
       })
     } else {
-      return []
+      return fromJS([])
     }
   }
 
@@ -151,7 +153,7 @@ AutoSuggestField.propTypes = {
     PropTypes.number
   ]),
   error: PropTypes.string,
-  suggestionList: PropTypes.array.isRequired,
+  suggestionList: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
