@@ -47,7 +47,7 @@ class AutoSuggestField extends React.Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={{
               value: this.props.value || "", // AutoSuggest need to trim value, so cannot be null
-              onChange: null // not needed and should not triggered
+              onChange: () => {} // not needed and should not triggered
             }}
             alwaysRenderSuggestions={this.state.inFocus}
             shouldRenderSuggestions={(value) => value.trim().length > 1}/>
@@ -63,7 +63,22 @@ class AutoSuggestField extends React.Component {
 
   @autobind
   onBlur() {
-    this.setState({inFocus: false})
+    // delay blur() so that suggestions stays rendered under `alwaysRenderSuggestions`
+    setTimeout(() => {
+      if (_.includes(this.state.suggestions, this.props.value)) {
+        this.setState({inFocus: false})
+      } else {
+        // mock a synthetic event object with only the neccessary keys to reuse method
+        const e = {
+          target: {value: null}
+        }
+        this.onChange(e)
+
+        this.setState({
+          inFocus: false,
+        })
+      }
+    }, 100)
   }
 
   @autobind
@@ -107,6 +122,12 @@ class AutoSuggestField extends React.Component {
 
   @autobind
   getSuggestionValue(suggestion) {
+    // mock a synthetic event object with only the neccessary keys to reuse method
+    const e = {
+      target: {value: suggestion}
+    }
+    this.onChange(e)
+
     return suggestion
   }
 
