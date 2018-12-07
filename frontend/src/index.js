@@ -15,11 +15,11 @@ import Auth from '@aws-amplify/auth'
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
   // identityPoolId: 'XX-XXXX-X:XXXXXXXX-XXXX-1234-abcd-1234567890ab',
-  
+
   // REQUIRED - Amazon Cognito Region
   region: process.env.COGNITO_REGION,
 
-  // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
+  // OPTIONAL - Amazon Cognito Federated Identity Pool Region
   // Required only if it's different from Amazon Cognito Region
   // identityPoolRegion: 'XX-XXXX-X',
 
@@ -46,7 +46,7 @@ Auth.configure({
 
   // OPTIONAL - customized storage object
   // storage: new MyStorage(),
-  
+
   // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
@@ -66,7 +66,7 @@ axios.defaults.headers.common["Accept"] = "application/json"
 import sagas from './sagas'
 
 const middlewares = [];
- 
+
 if (process.env.NODE_ENV === `development`) {
   const { logger } = require(`redux-logger`)
   middlewares.push(logger)
@@ -77,21 +77,21 @@ middlewares.push(sagaMiddleware)
 
 const history = createHistory()
 middlewares.push(routerMiddleware(history))
- 
+
 const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
 
 sagaMiddleware.run(sagas)
 
 WebFont.load({
   google: {
-    families: ['Lato']
+    families: ['Lato', 'Montserrat']
   }
 })
 
 // if using App Sync
 /*
 
-** NOTE: add `cp ./src/configs/<env>/appsync.js ./src/appsync.js &&` to start of scripts in package.json to load the correct env for appsync 
+** NOTE: add `cp ./src/configs/<env>/appsync.js ./src/appsync.js &&` to start of scripts in package.json to load the correct env for appsync
 
 import AWSAppSyncClient from "aws-appsync"
 import { Rehydrated } from 'aws-appsync-react'

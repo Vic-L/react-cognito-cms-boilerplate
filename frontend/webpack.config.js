@@ -14,7 +14,7 @@ const SECONDARY_COLOR = 'mediumseagreen'
 const ALTERNATIVE_COLOR = 'mediumseagreen'
 const ERROR_COLOR = '#CD3C14'
 const TRANSITION_TIMEOUT = '350'
-const PRIMARY_FONT = 'Karla'
+const PRIMARY_FONT = 'Lato'
 const SECONDARY_FONT = 'Montserrat'
 
 module.exports = {
