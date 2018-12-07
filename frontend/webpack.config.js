@@ -1,6 +1,7 @@
 const webpack = require("webpack")
 const path = require("path")
 
+const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -45,12 +46,12 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              data: 
+              data:
                 `$primary-color: ${PRIMARY_COLOR};` +
                 `$secondary-color: ${SECONDARY_COLOR};` +
                 `$alternative-color: ${ALTERNATIVE_COLOR};` +
                 `$error-color: ${ERROR_COLOR};` +
-                `$primary-font: ${PRIMARY_FONT};` + 
+                `$primary-font: ${PRIMARY_FONT};` +
                 `$secondary-font: ${SECONDARY_FONT};`
             }
           }
@@ -85,13 +86,16 @@ module.exports = {
     new Dotenv({
       path: `./.env.${process.env.NODE_ENV}`
     }),
+    new CompressionPlugin({
+      filename: '[path]'
+    })
   ],
 
   devServer: {
     historyApiFallback: true,
     contentBase: './src'
   },
-  
+
   resolve: {
     alias: {
       _components: path.resolve(__dirname, "src/components/"),
