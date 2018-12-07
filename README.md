@@ -52,7 +52,7 @@ The command is basically trying to get the hash of the bundle that is uploaded t
 5. Deploy front end to S3 first by running these commands
 ```
 # in root directory
-$ cd frontend && assetsDirectory='s3://<BUCKET_NAME>/assets' awsProfile='<AWS_NAMED_PROFILE>' assetsPublicPathHostName='<ASSET_PUBLIC_PATH_HOST>' npm run deploy
+$ cd frontend && s3bucket='s3://<BUCKET_NAME>' awsProfile='<AWS_NAMED_PROFILE>' assetsPublicPathHostName='<ASSET_PUBLIC_PATH_HOST>' npm run deploy
 ```
 This command will upload
 

@@ -11,9 +11,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "build:prod": "NODE_ENV=production webpack -p --config webpack.config.js",
-    "deploy": "npm run build:prod && npm run deploy:remove-assets && npm run deploy:upload-assets",
-    "deploy:remove-assets": "aws s3 rm $assetsDirectory --recursive --profile $awsProfile",
-    "deploy:upload-assets": "aws s3 cp ./dist/assets $assetsDirectory --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=86400"
+    "deploy": "npm run build:prod && npm run deploy:remove-assets && npm run deploy:upload-assets && npm run deploy:html",
+    "deploy:remove-assets": "aws s3 rm \"${s3bucket}\"/assets --recursive --profile $awsProfile",
+    "deploy:upload-assets": "aws s3 cp ./dist/assets \"${s3bucket}\"/assets --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=86400",
+    "deploy:html": "aws s3 cp ./dist/index.html $s3bucket --acl public-read --exclude '*.DS_Store' --profile $awsProfile"
   },
   "author": "Vic-L",
   "license": "ISC",
