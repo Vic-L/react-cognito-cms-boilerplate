@@ -8,15 +8,15 @@ import { Box } from '@rebass/grid'
 
 import requireAuth from '_hocs/requireAuth'
 
-import TransitionGroupWrapper from '_transitions/TransitionGroupWrapper'
 import TransitionWrapper from '_transitions/TransitionWrapper'
-import Sidebar from '_sidebar/Sidebar'
-import Dashboard from '_miscellaneous/Dashboard'
-import Form from '_inputs/Form'
-import Cards from '_cards/Cards'
-import Charts from '_charts/Charts'
 
-import TableScreen from '_screens/TableScreen'
+const TransitionGroupWrapper = React.lazy(() => import('_transitions/TransitionGroupWrapper'))
+const Sidebar = React.lazy(() => import('_sidebar/Sidebar'))
+const Dashboard = React.lazy(() => import('_miscellaneous/Dashboard'))
+const Form = React.lazy(() => import('_inputs/Form'))
+const Cards = React.lazy(() => import('_cards/Cards'))
+const Charts = React.lazy(() => import('_charts/Charts'))
+const TableScreen = React.lazy(() => import('_screens/TableScreen'))
 
 const Main = ({
   location,
@@ -32,39 +32,63 @@ const Main = ({
         css={{
           fontFamily: PRIMARY_FONT
         }}>
-        <TransitionGroupWrapper>
-          <TransitionGroup>
-            <CSSTransition
-              key={`Main_${location.pathname}`}
-              timeout={Number(TRANSITION_TIMEOUT)}
-              classNames="fade"
-              appear>
+        <React.Suspense fallback={<div/>}>
+          <TransitionGroupWrapper>
+            <React.Suspense fallback={<div/>}>
+              <TransitionGroup>
+                <CSSTransition
+                  key={`Main_${location.pathname}`}
+                  timeout={Number(TRANSITION_TIMEOUT)}
+                  classNames="fade"
+                  appear>
 
-              <Switch location={location}>
-                <Route
-                  path="/"
-                  exact={true}
-                  component={Dashboard}/>
-                <Route
-                  path="/form"
-                  exact={true}
-                  component={Form}/>
-                <Route
-                  path="/table"
-                  exact={true}
-                  component={TableScreen}/>
-                <Route
-                  path="/cards"
-                  exact={true}
-                  component={Cards}/>
-                <Route
-                  path="/charts"
-                  exact={true}
-                  component={Charts}/>
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        </TransitionGroupWrapper>
+                  <Switch location={location}>
+                    <Route
+                      path="/"
+                      exact={true}
+                      render={props => (
+                        <React.Suspense fallback={<div/>}>
+                          <Dashboard {...props}/>
+                        </React.Suspense>
+                      )}/>
+                    <Route
+                      path="/form"
+                      exact={true}
+                      render={props => (
+                        <React.Suspense fallback={<div/>}>
+                          <Form {...props}/>
+                        </React.Suspense>
+                      )}/>
+                    <Route
+                      path="/table"
+                      exact={true}
+                      render={props => (
+                        <React.Suspense fallback={<div/>}>
+                          <TableScreen {...props}/>
+                        </React.Suspense>
+                      )}/>
+                    <Route
+                      path="/cards"
+                      exact={true}
+                      render={props => (
+                        <React.Suspense fallback={<div/>}>
+                          <Cards {...props}/>
+                        </React.Suspense>
+                      )}/>
+                    <Route
+                      path="/charts"
+                      exact={true}
+                      render={props => (
+                        <React.Suspense fallback={<div/>}>
+                          <Charts {...props}/>
+                        </React.Suspense>
+                      )}/>
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            </React.Suspense>
+          </TransitionGroupWrapper>
+        </React.Suspense>
       </Box>
     </React.Fragment>
   )
