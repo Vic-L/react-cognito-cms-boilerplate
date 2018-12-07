@@ -87,6 +87,7 @@ module.exports = {
       path: `./.env.${process.env.NODE_ENV}`
     }),
     new CompressionPlugin({
+      exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
       filename: '[path]'
     })
   ],
