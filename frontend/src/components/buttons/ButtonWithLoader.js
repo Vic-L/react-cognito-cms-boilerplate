@@ -1,36 +1,47 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import LaddaButton, { XL, EXPAND_LEFT } from 'react-ladda'
 import PropTypes from 'prop-types'
+import { ChasingDots } from 'styled-spinkit'
 
 const Button = React.lazy(() => import('_buttons/Button'))
 
-/*
-Sizes
-- XS
-- S
-- L
-- XL
-Styles
-- CONTRACT
-- CONTRACT_OVERLAY
-- EXPAND_LEFT
-- EXPAND_RIGHT
-- EXPAND_UP
-- EXPAND_DOWN
-- SLIDE_LEFT
-- SLIDE_RIGHT
-- SLIDE_UP
-- SLIDE_DOWN
-- ZOOM_IN
-- ZOOM_OUT
-*/
-
-const _Button = styled(Button)`
-  padding: 0 !important;
+const ButtonContainer = styled(Button)`
+  position: relative;
+  transition: 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  overflow: hidden;
+  box-shadow: ${props => props.isLoading ? '0px 0px 0px 2000px rgba(0, 0, 0, 0.8)' : '0px 0px 0px 2000px rgba(0, 0, 0, 0)'};
+  background-color: ${props => props.isLoading ? '#999 !important' : `${PRIMARY_COLOR} !important`};
+  box-sizing: border-box;
   ${props => props.isLoading && css`
-    cursor: progress;
+    display: inline-block;
+    margin-top: 0;
+    pointer-events: none;
+    border-radius: 50% !important;
+    max-width: 50px;
+    max-height: 50px;
+    width: 50px;
+    height: 50px;
   `}
+`
+
+const Label = styled.span`
+  transition: 350ms cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  position: relative;
+  z-index: 3;
+  opacity: ${props => props.isLoading ? 0 : 1};
+`
+
+const Spinner = styled(ChasingDots)`
+  height: 30px !important;
+  position: absolute !important;
+  z-index: 2;
+  display: inline-block;
+  width: 30px !important;
+  pointer-events: none;
+  opacity: ${props => props.isLoading ? 1 : 0};
+  top: ${props => props.isLoading ? '10px !important' : 0};
+  left: ${props => props.isLoading ? '10px !important' : 0};
+  margin: 0 !important;
 `
 
 const ButtonWithLoader = ({
@@ -40,40 +51,21 @@ const ButtonWithLoader = ({
   style,
   ...others
 }) => {
+console.log('isLoading', isLoading)
   return (
+    <ButtonContainer
+      isLoading={isLoading}
+      onClick={onClick}
+      style={{...style}}
+      {...others}>
 
-    <_Button
-      isLoading={isLoading}>
-      <LaddaButton
-        loading={isLoading}
-        data-color="#eee"
-        data-size={XL}
-        data-style={EXPAND_LEFT}
-        data-spinner-size={30}
-        data-spinner-color="#ddd"
-        data-spinner-lines={12}
-        onClick={onClick}
-        className='ladda-button'
-        style={{
-          borderRadius: '0.25rem',
-          paddingTop: '1rem',
-          paddingBottom: '1rem',
-          paddingRight: '1rem',
-          paddingLeft: isLoading ? '' : '1rem',
-          color: 'inherit',
-          cursor: 'inherit',
-          backgroundColor: 'inherit',
-          fontFamily: PRIMARY_FONT,
-          fontSize: '1rem',
-          ...style
-        }}
-        {...others}>
-
+      <Label isLoading={isLoading}>
         {text}
+      </Label>
 
-      </LaddaButton>
-    </_Button>
+      <Spinner isLoading={isLoading} color={PRIMARY_COLOR}/>
 
+    </ButtonContainer>
   )
 }
 
