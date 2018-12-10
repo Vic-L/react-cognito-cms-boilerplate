@@ -1,6 +1,7 @@
 const webpack = require("webpack")
 const path = require("path")
 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
@@ -95,6 +96,19 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: './src'
+  },
+
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
+        uglifyOptions: {
+          output: {
+            comments: false
+          }
+        }
+      })
+    ]
   },
 
   resolve: {
