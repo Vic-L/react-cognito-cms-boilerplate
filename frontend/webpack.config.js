@@ -33,7 +33,7 @@ module.exports = {
       // custom javascripts
       {
         test: /\.js$/,
-        use: ["babel-loader", "haml-jsx-loader"],
+        use: ["babel-loader"],
         exclude: /node_modules/,
         include: path.join(__dirname, "src"),
       },
