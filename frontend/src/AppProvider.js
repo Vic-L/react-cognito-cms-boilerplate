@@ -104,13 +104,11 @@ render((
 */
 
 // if using apollo
-import { ApolloClient } from 'apollo-client'
+import ApolloClient, { InMemoryCache, HttpLink } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri: 'https://fakerql.com/graphql' }),
+  uri: 'https://fakerql.com/graphql',
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
