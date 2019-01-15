@@ -131,7 +131,6 @@ module.exports = {
       _stylesheets: path.resolve(__dirname, "src/stylesheets/"),
       _utils: path.resolve(__dirname, "src/utils/"),
       _services: path.resolve(__dirname, "src/services/"),
-      _selectors: path.resolve(__dirname, "src/selectors/"),
       _clientState: path.resolve(__dirname, "src/clientState/"),
       _queries: path.resolve(__dirname, "src/clientState/queries/"),
       _mutations: path.resolve(__dirname, "src/clientState/mutations/"),

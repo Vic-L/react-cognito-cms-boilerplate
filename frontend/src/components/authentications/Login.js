@@ -15,8 +15,6 @@ import Auth from '@aws-amplify/auth'
 import ValidateField from '_services/ValidateField'
 import ValidateFormObject from '_services/ValidateFormObject'
 
-import SelectLoading from '_selectors/SelectLoading'
-
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
