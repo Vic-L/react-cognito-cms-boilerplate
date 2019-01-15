@@ -51,7 +51,6 @@ const ButtonWithLoader = ({
   style,
   ...others
 }) => {
-console.log('isLoading', isLoading)
   return (
     <ButtonContainer
       isLoading={isLoading}
