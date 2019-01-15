@@ -2,12 +2,8 @@ import '_stylesheets/main.sass'
 
 import createHistory from 'history/createBrowserHistory'
 import React from 'react'
-import { compose, createStore, applyMiddleware } from 'redux'
 import { render } from 'react-dom'
 import { Router, BrowserRouter } from 'react-router-dom'
-import { Provider } from  'react-redux'
-import createSagaMiddleware from 'redux-saga'
-import { routerMiddleware } from 'react-router-redux'
 
 // authentication
 import Auth from '@aws-amplify/auth'
@@ -51,37 +47,16 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
 
-// redux related
-import rootReducers from '_reducers'
+//// if required for APIs unsupported by GraphQL
+// import axios from 'axios'
+// axios.defaults.headers.common["Content-Type"] = "application/json"
+// axios.defaults.headers.common["Accept"] = "application/json"
+
+const history = createHistory()
 
 import App from '_components/App'
 
 import WebFont from 'webfontloader'
-
-import axios from 'axios'
-
-axios.defaults.headers.common["Content-Type"] = "application/json"
-axios.defaults.headers.common["Accept"] = "application/json"
-
-import sagas from './sagas'
-
-const middlewares = [];
-
-if (process.env.NODE_ENV === `development`) {
-  const { logger } = require(`redux-logger`)
-  middlewares.push(logger)
-}
-
-const sagaMiddleware = createSagaMiddleware()
-middlewares.push(sagaMiddleware)
-
-const history = createHistory()
-middlewares.push(routerMiddleware(history))
-
-const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
-
-sagaMiddleware.run(sagas)
-
 WebFont.load({
   google: {
     families: ['Lato', 'Montserrat']
@@ -154,14 +129,12 @@ import { Normalize } from 'styled-normalize'
 const AppProvider = () => {
   return (
     <ApolloProvider client={apolloClient}>
-      <Provider store={store}>
-        <Router history={history}>
-          <React.Fragment>
-            <Normalize/>
-            <App />
-          </React.Fragment>
-        </Router>
-      </Provider>
+      <Router history={history}>
+        <React.Fragment>
+          <Normalize/>
+          <App />
+        </React.Fragment>
+      </Router>
     </ApolloProvider>
   )
 }

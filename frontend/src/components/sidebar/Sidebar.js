@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import Auth from '@aws-amplify/auth'
 import styled, { css } from 'styled-components'
@@ -156,34 +155,13 @@ class Sidebar extends React.Component {
 
   @autobind
   async onLogout() {
-    this.props.requestLogout()
     try {
       await Auth.signOut()
-
-      this.props.succeedLogout()
       this.props.history.push("/login")
     } catch (err) {
-      console.log(err)
-      this.props.failLogout(err.message || err)
+      console.log('logout failed: ', JSON.stringify(err))
     }
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    requestLogout: () => {
-      dispatch({type: 'LOGOUT_REQUEST'})
-    },
-    succeedLogout: () => {
-      dispatch({type: 'LOGOUT_SUCCESS'})
-    },
-    failLogout: (message) => {
-      dispatch({
-        type: 'LOGOUT_FAILURE',
-        message
-      })
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Sidebar)
+export default Sidebar

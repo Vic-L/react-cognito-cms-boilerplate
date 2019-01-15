@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { fromJS } from 'immutable'
 import React from 'react'
-import { connect } from 'react-redux'
 import autobind from 'autobind-decorator'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
@@ -32,6 +31,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
+      isLoggingIn: false,
       checkedAuthentication: false,
       submittedFormBefore: false,
       formObject: fromJS({
@@ -105,7 +105,7 @@ class Login extends React.Component {
           }}>
           <React.Suspense fallback={<ContentLoaders.Button/>}>
             <ButtonWithLoader
-              isLoading={this.props.isLoggingIn}
+              isLoading={this.state.isLoggingIn}
               text="Login"
               onClick={() => {
                 if (!this.state.submittedFormBefore) {
@@ -125,10 +125,11 @@ class Login extends React.Component {
 
   @autobind
   async login() {
+    this.setState({ isLoggingIn: true })
+
     const { formObject } = this.state
 
     if (ValidateFormObject('login', formObject)) {
-      this.props.requestLogin()
       try {
         const user = await Auth.signIn(formObject.get('email'), formObject.get('password'))
 
@@ -136,20 +137,24 @@ class Login extends React.Component {
           case 'NEW_PASSWORD_REQUIRED':
             Auth.completeNewPassword(user, formObject.get('password'), user.challengeParam.requiredAttributes)
             .then(() => {
-              this.props.succeedLogin()
+              this.setState({ isLoggingIn: false })
               this.props.history.push('/')
             })
             .catch(error => {
+              this.setState({ isLoggingIn: false })
               console.log('completeNewPassword error', error)
             })
             break
           default:
-            this.props.succeedLogin()
+          this.setState({ isLoggingIn: false })
             this.props.history.push("/")
         }
       } catch (err) {
-        this.props.failLogin(err.message || err)
+        this.setState({ isLoggingIn: false })
+        console.log('login failed:', JSON.stringify(err))
       }
+    } else {
+      this.setState({ isLoggingIn: false })
     }
   }
 
@@ -157,41 +162,14 @@ class Login extends React.Component {
   onChangeEmail(e) {
     const email = e.target.value
     this.state.formObject.set('email', email)
-    this.setState(({formObject}) => (
-      {formObject: formObject.set('email', email)
-    }))
+    this.setState(({formObject}) => ({ formObject: formObject.set('email', email) }))
   }
 
   @autobind
   onChangePassword(e) {
     const password = e.target.value
-    this.setState(({formObject}) => ({
-      formObject: formObject.set('password', password)
-    }))
+    this.setState(({formObject}) => ({ formObject: formObject.set('password', password) }))
   }
 }
 
-function mapStateToProps({loading}) {
-  return {
-    isLoggingIn: SelectLoading(['LOGIN'])(loading)
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    requestLogin: () => {
-      dispatch({type: 'LOGIN_REQUEST'})
-    },
-    succeedLogin: () => {
-      dispatch({type: 'LOGIN_SUCCESS'})
-    },
-    failLogin: (message) => {
-      dispatch({
-        type: 'LOGIN_FAILURE',
-        message
-      })
-    }
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TransitionWrapper(Login)))
+export default withRouter(TransitionWrapper(Login))

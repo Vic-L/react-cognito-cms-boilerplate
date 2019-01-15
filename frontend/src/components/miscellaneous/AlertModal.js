@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Modal from 'react-modal'
 import autobind from 'autobind-decorator'
 
-class _AlertModal extends Component {
+class AlertModal extends Component {
   componentDidMount() {
     Modal.setAppElement('#app')
   }
@@ -40,7 +39,7 @@ class _AlertModal extends Component {
         isOpen={alert ? true : false}
         contentLabel="Alert Modal"
         style={style}>
-        
+
         {
           alert ? (
             <h3>{alert.title}</h3>
@@ -49,7 +48,7 @@ class _AlertModal extends Component {
 
         <p>{alert ? alert.body : ""}</p>
 
-        <button 
+        <button
           className='button'
           onClick={this.closeModal}>
           OK
@@ -72,7 +71,5 @@ class _AlertModal extends Component {
 function mapStateToProps({alert}) {
   return { alert }
 }
-
-const AlertModal = connect(mapStateToProps)(_AlertModal)
 
 export default AlertModal
