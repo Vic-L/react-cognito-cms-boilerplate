@@ -106,10 +106,18 @@ render((
 // if using apollo
 import ApolloClient, { InMemoryCache, HttpLink } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
+import defaults from '_clientState/defaults'
+import resolvers from '_clientState/resolvers'
+import typeDefs from '_clientState/typeDefs'
 
 const apolloClient = new ApolloClient({
   uri: 'https://fakerql.com/graphql',
   cache: new InMemoryCache(),
+  clientState: {
+    defaults,
+    resolvers,
+    typeDefs,
+  },
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'network-only',

@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import autobind from 'autobind-decorator'
 
+import gql from 'graphql-tag'
+import { Query, Mutation } from 'react-apollo'
+
+import { GET_ALERT } from '_queries'
+import { UPDATE_ALERT } from '_mutations'
+
 class AlertModal extends Component {
   componentDidMount() {
     Modal.setAppElement('#app')
@@ -35,41 +41,52 @@ class AlertModal extends Component {
       }
     }
     return (
-      <Modal
-        isOpen={alert ? true : false}
-        contentLabel="Alert Modal"
-        style={style}>
+      <Mutation mutation={UPDATE_ALERT}>
+        {(updateAlert, { data }) => {
+          return (
+            <Query query={GET_ALERT}>
+              {({ data }) => {
+                const { title, body } = data.alert
+                const hasAlert = !!title || !!body
 
-        {
-          alert ? (
-            <h3>{alert.title}</h3>
-          ) : null
-        }
+                return(
+                  <Modal
+                    isOpen={hasAlert ? true : false}
+                    contentLabel="Alert Modal"
+                    style={style}>
 
-        <p>{alert ? alert.body : ""}</p>
+                    {
+                      hasAlert ? (
+                        <h3>{title}</h3>
+                      ) : null
+                    }
 
-        <button
-          className='button'
-          onClick={this.closeModal}>
-          OK
-        </button>
+                    <p>{hasAlert ? body : ""}</p>
 
-      </Modal>
+                    <button
+                      onClick={this.closeModal.bind(null, updateAlert)}>
+                      OK
+                    </button>
+
+                  </Modal>
+                )
+              }}
+            </Query>
+          )
+        }}
+      </Mutation>
     )
   }
 
   @autobind
-  closeModal() {
-    const { alert } = this.props
-    if (alert.okAction) {
-      alert.okAction()
-    }
-    this.props.dispatch({type: 'ALERT_DISMISS'})
+  closeModal(updateAlert) {
+    updateAlert({
+      variables: {
+        title: null,
+        body: null,
+      }
+    })
   }
-}
-
-function mapStateToProps({alert}) {
-  return { alert }
 }
 
 export default AlertModal
