@@ -27,7 +27,7 @@ const typeDefs = `
   type Mutation {
     dismissAlert(
       action: AlertAction
-    ): AlertAction
+    ): Boolean
   }
 
   type Query {

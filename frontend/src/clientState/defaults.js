@@ -4,6 +4,10 @@ const defaults = {
     title: null,
     body: null,
     actions: null
+  },
+  selectedAlertResponse: {
+    __typename: 'SelectedAlertResponse',
+    alertResponse: null
   }
 }
 

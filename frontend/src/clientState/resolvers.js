@@ -35,10 +35,14 @@ const resolvers = {
           title: null,
           body: null,
           actions: null,
+        },
+        selectedAlertResponse: {
+          __typename: 'SelectedAlertResponse',
+          alertResponse: action.alertResponse
         }
       }
       mutate(cache, payload)
-      return action
+      return null
     }
   }
 }
