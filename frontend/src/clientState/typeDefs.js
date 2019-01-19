@@ -7,7 +7,13 @@ const typeDefs = `
 
   type AlertAction {
     text: String
-    alertResponse: String!
+    alertResponse: AlertResponse!
+  }
+
+  enum AlertResponse {
+    NEUTRAL
+    POSITIVE
+    NEGATIVE
   }
 
   type Mutation {
