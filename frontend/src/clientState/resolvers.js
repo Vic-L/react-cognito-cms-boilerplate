@@ -1,5 +1,5 @@
-function mutate(cache, payload) {
-  cache.writeData({ data: payload })
+function mutate(cache, data) {
+  cache.writeData({ data })
 }
 
 const resolvers = {
@@ -7,15 +7,38 @@ const resolvers = {
     updateAlert: (_, {
       title,
       body,
+      actions,
     }, { cache }) => {
-      mutate(cache, {
+      const payload = {
         alert: {
           __typename: 'Alert',
           title,
           body,
+          actions: actions.map(action => { 
+            return {
+              __typename: 'AlertAction',
+              ...action
+            }
+          })
         }
-      })
-      return null;
+      }
+      mutate(cache, payload)
+      return null
+    },
+
+    dismissAlert: (_, {
+      action,
+    }, { cache }) => {
+      const payload = {
+        alert: {
+          __typename: 'Alert',
+          title: null,
+          body: null,
+          actions: null,
+        }
+      }
+      mutate(cache, payload)
+      return action
     }
   }
 }

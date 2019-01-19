@@ -4,12 +4,27 @@ export const UPDATE_ALERT = gql`
   mutation(
     $title: String,
     $body: String,
+    $actions: [AlertAction!]!
   ) {
     updateAlert(
       title: $title,
       body: $body,
+      actions: $actions,
+    ) @client
+  }
+`
+
+export const DISMISS_ALERT = gql`
+  mutation(
+    $action: AlertAction!
+  ) {
+    dismissAlert(
+      action: $action,
     ) @client {
-      title
+      action {
+        text
+        alertResponse
+      }
     }
   }
 `

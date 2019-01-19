@@ -6,7 +6,7 @@ import gql from 'graphql-tag'
 import { Query, Mutation } from 'react-apollo'
 
 import { GET_ALERT } from '_queries'
-import { UPDATE_ALERT } from '_mutations'
+import { DISMISS_ALERT } from '_mutations'
 
 class AlertModal extends Component {
   componentDidMount() {
@@ -41,12 +41,14 @@ class AlertModal extends Component {
       }
     }
     return (
-      <Mutation mutation={UPDATE_ALERT}>
-        {(updateAlert, { data }) => {
+      <Mutation mutation={DISMISS_ALERT}>
+        {(dismissAlert, { data }) => {
           return (
-            <Query query={GET_ALERT}>
+            <Query
+              query={GET_ALERT}
+              fetchPolicy='cache-first'>
               {({ data }) => {
-                const { title, body } = data.alert
+                const { title, body, actions } = data.alert
                 const hasAlert = !!title || !!body
 
                 return(
@@ -63,10 +65,15 @@ class AlertModal extends Component {
 
                     <p>{hasAlert ? body : ""}</p>
 
-                    <button
-                      onClick={this.closeModal.bind(null, updateAlert)}>
-                      OK
-                    </button>
+                    {
+                      actions && actions.map(action => 
+                        <button
+                          key={action.text}
+                          onClick={this.closeModal.bind(null, dismissAlert, action)}>
+                          {action.text}
+                        </button>
+                      )
+                    }
 
                   </Modal>
                 )
@@ -79,11 +86,10 @@ class AlertModal extends Component {
   }
 
   @autobind
-  closeModal(updateAlert) {
-    updateAlert({
+  closeModal(dismissAlert, action) {
+    dismissAlert({
       variables: {
-        title: null,
-        body: null,
+        action
       }
     })
   }

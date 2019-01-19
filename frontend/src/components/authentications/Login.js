@@ -61,7 +61,7 @@ class Login extends React.Component {
 
     return (
       <Mutation mutation={UPDATE_ALERT}>
-        {(updateAlert) => {
+        {(updateAlert, { data }) => {
           return (
             <Box
               width={1/3}
@@ -154,6 +154,12 @@ class Login extends React.Component {
                 variables: {
                   title: "Error",
                   body: `completeNewPassword error: ${JSON.stringify(error)}`,
+                  actions: [
+                    {
+                      text: 'OK',
+                      alertResponse: 'NEUTRAL',
+                    }
+                  ]
                 }
               })
               console.log('completeNewPassword error', error)
@@ -169,6 +175,12 @@ class Login extends React.Component {
           variables: {
             title: "Error",
             body: `login failed: ${JSON.stringify(err)}`,
+            actions: [
+              {
+                text: 'も一度',
+                alertResponse: 'NEUTRAL',
+              }
+            ]
           }
         })
         console.log('login failed:', JSON.stringify(err))

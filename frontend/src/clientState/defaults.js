@@ -3,6 +3,7 @@ const defaults = {
     __typename: 'Alert',
     title: null,
     body: null,
+    actions: null
   }
 }
 
