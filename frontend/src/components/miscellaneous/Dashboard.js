@@ -4,6 +4,10 @@ import { Query } from 'react-apollo'
 import { Box } from '@rebass/grid'
 
 import TransitionWrapper from '_transitions/TransitionWrapper'
+import * as ContentLoaders from '_contentLoaders'
+import withCallbackAlert from '_hocs/withCallbackAlert'
+
+const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
 const getPostsQuery = gql`
   query getPosts($count: Int!) {
@@ -14,7 +18,11 @@ const getPostsQuery = gql`
   }
 `
 
-const Dashboard = () => {
+const Dashboard = ({
+  updateAlert,
+  alertResponse,
+  updateAlertResponse,
+}) => {
   return(
     <React.Fragment>
       <Box
@@ -30,19 +38,62 @@ const Dashboard = () => {
           query={getPostsQuery}
           variables={{ count: 10 }}>
 
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading..."</p>;
-            if (error) return <p>Error! {error.message}</p>;
+          {({ loading, error, data, refetch }) => {
+            if (error) return <p>Error! {error.message}</p>
 
-            if (_.isNil(data.allPosts)) {
-              return <p>No posts!</p>
+            if (alertResponse === 'POSITIVE') {
+              refetch()
             }
 
-            return data.allPosts.map((post, index) => {
+            if (alertResponse) {
+              updateAlertResponse({
+                variables: {
+                  alertResponse: null
+                }
+              })
+            }
+
+            const html = [
+              <React.Suspense
+                key='refetch-button'
+                fallback={<ContentLoaders.Button/>}>
+                <ButtonWithLoader
+                  isLoading={loading}
+                  text="Refetch!"
+                  onClick={() => {
+                    updateAlert({
+                      variables: {
+                        title: '',
+                        body: 'Are you sure?',
+                        actions: [
+                          {
+                            text: 'YES',
+                            alertResponse: 'POSITIVE',
+                          },
+                          {
+                            text: 'NO',
+                            alertResponse: 'NEGATIVE',
+                          }
+                        ]
+                      }
+                    })
+                  }}/>
+              </React.Suspense>
+            ]
+
+            if (_.isNil(data.allPosts)) {
+              html.unshift(<p key='no-post'>No posts!</p>)
+              return html
+            }
+
+            const posts = data.allPosts.map((post, index) => {
               return (
                 <p key={`post-${index}`}>{post.title}</p>
               )
             })
+
+            posts.push(html)
+            return posts
           }}
         </Query>
       </Box>
@@ -50,4 +101,4 @@ const Dashboard = () => {
   )
 }
 
-export default TransitionWrapper(Dashboard)
+export default TransitionWrapper(withCallbackAlert(Dashboard))
