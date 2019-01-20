@@ -56,6 +56,7 @@ class DatePickerField extends React.Component {
             type={this.props.type}
             label={this.props.label}
             error={this.props.error}
+            fieldIconSrc={this.props.fieldIconSrc}
             value={this.renderDate()}
             readOnly/>
           <DatePicker
@@ -101,6 +102,7 @@ DatePickerField.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   error: PropTypes.string,
+  fieldIconSrc: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
 }

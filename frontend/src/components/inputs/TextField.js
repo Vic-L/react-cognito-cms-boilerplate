@@ -15,16 +15,25 @@ const Input = styled(StringInput)`
   && {
     border-bottom: 2px solid ${props => props.theme.borderBottomColor};
   }
+  padding-right: ${props => props.hasFieldIcon ? '60px !important' : 'initial'}
+`
+
+const FieldIcon = styled.img`
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%;
 `
 
 const Label = styled.label`;
   position: absolute
   pointer-events: none;
   top: 1rem;
-  right: 10px;
   bottom: auto;
   left: 10px;
-  width: calc(100% - (2 * 10px));
+  right: 0; /* dependent on width, controlled by fieldIconSrc */
+  width: calc(100% - (10px + ${props => props.hasFieldIcon ? '60px' : '10px'}));
   font-size: 1rem;
   color: #999;
   padding: 0;
@@ -80,6 +89,7 @@ const TextField = ({
   placeholder,
   value,
   error,
+  fieldIconSrc,
   ...others
 }) => {
   return (
@@ -88,20 +98,29 @@ const TextField = ({
       <ThemeProvider theme={error ? errorTheme : noErrorTheme}>
         <Input
           value={value || ""}
+          hasFieldIcon={fieldIconSrc}
           {...others}/>
       </ThemeProvider>
 
       <ThemeProvider theme={value ? filledPlaceholderTheme : emptyPlaceholderTheme}>
-        <Label>{placeholder}</Label>
+        <Label hasFieldIcon={fieldIconSrc}>{placeholder}</Label>
       </ThemeProvider>
 
       <ThemeProvider theme={value ? filledLabelTheme : emptyLabelTheme}>
-        <Label>{label}</Label>
+        <Label hasFieldIcon={fieldIconSrc}>{label}</Label>
       </ThemeProvider>
 
       <ThemeProvider theme={error ? errorTheme : noErrorTheme}>
         <ErrorContainer>{error}</ErrorContainer>
       </ThemeProvider>
+
+      {
+        fieldIconSrc ? (
+          <React.Suspense fallback={null}>
+            <FieldIcon src={fieldIconSrc}/>
+          </React.Suspense>
+        ) : null
+      }
     </InputContainer>
   )
 }
@@ -116,6 +135,7 @@ TextField.propTypes = {
     PropTypes.number
   ]),
   error: PropTypes.string,
+  fieldIconSrc: PropTypes.string,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,

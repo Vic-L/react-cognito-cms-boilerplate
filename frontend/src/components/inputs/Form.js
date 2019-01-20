@@ -203,7 +203,8 @@ class Form extends React.Component {
               dateDisplayFormat="YYYY/MM/DD"
               minDate={moment().subtract(2, 'weeks').toDate()}
               maxDate={moment().add(1, 'year').toDate()}
-              onChange={this.onChangeDatePickerFieldWithNoError}/>
+              onChange={this.onChangeDatePickerFieldWithNoError}
+              fieldIconSrc='http://simpleicon.com/wp-content/uploads/Calendar-1.svg'/>
           </React.Suspense>
         </Box>
 

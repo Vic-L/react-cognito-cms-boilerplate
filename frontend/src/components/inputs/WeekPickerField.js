@@ -65,6 +65,7 @@ class WeekPickerField extends React.Component {
             label={this.props.label}
             error={this.props.error}
             value={this.renderDate()}
+            fieldIconSrc={this.props.fieldIconSrc}
             readOnly/>
           <DatePicker
             ref='datepicker'
@@ -133,6 +134,7 @@ WeekPickerField.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   error: PropTypes.string,
+  fieldIconSrc: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
 }
