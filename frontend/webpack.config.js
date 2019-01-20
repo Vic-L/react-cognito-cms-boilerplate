@@ -80,10 +80,6 @@ module.exports = {
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
     }),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
     new Dotenv({
       path: `./.env.${process.env.NODE_ENV}`
     }),
