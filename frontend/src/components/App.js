@@ -20,7 +20,7 @@ const Overlay = styled.div`
   z-index: 999999999999;
 `
 
-const App = ({ dispatch, location }) => {
+const App = ({ location }) => {
   const transitionComponentKey = location.pathname === '/login' ? 'App_login' : 'App_main'
 
   return (
@@ -47,7 +47,6 @@ const App = ({ dispatch, location }) => {
                   )}/>
                 <Route
                   path="/"
-                  dispatch={dispatch}
                   render={props => (
                     <React.Suspense fallback={<div/>}>
                       <Main {...props}/>

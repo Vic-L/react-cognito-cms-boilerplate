@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const SidebarLink = styled(Link)`
-  color: white;
   width: 100%;
   display: block;
   padding: 1rem;
@@ -12,6 +11,8 @@ const SidebarLink = styled(Link)`
     color: ${SECONDARY_COLOR}
   }
   text-decoration: none;
-`
+  font-size: 14px;
+  color: ${props => props.shouldHighlight ? SECONDARY_COLOR : 'white'};
+`;
 
-export default SidebarLink
+export default SidebarLink;

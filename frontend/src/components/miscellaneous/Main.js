@@ -20,12 +20,11 @@ const TableScreen = React.lazy(() => import('_screens/TableScreen'))
 
 const Main = ({
   location,
-  dispatch,
   history
 }) => {
   return(
     <React.Fragment>
-      <Sidebar dispatch={dispatch} history={history}/>
+      <Sidebar location={location} history={history}/>
       <Box
         width={1}
         px='3rem'
