@@ -18,18 +18,30 @@ const ERROR_COLOR = '#CD3C14';
 const TRANSITION_TIMEOUT = '350';
 const PRIMARY_FONT = 'Lato';
 const SECONDARY_FONT = 'Montserrat';
+const mode = (() => {
+  switch(process.env.NODE_ENV) {
+    case 'prod':
+    return 'production';
+    case 'stg':
+    return 'production';
+    case 'dev':
+    return 'development';
+    default:
+    return 'development'; // or 'none?'
+  }
+})();
 
 module.exports = {
   entry: [
     './src/index.js',
   ],
-  mode: process.env.NODE_ENV,
+  mode,
   output: {
     path: path.resolve(__dirname, 'dist', 'assets'),
-    publicPath: process.env.NODE_ENV === 'production' ? 
+    publicPath: process.env.NODE_ENV === 'prod' ? 
       `${process.env.assetsPublicPathHostName}/assets/` : 
       '/assets/',
-    filename: process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js'
+    filename: process.env.NODE_ENV === 'prod' ? 'bundle-[hash].js' : 'bundle.js'
   },
   module: {
     rules: [
@@ -69,8 +81,8 @@ module.exports = {
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new HtmlWebpackPlugin({
       inject: true,
-      template: process.env.NODE_ENV === 'production' ?
-        './src/index.production.html' :
+      template: process.env.NODE_ENV === 'prod' ?
+        './src/index.prod.html' :
         './src/index.html',
       filename: '../index.html'
     }),
@@ -86,10 +98,10 @@ module.exports = {
       defaultAttribute: 'async'
     }),
     new Dotenv({
-      path: `./.env.${process.env.NODE_ENV}`
+      path: `./.env.${process.env.ENV_FILE_SUFFIX}`
     }),
     new CompressionPlugin({
-      exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
+      exclude: process.env.NODE_ENV === 'prod' ? undefined : /.*/,
       filename: '[path]'
     })
   ],
@@ -102,7 +114,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
+        exclude: process.env.NODE_ENV === 'prod' ? undefined : /.*/,
         uglifyOptions: {
           output: {
             comments: false
