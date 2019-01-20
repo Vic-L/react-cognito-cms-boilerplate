@@ -5,22 +5,18 @@ import autobind from 'autobind-decorator'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { Box } from '@rebass/grid'
+import Auth from '@aws-amplify/auth'
+import PropTypes from 'prop-types'
 
 import * as ContentLoaders from '_contentLoaders'
-
 import TransitionWrapper from '_transitions/TransitionWrapper'
-
-import Auth from '@aws-amplify/auth'
-
 import ValidateField from '_services/ValidateField'
 import ValidateFormObject from '_services/ValidateFormObject'
 
+import withAlert from '_hocs/withAlert'
+
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
-
-import { Mutation } from 'react-apollo'
-
-import { UPDATE_ALERT } from '_mutations'
 
 const Logo = styled.img`
   margin: auto;
@@ -58,76 +54,68 @@ class Login extends React.Component {
     }
 
     const { formObject, submittedFormBefore } = this.state
+    const { updateAlert } = this.props
 
     return (
-      <Mutation mutation={UPDATE_ALERT}>
-        {(updateAlert, { data }) => {
-          return (
-            <Box
-              width={1/3}
-              mx='auto'
-              css={{
-                fontFamily: PRIMARY_FONT
-              }}>
+      <React.Fragment>
 
-              <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
+        <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
-              <Box
-                width={1}
-                alignSelf='center'>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                  <TextField
-                    name="email"
-                    placeholder="Email"
-                    type="text"
-                    label="Email"
-                    error={ValidateField('login-email', formObject.get('email'), submittedFormBefore)}
-                    value={formObject.get('email')}
-                    onChange={this.onChangeEmail}/>
-                </React.Suspense>
-              </Box>
+        <Box
+          width={1/3}
+          mx='auto'
+          alignSelf='center'>
+          <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <TextField
+              name="email"
+              placeholder="Email"
+              type="text"
+              label="Email"
+              error={ValidateField('login-email', formObject.get('email'), submittedFormBefore)}
+              value={formObject.get('email')}
+              onChange={this.onChangeEmail}/>
+          </React.Suspense>
+        </Box>
 
-              <Box
-                width={1}
-                alignSelf='center'>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
-                  <TextField
-                    name="password"
-                    placeholder="Password"
-                    label="Password"
-                    type="password"
-                    error={ValidateField('login-password', formObject.get('password'), submittedFormBefore)}
-                    value={formObject.get('password')}
-                    onChange={this.onChangePassword}/>
-                </React.Suspense>
-              </Box>
+        <Box
+          width={1/3}
+          mx='auto'
+          alignSelf='center'>
+          <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <TextField
+              name="password"
+              placeholder="Password"
+              label="Password"
+              type="password"
+              error={ValidateField('login-password', formObject.get('password'), submittedFormBefore)}
+              value={formObject.get('password')}
+              onChange={this.onChangePassword}/>
+          </React.Suspense>
+        </Box>
 
-              <Box
-                width={1}
-                alignSelf='center'
-                css={{
-                  textAlign: 'center'
-                }}>
-                <React.Suspense fallback={<ContentLoaders.Button/>}>
-                  <ButtonWithLoader
-                    isLoading={this.state.isLoggingIn}
-                    text="Login"
-                    onClick={() => {
-                      if (!this.state.submittedFormBefore) {
-                        this.setState({
-                          submittedFormBefore: true,
-                        }, this.login.bind(null, updateAlert))
-                      } else {
-                        this.login(updateAlert)
-                      }
-                    }}/>
-                </React.Suspense>
-              </Box>
-
-            </Box>
-          )
-        }}
-      </Mutation>
+        <Box
+          width={1/3}
+          mx='auto'
+          alignSelf='center'
+          css={{
+            textAlign: 'center'
+          }}>
+          <React.Suspense fallback={<ContentLoaders.Button/>}>
+            <ButtonWithLoader
+              isLoading={this.state.isLoggingIn}
+              text="Login"
+              onClick={() => {
+                if (!this.state.submittedFormBefore) {
+                  this.setState({
+                    submittedFormBefore: true,
+                  }, this.login.bind(null, updateAlert))
+                } else {
+                  this.login(updateAlert)
+                }
+              }}/>
+          </React.Suspense>
+        </Box>
+      </React.Fragment>
     )
   }
 
@@ -204,4 +192,8 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(TransitionWrapper(Login))
+Login.propTypes = {
+  updateAlert: PropTypes.func.isRequired,
+}
+
+export default withRouter(TransitionWrapper(withAlert(Login)))
