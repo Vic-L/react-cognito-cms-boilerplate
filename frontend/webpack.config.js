@@ -18,6 +18,7 @@ const ERROR_COLOR = '#CD3C14';
 const TRANSITION_TIMEOUT = '350';
 const PRIMARY_FONT = 'Lato';
 const SECONDARY_FONT = 'Montserrat';
+const FONT_ASSETS_ENDPOINT = 'https://github.com/InteractiveObject/pakify/raw/master/fonts';
 const mode = (() => {
   switch(process.env.NODE_ENV) {
     case 'prod':
@@ -68,7 +69,8 @@ module.exports = {
                 `$alternative-color: ${ALTERNATIVE_COLOR};` +
                 `$error-color: ${ERROR_COLOR};` +
                 `$primary-font: ${PRIMARY_FONT};` +
-                `$secondary-font: ${SECONDARY_FONT};`
+                `$secondary-font: ${SECONDARY_FONT};` +
+                `$font-assets-endpoint: '${FONT_ASSETS_ENDPOINT}';`
             }
           }
         ],

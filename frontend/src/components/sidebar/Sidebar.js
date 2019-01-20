@@ -16,7 +16,6 @@ const SidebarContainer = styled.div`
   transition: margin 350ms ease-in-out;
   z-index: 1;
   margin-left: ${props => props.isShown ? '0' : '-16.66666667%'};
-  font-family: ${PRIMARY_FONT};
 `
 
 const SidebarBackground = styled.div`

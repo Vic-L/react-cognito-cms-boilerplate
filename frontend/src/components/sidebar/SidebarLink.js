@@ -6,8 +6,10 @@ const SidebarLink = styled(Link)`
   display: block;
   padding: 1rem;
   cursor: pointer;
+  font-family: 'Avenir-Light';
   &:hover {
-    color: ${SECONDARY_COLOR}
+    color: ${SECONDARY_COLOR};
+    font-family: 'Avenir-Heavy';
   }
   text-decoration: none;
   font-size: 14px;
