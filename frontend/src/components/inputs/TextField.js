@@ -12,12 +12,15 @@ const InputContainer = styled.div`
 
 const NORMAL_PADDING = '10px'
 
+const LABEL_COLOR = '#999'
+const FONT = 'Avenir-Book'
+
 const Input = styled.input`
   height: 50px;
   display: block;
   padding: ${props => props.isFloating ? `16px ${NORMAL_PADDING} 6px ${NORMAL_PADDING};` : NORMAL_PADDING};
   font-size: 14px;
-  font-weight: bold;
+  font-family: ${FONT};
   color: #000;
   background-color: #f5f5f5;
   border: none;
@@ -31,7 +34,12 @@ const Input = styled.input`
   && {
     border-bottom: 2px solid ${props => props.theme.borderBottomColor};
   }
-  padding-right: ${props => props.hasFieldIcon ? '60px !important' : NORMAL_PADDING}
+  padding-right: ${props => props.hasFieldIcon ? '60px !important' : NORMAL_PADDING};
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: ${LABEL_COLOR};
+    font-family: ${FONT};
+    opacity: 1; /* Firefox */
+  }
 `
 
 const FieldIcon = styled.img`
@@ -45,13 +53,14 @@ const FieldIcon = styled.img`
 const Label = styled.label`;
   position: absolute
   pointer-events: none;
+  font-family: ${FONT};
   top: 1rem;
   bottom: auto;
   left: ${NORMAL_PADDING};
   right: 0; /* dependent on width, controlled by fieldIconSrc */
   width: calc(100% - (${NORMAL_PADDING} + ${props => props.hasFieldIcon ? '60px' : NORMAL_PADDING}));
   font-size: 1rem;
-  color: #999;
+  color: ${LABEL_COLOR};
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -116,6 +125,7 @@ const TextField = ({
           value={value || ""}
           isFloating={isFloating}
           hasFieldIcon={fieldIconSrc}
+          placeholder={isFloating ? '' : placeholder}
           {...others}/>
       </ThemeProvider>
 
