@@ -116,7 +116,7 @@ TextField.propTypes = {
     PropTypes.number
   ]),
   error: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
 }
