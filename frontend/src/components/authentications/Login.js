@@ -57,7 +57,7 @@ class Login extends React.Component {
     const { updateAlert } = this.props
 
     return (
-      <React.Fragment>
+      <form>
 
         <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
@@ -104,7 +104,8 @@ class Login extends React.Component {
             <ButtonWithLoader
               isLoading={this.state.isLoggingIn}
               text="Login"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault()
                 if (!this.state.submittedFormBefore) {
                   this.setState({
                     submittedFormBefore: true,
@@ -115,7 +116,7 @@ class Login extends React.Component {
               }}/>
           </React.Suspense>
         </Box>
-      </React.Fragment>
+      </form>
     )
   }
 
