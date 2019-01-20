@@ -1,10 +1,10 @@
-import React from 'react'
-import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
-import { Box } from '@rebass/grid'
+import React from 'react';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+import { Grid, Cell } from 'styled-css-grid';
 
-import TransitionWrapper from '_transitions/TransitionWrapper'
-import * as ContentLoaders from '_contentLoaders'
+import TransitionWrapper from '_transitions/TransitionWrapper';
+import * as ContentLoaders from '_contentLoaders';
 import withCallbackAlert from '_hocs/withCallbackAlert'
 
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
@@ -24,14 +24,10 @@ const Dashboard = ({
   updateAlertResponse,
 }) => {
   return(
-    <React.Fragment>
-      <Box
-        width={1/3}
-        mx='auto'
-        alignSelf='center'
-        css={{
-          textAlign: 'center'
-        }}>
+    <Grid columns={3} gap='1rem'>
+      <Cell/>
+
+      <Cell>
         <h1>GRAPHQL Posts</h1>
         <Query
           fetchPolicy='network-only'
@@ -96,8 +92,10 @@ const Dashboard = ({
             return posts
           }}
         </Query>
-      </Box>
-    </React.Fragment>
+      </Cell>
+
+      <Cell/>
+    </Grid>
   )
 }
 

@@ -4,7 +4,7 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { Box } from '@rebass/grid';
+import { Grid, Cell } from 'styled-css-grid';
 import Auth from '@aws-amplify/auth';
 import PropTypes from 'prop-types';
 
@@ -60,61 +60,62 @@ class Login extends React.Component {
 
         <Logo src='https://t4.rbxcdn.com/2d5d9e7b8bb8d4524a7dfcf9c48c889c'/>
 
-        <Box
-          width={1/3}
-          mx='auto'
-          alignSelf='center'>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <TextField
-              name="email"
-              placeholder="Email"
-              type="text"
-              label="Email"
-              error={ValidateField('login-email', formObject.get('email'), submittedFormBefore)}
-              value={formObject.get('email')}
-              onChange={this.onChangeEmail}/>
-          </React.Suspense>
-        </Box>
+        <Grid columns={3} gap='0'>
 
-        <Box
-          width={1/3}
-          mx='auto'
-          alignSelf='center'>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <TextField
-              name="password"
-              placeholder="Password"
-              label="Password"
-              type="password"
-              error={ValidateField('login-password', formObject.get('password'), submittedFormBefore)}
-              value={formObject.get('password')}
-              onChange={this.onChangePassword}/>
-          </React.Suspense>
-        </Box>
+          <Cell/>
 
-        <Box
-          width={1/3}
-          mx='auto'
-          alignSelf='center'
-          css={{
-            textAlign: 'center'
-          }}>
-          <React.Suspense fallback={<ContentLoaders.Button/>}>
-            <ButtonWithLoader
-              isLoading={this.state.isLoggingIn}
-              text="Login"
-              onClick={(e) => {
-                e.preventDefault()
-                if (!this.state.submittedFormBefore) {
-                  this.setState({
-                    submittedFormBefore: true,
-                  }, this.login.bind(null, updateAlert))
-                } else {
-                  this.login(updateAlert)
-                }
-              }}/>
-          </React.Suspense>
-        </Box>
+          <Cell>
+            <Grid columns={1} gap='1rem'>
+              <Cell>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <TextField
+                    name="email"
+                    placeholder="Email"
+                    type="text"
+                    label="Email"
+                    error={ValidateField('login-email', formObject.get('email'), submittedFormBefore)}
+                    value={formObject.get('email')}
+                    onChange={this.onChangeEmail}/>
+                </React.Suspense>
+              </Cell>
+              
+              <Cell>
+                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                  <TextField
+                    name="password"
+                    placeholder="Password"
+                    label="Password"
+                    type="password"
+                    error={ValidateField('login-password', formObject.get('password'), submittedFormBefore)}
+                    value={formObject.get('password')}
+                    onChange={this.onChangePassword}/>
+                </React.Suspense>
+              </Cell>
+
+              <Cell center>
+                <React.Suspense fallback={<ContentLoaders.Button/>}>
+                  <ButtonWithLoader
+                    isLoading={this.state.isLoggingIn}
+                    text="Login"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (!this.state.submittedFormBefore) {
+                        this.setState({
+                          submittedFormBefore: true,
+                        }, this.login.bind(null, updateAlert))
+                      } else {
+                        this.login(updateAlert)
+                      }
+                    }}/>
+                </React.Suspense>
+              </Cell>
+            </Grid>
+
+          </Cell>
+
+          <Cell/>
+
+        </Grid>
       </form>
     )
   }

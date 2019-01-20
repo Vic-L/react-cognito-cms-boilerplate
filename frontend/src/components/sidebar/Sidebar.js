@@ -121,6 +121,11 @@ class Sidebar extends React.Component {
           </React.Suspense>
           <React.Suspense fallback={<div/>}>
             <SidebarOption
+              text="Charts"
+              dst="/charts"/>
+          </React.Suspense>
+          <React.Suspense fallback={<div/>}>
+            <SidebarOption
               text="Multi Highlight Example"
               dst="/"
               shouldHighlight={/^\/(cards|table)/.test(this.props.location.pathname)}/>

@@ -1,14 +1,14 @@
-import React from 'react'
-import { fromJS } from 'immutable'
-import autobind from 'autobind-decorator'
-import moment from 'moment'
-import { EditorState, ContentState, convertToRaw } from 'draft-js'
-import draftToHtml from 'draftjs-to-html'
-import htmlToDraft from 'html-to-draftjs'
-import { Flex, Box } from '@rebass/grid'
+import React from 'react';
+import { fromJS } from 'immutable';
+import autobind from 'autobind-decorator';
+import moment from 'moment';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import { Grid, Cell } from 'styled-css-grid';
 
-import * as ContentLoaders from '_contentLoaders'
-import TransitionWrapper from '_transitions/TransitionWrapper'
+import * as ContentLoaders from '_contentLoaders';
+import TransitionWrapper from '_transitions/TransitionWrapper';
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const SelectField = React.lazy(() => import('_inputs/SelectField'))
@@ -66,187 +66,207 @@ class Form extends React.Component {
         <ContentLoaders.Button/>
         <ContentLoaders.InputField/>
 
-        <Box
-          width={1/2}
-          css={{
-            textAlign: 'center'
-          }}>
-          <React.Suspense fallback={<div/>}>
-            <Checkbox
-              text="Male"
-              isChecked={formObject.get('isMaleChecked')}
-              onClick={this.onCheckMale}/>
-          </React.Suspense>
-          <React.Suspense fallback={<div/>}>
-            <Checkbox
-              text="Female"
-              isChecked={formObject.get('isFemaleChecked')}
-              onClick={this.onCheckFemale}/>
-          </React.Suspense>
-        </Box>
+        <Grid columns={2} gap='1rem'>
+          {/* row */}
+          <Cell center>
+            <React.Suspense fallback={<div/>}>
+              <Checkbox
+                text="Male"
+                isChecked={formObject.get('isMaleChecked')}
+                onClick={this.onCheckMale}/>
+            </React.Suspense>
+          </Cell>
+          <Cell center>
+            <React.Suspense fallback={<div/>}>
+              <Checkbox
+                text="Female"
+                isChecked={formObject.get('isFemaleChecked')}
+                onClick={this.onCheckFemale}/>
+            </React.Suspense>
+          </Cell>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <TextField
-              name="fieldWithNoError"
-              placeholder="FieldWithNoError"
-              type="text"
-              label="FIELDWITHNOERROR"
-              value={formObject.get('fieldWithNoError')}
-              error={""}
-              onChange={this.onChangeFieldWithNoError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <TextField
+                name="fieldWithNoError"
+                placeholder="FieldWithNoError"
+                type="text"
+                label="FIELDWITHNOERROR"
+                value={formObject.get('fieldWithNoError')}
+                error={""}
+                onChange={this.onChangeFieldWithNoError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
-            <TextArea
-              name="textAreaWithoutError"
-              placeholder="Enter text here"
-              value={formObject.get('textAreaWithoutError')}
-              error={""}
-              onChange={this.onChangeTextAreaWithoutError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+              <TextArea
+                name="textAreaWithoutError"
+                placeholder="Enter text here"
+                value={formObject.get('textAreaWithoutError')}
+                error={""}
+                onChange={this.onChangeTextAreaWithoutError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
-            <TextArea
-              name="textAreaWithError"
-              placeholder="Enter text here"
-              value={formObject.get('textAreaWithError')}
-              error={"textAreaWithError"}
-              onChange={this.onChangeTextAreaWithError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+              <TextArea
+                name="textAreaWithError"
+                placeholder="Enter text here"
+                value={formObject.get('textAreaWithError')}
+                error={"textAreaWithError"}
+                onChange={this.onChangeTextAreaWithError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <TextField
-              name="fieldWithError"
-              placeholder="FieldWithError"
-              type="text"
-              label="FIELDWITHERROR"
-              value={formObject.get('fieldWithError')}
-              error={'fieldWithError'}
-              onChange={this.onChangeFieldWithError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <TextField
+                name="fieldWithError"
+                placeholder="FieldWithError"
+                type="text"
+                label="FIELDWITHERROR"
+                value={formObject.get('fieldWithError')}
+                error={'fieldWithError'}
+                onChange={this.onChangeFieldWithError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <SelectField
-              name="selectFieldWithNoError"
-              placeholder="SelectFieldWithNoError"
-              type="text"
-              label="SELECTFIELDWITHNOERROR"
-              value={formObject.get('selectFieldWithNoError')}
-              error={""}
-              options={this.getOptions()}
-              onChange={this.onChangeSelectFieldWithNoError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <SelectField
+                name="selectFieldWithNoError"
+                placeholder="SelectFieldWithNoError"
+                type="text"
+                label="SELECTFIELDWITHNOERROR"
+                value={formObject.get('selectFieldWithNoError')}
+                error={""}
+                options={this.getOptions()}
+                onChange={this.onChangeSelectFieldWithNoError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <RestrictedSelectField
-              name="restrictedSelectField"
-              placeholder="RestrictedSelectField"
-              type="text"
-              label="RESTRICTEDSELECTFIELD"
-              value={formObject.get('restrictedSelectField')}
-              error={""}
-              fullOptions={this.getOptions()}
-              selectableOptions={[this.getOptions()[0]]}
-              onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <RestrictedSelectField
+                name="restrictedSelectField"
+                placeholder="RestrictedSelectField"
+                type="text"
+                label="RESTRICTEDSELECTFIELD"
+                value={formObject.get('restrictedSelectField')}
+                error={""}
+                fullOptions={this.getOptions()}
+                selectableOptions={[this.getOptions()[0]]}
+                onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <CountrySelector
-              name="countrySelectorField"
-              placeholder="Select Country"
-              type="text"
-              label="COUNTRY"
-              labelKey="name"
-              valueKey="alpha-2"
-              value={formObject.get('countrySelectorField')}
-              error={""}
-              onChange={this.onChangeCountrySelector}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <CountrySelector
+                name="countrySelectorField"
+                placeholder="Select Country"
+                type="text"
+                label="COUNTRY"
+                labelKey="name"
+                valueKey="alpha-2"
+                value={formObject.get('countrySelectorField')}
+                error={""}
+                onChange={this.onChangeCountrySelector}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <AutoSuggestField
-              name="AutoSuggestFieldWithNoError"
-              placeholder="AutoSuggestFieldWithNoError"
-              type="text"
-              label="AUTOSUGGESTFIELDWITHNOERROR"
-              value={formObject.get('autoSuggestFieldWithNoError')}
-              error={""}
-              suggestionList={fromJS(['John', 'Paul', 'George', 'Ringo'])}
-              onChange={this.onChangeAutoSuggestFieldWithNoError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <AutoSuggestField
+                name="AutoSuggestFieldWithNoError"
+                placeholder="AutoSuggestFieldWithNoError"
+                type="text"
+                label="AUTOSUGGESTFIELDWITHNOERROR"
+                value={formObject.get('autoSuggestFieldWithNoError')}
+                error={""}
+                suggestionList={fromJS(['John', 'Paul', 'George', 'Ringo'])}
+                onChange={this.onChangeAutoSuggestFieldWithNoError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <DatePickerField
-              name="DatePickerFieldWithNoError"
-              placeholder="DatePickerFieldWithNoError"
-              type="text"
-              label="DATEPICKERFIELDWITHNOERROR"
-              value={formObject.get('datePickerFieldWithNoError')}
-              error={""}
-              dateDisplayFormat="YYYY/MM/DD"
-              minDate={moment().subtract(2, 'weeks').toDate()}
-              maxDate={moment().add(1, 'year').toDate()}
-              onChange={this.onChangeDatePickerFieldWithNoError}
-              fieldIconSrc='http://simpleicon.com/wp-content/uploads/Calendar-1.svg'/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <DatePickerField
+                name="DatePickerFieldWithNoError"
+                placeholder="DatePickerFieldWithNoError"
+                type="text"
+                label="DATEPICKERFIELDWITHNOERROR"
+                value={formObject.get('datePickerFieldWithNoError')}
+                error={""}
+                dateDisplayFormat="YYYY/MM/DD"
+                minDate={moment().subtract(2, 'weeks').toDate()}
+                maxDate={moment().add(1, 'year').toDate()}
+                onChange={this.onChangeDatePickerFieldWithNoError}
+                fieldIconSrc='http://simpleicon.com/wp-content/uploads/Calendar-1.svg'/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <WeekPickerField
-              name="WeekPickerFieldWithNoError"
-              placeholder="WeekPickerFieldWithNoError"
-              type="text"
-              label="DATEPICKERFIELDWITHNOERROR"
-              value={formObject.get('weekPickerFieldWithNoError')}
-              error={""}
-              minDate={moment().subtract(1, 'year').toDate()}
-              maxDate={moment().add(1, 'year').toDate()}
-              onChange={this.onChangeWeekPickerFieldWithNoError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <WeekPickerField
+                name="WeekPickerFieldWithNoError"
+                placeholder="WeekPickerFieldWithNoError"
+                type="text"
+                label="DATEPICKERFIELDWITHNOERROR"
+                value={formObject.get('weekPickerFieldWithNoError')}
+                error={""}
+                minDate={moment().subtract(1, 'year').toDate()}
+                maxDate={moment().add(1, 'year').toDate()}
+                onChange={this.onChangeWeekPickerFieldWithNoError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell/>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <FileField
-              name="FileFieldWithoutError"
-              text="FileFieldWithoutError"
-              file={formObject.get('fileFieldWithoutError')}
-              error={""}
-              onChange={this.onChangeFileFieldWithoutError}/>
-          </React.Suspense>
-        </Box>
+          {/* row */}
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <FileField
+                name="FileFieldWithoutError"
+                text="FileFieldWithoutError"
+                file={formObject.get('fileFieldWithoutError')}
+                error={""}
+                onChange={this.onChangeFileFieldWithoutError}/>
+            </React.Suspense>
+          </Cell>
+          <Cell>
+            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+              <FileField
+                name="FileFieldWithError"
+                text="FileFieldWithError"
+                file={formObject.get('fileFieldWithError')}
+                error={"This field is required"}
+                onChange={this.onChangeFileFieldWithError}/>
+            </React.Suspense>
+          </Cell>
 
-        <Box width={1/2}>
-          <React.Suspense fallback={<ContentLoaders.InputField/>}>
-            <FileField
-              name="FileFieldWithError"
-              text="FileFieldWithError"
-              file={formObject.get('fileFieldWithError')}
-              error={"This field is required"}
-              onChange={this.onChangeFileFieldWithError}/>
-          </React.Suspense>
-        </Box>
-
-        <Box width={1}>
-          <Box width={1/2}>
+          {/* row */}
+          <Cell>
             <React.Suspense fallback={<div/>}>
               <WYSIWYG
                 editorState={formObject.get('editorState')}
@@ -260,36 +280,31 @@ class Form extends React.Component {
                 }}
                 placeholder='Begin typing...'/>
             </React.Suspense>
-          </Box>
-
-          <Box width={1/2}>
+          </Cell>
+          <Cell>
             <textarea
               disabled
               value={draftToHtml(convertToRaw(formObject.get('editorState').getCurrentContent()))}/>
-          </Box>
-        </Box>
+          </Cell>
 
-        <Flex>
-          <Box width={1/2}>
+          {/* row */}
+
+          <Cell>
             <React.Suspense fallback={<ContentLoaders.Button/>}>
               <Button onClick={this.onSubmit}>
                 SUBMIT
               </Button>
             </React.Suspense>
-          </Box>
-        </Flex>
-
-        <Flex>
-          <Box width={1/2}>
+          </Cell>
+          <Cell>
             <React.Suspense fallback={<ContentLoaders.Button/>}>
               <ButtonWithLoader
                 text="SUBMIT WITH LOADER"
                 isLoading={this.state.isLoading}
                 onClick={this.toggleLoading}/>
             </React.Suspense>
-          </Box>
-        </Flex>
-
+          </Cell>
+        </Grid>
       </React.Fragment>
     )
   }

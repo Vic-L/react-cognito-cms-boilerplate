@@ -1,66 +1,36 @@
-import React from 'react'
-import { Line, Pie } from 'react-chartjs-2'
-import { Flex, Box } from '@rebass/grid'
+import React from 'react';
+import { Line, Pie } from 'react-chartjs-2';
+import { Grid, Cell } from 'styled-css-grid';
 
-const Card = React.lazy(() => import('_cards/Card'))
+import CardContainer from '_cards/CardContainer';
 
 class Charts extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Box width={1} mx='1rem'>
-          <h2>Charts</h2>
-        </Box>
-        <Flex>
-          <Box width={1/2}>
-            <React.Suspense fallback={<div></div>}>
-              <Card>
-                <Line
-                  data={this.getLineChartData()}
-                  options={this.getLineChartOptions()}/>
-              </Card>
-            </React.Suspense>
-          </Box>
-          <Box width={1/2}>
-            <React.Suspense fallback={<div></div>}>
-              <Card>
-                <Pie
-                  data={this.getPieChartData()}
-                  options={this.getPieChartOptions()}/>
-              </Card>
-            </React.Suspense>
-          </Box>
-        </Flex>
-      </React.Fragment>
-    )
-  }
-
   getLineChartData() {
     return {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: "My First dataset",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
+          label: 'My First dataset',
+          fillColor: 'rgba(220,220,220,0.2)',
+          strokeColor: 'rgba(220,220,220,1)',
+          pointColor: 'rgba(220,220,220,1)',
+          pointStrokeColor: '#fff',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
           data: [65, 59, 80, 81, 56, 55, 40]
         },
         {
-          label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
+          label: 'My Second dataset',
+          fillColor: 'rgba(151,187,205,0.2)',
+          strokeColor: 'rgba(151,187,205,1)',
+          pointColor: 'rgba(151,187,205,1)',
+          pointStrokeColor: '#fff',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(151,187,205,1)',
           data: [28, 48, 40, 19, 86, 27, 90]
         }
       ]
-    }
+    };
   }
 
   getLineChartOptions() {
@@ -164,6 +134,41 @@ class Charts extends React.Component {
       responsive: true
     }
   }
+
+  render() {
+    return (
+      <React.Fragment>
+        <h2>Charts</h2>
+
+        <Grid columns={2} gap='1rem'>
+          <Cell>
+            <React.Suspense fallback={<div />}>
+              <CardContainer>
+                {() =>
+                  <Line
+                    data={this.getLineChartData()}
+                    options={this.getLineChartOptions()}
+                  />
+                }
+              </CardContainer>
+            </React.Suspense>
+          </Cell>
+          <Cell>
+            <React.Suspense fallback={<div />}>
+              <CardContainer>
+                {() =>
+                  <Pie
+                    data={this.getPieChartData()}
+                    options={this.getPieChartOptions()}
+                  />
+                }
+              </CardContainer>
+            </React.Suspense>
+          </Cell>
+        </Grid>
+      </React.Fragment>
+    );
+  }
 }
 
-export default Charts
+export default Charts;
