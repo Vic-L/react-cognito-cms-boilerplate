@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { InputField } from '_contentLoaders'
+import Overlay from '_inputs/Overlay'
 
 // datepicker setup
 import enGB from 'date-fns/locale/en-GB'
@@ -17,16 +18,6 @@ const TextField = React.lazy(() => import('_inputs/TextField'))
 
 const WeekPickerContainer = styled.div`
   position: relative;
-`
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  cursor: pointer;
 `
 
 class WeekPickerField extends React.Component {
