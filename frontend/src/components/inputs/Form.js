@@ -16,6 +16,7 @@ const RestrictedSelectField = React.lazy(() => import('_inputs/RestrictedSelectF
 const CountrySelector = React.lazy(() => import('_inputs/CountrySelector'))
 const AutoSuggestField = React.lazy(() => import('_inputs/AutoSuggestField'))
 const DatePickerField = React.lazy(() => import('_inputs/DatePickerField'))
+const WeekPickerField = React.lazy(() => import('_inputs/WeekPickerField'))
 const FileField = React.lazy(() => import('_inputs/FileField'))
 const WYSIWYG = React.lazy(() => import('_inputs/WYSIWYG'))
 const Checkbox = React.lazy(() => import('_inputs/Checkbox'))
@@ -41,6 +42,7 @@ class Form extends React.Component {
         countrySelectorField: null,
         autoSuggestFieldWithNoError: null,
         datePickerFieldWithNoError: null,
+        weekPickerFieldWithNoError: null,
         fileFieldWithoutError: null,
         fileFieldWithError: null,
         editorState: EditorState.createEmpty(),
@@ -207,6 +209,21 @@ class Form extends React.Component {
 
         <Box width={1/2}>
           <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <WeekPickerField
+              name="WeekPickerFieldWithNoError"
+              placeholder="WeekPickerFieldWithNoError"
+              type="text"
+              label="DATEPICKERFIELDWITHNOERROR"
+              value={formObject.get('weekPickerFieldWithNoError')}
+              error={""}
+              minDate={moment().subtract(1, 'year').toDate()}
+              maxDate={moment().add(1, 'year').toDate()}
+              onChange={this.onChangeWeekPickerFieldWithNoError}/>
+          </React.Suspense>
+        </Box>
+
+        <Box width={1/2}>
+          <React.Suspense fallback={<ContentLoaders.InputField/>}>
             <FileField
               name="FileFieldWithoutError"
               text="FileFieldWithoutError"
@@ -349,6 +366,14 @@ class Form extends React.Component {
   onChangeDatePickerFieldWithNoError(dateString) {
     this.setState(({formObject}) => ({
       formObject: formObject.set('datePickerFieldWithNoError', dateString)
+    }))
+  }
+
+  @autobind
+  onChangeWeekPickerFieldWithNoError(dateString) {
+    // will return monday of the week
+    this.setState(({formObject}) => ({
+      formObject: formObject.set('weekPickerFieldWithNoError', dateString)
     }))
   }
 
