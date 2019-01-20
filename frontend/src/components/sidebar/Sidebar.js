@@ -123,7 +123,7 @@ class Sidebar extends React.Component {
             <SidebarOption
               text="Multi Highlight Example"
               dst="/"
-              shouldHighlight={/^\/(cards|table)/.test(this.props.location.pathname)}/>/>
+              shouldHighlight={/^\/(cards|table)/.test(this.props.location.pathname)}/>
           </React.Suspense>
           <React.Suspense fallback={<div/>}>
             <SidebarOptionWithDropdown
