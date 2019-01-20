@@ -7,13 +7,12 @@ const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
 
 const TextAreaContainer = styled.div`
   position: relative;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
 `
 
 const TextAreaInput = styled.textarea`
   width: 100%;
   padding: 0.5rem;
-  margin-bottom: 0;
   border-radius: 5px;
   border: 1px solid ${props => props.theme.borderColor};
   box-sizing: border-box;

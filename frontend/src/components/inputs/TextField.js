@@ -8,7 +8,7 @@ const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
 
 const InputContainer = styled.div`
   position: relative;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
 `
 
 const Input = styled(StringInput)`

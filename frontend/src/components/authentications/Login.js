@@ -19,9 +19,8 @@ const TextField = React.lazy(() => import('_inputs/TextField'))
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
 const Logo = styled.img`
-  margin: auto;
+  margin: 0.5rem auto;
   display: block;
-  margin-bottom: 1rem;
 `
 
 class Login extends React.Component {
