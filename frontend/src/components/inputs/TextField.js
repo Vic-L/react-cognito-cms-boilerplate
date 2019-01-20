@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from 'styled-components'
 import PropTypes from 'prop-types'
 
 // COMPONENTS
-const StringInput = React.lazy(() => import('_inputs/StringInput'))
 const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
 
 const InputContainer = styled.div`
@@ -11,11 +10,28 @@ const InputContainer = styled.div`
   margin: 0.5rem;
 `
 
-const Input = styled(StringInput)`
+const NORMAL_PADDING = '10px'
+
+const Input = styled.input`
+  height: 50px;
+  display: block;
+  padding: ${props => props.isFloating ? `16px ${NORMAL_PADDING} 6px ${NORMAL_PADDING};` : NORMAL_PADDING};
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 0px;
+  box-shadow: none;
+  margin: 0px 0px 0px;
+  width: 100%;
+  transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   && {
     border-bottom: 2px solid ${props => props.theme.borderBottomColor};
   }
-  padding-right: ${props => props.hasFieldIcon ? '60px !important' : 'initial'}
+  padding-right: ${props => props.hasFieldIcon ? '60px !important' : NORMAL_PADDING}
 `
 
 const FieldIcon = styled.img`
@@ -31,9 +47,9 @@ const Label = styled.label`;
   pointer-events: none;
   top: 1rem;
   bottom: auto;
-  left: 10px;
+  left: ${NORMAL_PADDING};
   right: 0; /* dependent on width, controlled by fieldIconSrc */
-  width: calc(100% - (10px + ${props => props.hasFieldIcon ? '60px' : '10px'}));
+  width: calc(100% - (${NORMAL_PADDING} + ${props => props.hasFieldIcon ? '60px' : NORMAL_PADDING}));
   font-size: 1rem;
   color: #999;
   padding: 0;
@@ -89,6 +105,7 @@ const TextField = ({
   value,
   error,
   fieldIconSrc,
+  isFloating,
   ...others
 }) => {
   return (
@@ -97,17 +114,24 @@ const TextField = ({
       <ThemeProvider theme={error ? errorTheme : noErrorTheme}>
         <Input
           value={value || ""}
+          isFloating={isFloating}
           hasFieldIcon={fieldIconSrc}
           {...others}/>
       </ThemeProvider>
 
-      <ThemeProvider theme={value ? filledPlaceholderTheme : emptyPlaceholderTheme}>
-        <Label hasFieldIcon={fieldIconSrc}>{placeholder}</Label>
-      </ThemeProvider>
+      {
+        isFloating ? (
+          <React.Fragment>
+            <ThemeProvider theme={value ? filledPlaceholderTheme : emptyPlaceholderTheme}>
+              <Label hasFieldIcon={fieldIconSrc}>{placeholder}</Label>
+            </ThemeProvider>
 
-      <ThemeProvider theme={value ? filledLabelTheme : emptyLabelTheme}>
-        <Label hasFieldIcon={fieldIconSrc}>{label}</Label>
-      </ThemeProvider>
+            <ThemeProvider theme={value ? filledLabelTheme : emptyLabelTheme}>
+              <Label hasFieldIcon={fieldIconSrc}>{label}</Label>
+            </ThemeProvider>
+          </React.Fragment>
+        ) : null
+      }
 
       <ThemeProvider theme={error ? errorTheme : noErrorTheme}>
         <ErrorContainer>{error}</ErrorContainer>
@@ -138,6 +162,7 @@ TextField.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
+  isFloating: PropTypes.bool,
 }
 
 export default TextField

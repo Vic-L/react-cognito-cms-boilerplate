@@ -89,6 +89,7 @@ class Form extends React.Component {
           <Cell>
             <React.Suspense fallback={<ContentLoaders.InputField/>}>
               <TextField
+                isFloating={true}
                 name="fieldWithNoError"
                 placeholder="FieldWithNoError"
                 type="text"
