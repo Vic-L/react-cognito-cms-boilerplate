@@ -12,6 +12,24 @@ npm start
 
 ### Front End
 
+#### eslint
+
+Project eslint file config is installed via the command below (credits to [this video](https://www.youtube.com/watch?v=lEtWF3_FR2w)).
+```
+npm install --save-dev eslint-config-rallycoding
+```
+
+Note: when installing `sublimelinter-contrib-eslint` via `Package Control`, it is not present. Use `SublimeLinter-eslint` instead.
+
+Create `.eslintrc` file in `frontend` project directory and enter the content below.
+```
+{
+  "extends": "rallycoding"
+}
+```
+
+#### Setup
+
 1. Create file `.env.development` and replace the corresponding values.
 2. Run these commands:
 ```
