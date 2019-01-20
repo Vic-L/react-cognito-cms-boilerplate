@@ -9,7 +9,6 @@ import SelectStyle from '_inputs/SelectStyle'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
-const DropdownChevron = React.lazy(() => import('_inputs/DropdownChevron'))
 
 class RestrictedSelectField extends React.Component {
   constructor(props) {
@@ -36,11 +35,8 @@ class RestrictedSelectField extends React.Component {
                 label={this.props.label}
                 error={this.props.error}
                 value={this.renderOptionLabel()}
+                fieldIconSrc='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'
                 onChange={this.props.onChange}/>
-              <React.Suspense fallback={null}>
-                <DropdownChevron
-                  src='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'/>
-              </React.Suspense>
             </React.Suspense>
           </div>
           <Select
