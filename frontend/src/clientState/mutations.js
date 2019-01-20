@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const UPDATE_ALERT = gql`
   mutation(
@@ -12,7 +12,7 @@ export const UPDATE_ALERT = gql`
       actions: $actions,
     ) @client
   }
-`
+`;
 
 export const DISMISS_ALERT = gql`
   mutation(
@@ -27,7 +27,7 @@ export const DISMISS_ALERT = gql`
       }
     }
   }
-`
+`;
 
 export const UPDATE_ALERT_RESPONSE = gql`
   mutation(
@@ -37,4 +37,4 @@ export const UPDATE_ALERT_RESPONSE = gql`
       alertResponse: $alertResponse,
     ) @client 
   }
-`
+`;

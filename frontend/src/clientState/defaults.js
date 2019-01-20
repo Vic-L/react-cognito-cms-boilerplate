@@ -9,6 +9,6 @@ const defaults = {
     __typename: 'SelectedAlertResponse',
     alertResponse: null
   }
-}
+};
 
-export default defaults
+export default defaults;

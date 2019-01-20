@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_ALERT = gql`
   {
@@ -11,7 +11,7 @@ export const GET_ALERT = gql`
       }
     }
   }
-`
+`;
 
 export const GET_SELECTED_ALERT_RESPONSE = gql`
   {
@@ -19,4 +19,4 @@ export const GET_SELECTED_ALERT_RESPONSE = gql`
       alertResponse
     }
   }
-`
+`;

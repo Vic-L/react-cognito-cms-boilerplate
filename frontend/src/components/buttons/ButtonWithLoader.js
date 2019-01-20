@@ -1,7 +1,7 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import PropTypes from 'prop-types'
-import { ChasingDots } from 'styled-spinkit'
+import React from 'react';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import { ChasingDots } from 'styled-spinkit';
 
 const Button = React.lazy(() => import('_buttons/Button'))
 

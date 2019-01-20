@@ -1,12 +1,12 @@
-import _ from 'lodash'
-import { fromJS } from 'immutable'
-import React from 'react'
-import autobind from 'autobind-decorator'
-import { withRouter } from 'react-router-dom'
-import styled from 'styled-components'
-import { Box } from '@rebass/grid'
-import Auth from '@aws-amplify/auth'
-import PropTypes from 'prop-types'
+import _ from 'lodash';
+import { fromJS } from 'immutable';
+import React from 'react';
+import autobind from 'autobind-decorator';
+import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+import { Box } from '@rebass/grid';
+import Auth from '@aws-amplify/auth';
+import PropTypes from 'prop-types';
 
 import * as ContentLoaders from '_contentLoaders'
 import TransitionWrapper from '_transitions/TransitionWrapper'

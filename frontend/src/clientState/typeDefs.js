@@ -39,6 +39,6 @@ const typeDefs = `
   type Query {
     alert: Alert
   }
-`
+`;
 
-export default typeDefs
+export default typeDefs;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Button = styled.button`
   text-align: center;
@@ -20,6 +20,6 @@ const Button = styled.button`
   &:hover {
     background-color: ${SECONDARY_COLOR};
   }
-`
+`;
 
-export default Button
+export default Button;

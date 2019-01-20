@@ -1,5 +1,5 @@
 function mutate(cache, data) {
-  cache.writeData({ data })
+  cache.writeData({ data });
 }
 
 const resolvers = {
@@ -14,16 +14,14 @@ const resolvers = {
           __typename: 'Alert',
           title,
           body,
-          actions: actions.map(action => { 
-            return {
-              __typename: 'AlertAction',
-              ...action
-            }
-          })
+          actions: actions.map(action => ({
+            __typename: 'AlertAction',
+            ...action
+          }))
         }
-      }
-      mutate(cache, payload)
-      return null
+      };
+      mutate(cache, payload);
+      return null;
     },
 
     dismissAlert: (_, {
@@ -40,9 +38,9 @@ const resolvers = {
           __typename: 'SelectedAlertResponse',
           alertResponse: action.alertResponse
         }
-      }
-      mutate(cache, payload)
-      return null
+      };
+      mutate(cache, payload);
+      return null;
     },
 
     updateAlertResponse: (_, {
@@ -53,11 +51,11 @@ const resolvers = {
           __typename: 'SelectedAlertResponse',
           alertResponse
         }
-      }
-      mutate(cache, payload)
-      return null
+      };
+      mutate(cache, payload);
+      return null;
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;
