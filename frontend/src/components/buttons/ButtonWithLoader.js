@@ -11,7 +11,6 @@ const ButtonContainer = styled(Button)`
   overflow: hidden;
   box-shadow: ${props => props.isLoading ? '0px 0px 0px 2000px rgba(0, 0, 0, 0.8)' : '0px 0px 0px 2000px rgba(0, 0, 0, 0)'};
   background-color: ${props => props.isLoading ? '#999 !important' : `${PRIMARY_COLOR} !important`};
-  box-sizing: border-box;
   ${props => props.isLoading && css`
     display: inline-block;
     margin-top: 0;

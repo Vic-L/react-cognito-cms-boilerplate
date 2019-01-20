@@ -37,7 +37,6 @@ const Label = styled.label`;
   font-size: 1rem;
   color: #999;
   padding: 0;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;

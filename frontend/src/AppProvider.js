@@ -1,12 +1,19 @@
-import '_stylesheets/main.sass'
+import '_stylesheets/main.sass';
 
-import createHistory from 'history/createBrowserHistory'
-import React from 'react'
-import { render } from 'react-dom'
-import { Router, BrowserRouter } from 'react-router-dom'
+import React from 'react';
+import { Router } from 'react-router-dom';
+import WebFont from 'webfontloader';
+import Auth from '@aws-amplify/auth';
+import createHistory from 'history/createBrowserHistory';
 
-// authentication
-import Auth from '@aws-amplify/auth'
+import App from '_components/App';
+
+// if using apollo
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import defaults from '_clientState/defaults';
+import resolvers from '_clientState/resolvers';
+import typeDefs from '_clientState/typeDefs';
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -45,23 +52,20 @@ Auth.configure({
 
   // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
-})
+});
 
 //// if required for APIs unsupported by GraphQL
 // import axios from 'axios'
 // axios.defaults.headers.common["Content-Type"] = "application/json"
 // axios.defaults.headers.common["Accept"] = "application/json"
 
-const history = createHistory()
+const history = createHistory();
 
-import App from '_components/App'
-
-import WebFont from 'webfontloader'
 WebFont.load({
   google: {
     families: ['Lato', 'Montserrat']
   }
-})
+});
 
 // if using App Sync
 /*
@@ -103,13 +107,6 @@ render((
 
 */
 
-// if using apollo
-import ApolloClient, { InMemoryCache, HttpLink } from 'apollo-boost'
-import { ApolloProvider } from 'react-apollo'
-import defaults from '_clientState/defaults'
-import resolvers from '_clientState/resolvers'
-import typeDefs from '_clientState/typeDefs'
-
 const apolloClient = new ApolloClient({
   uri: 'https://fakerql.com/graphql',
   cache: new InMemoryCache(),
@@ -128,21 +125,30 @@ const apolloClient = new ApolloClient({
       errorPolicy: 'all',
     },
   }
-})
+});
 
-import { Normalize } from 'styled-normalize'
+import styledNormalize from 'styled-normalize';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  ${styledNormalize}
+
+  * {
+    box-sizing: border-box;
+  }
+`;
 
 const AppProvider = () => {
   return (
     <ApolloProvider client={apolloClient}>
       <Router history={history}>
         <React.Fragment>
-          <Normalize/>
+          <GlobalStyle />
           <App />
         </React.Fragment>
       </Router>
     </ApolloProvider>
-  )
-}
+  );
+};
 
-export default AppProvider
+export default AppProvider;

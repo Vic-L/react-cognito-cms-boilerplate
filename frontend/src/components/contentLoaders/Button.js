@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components'
 import { shimmerKeyframe } from '_contentLoaders'
 
 const Button = styled.div`
-  box-sizing: border-box;
   height: 40px;
   width: 150px;
   margin: 0.5rem auto;

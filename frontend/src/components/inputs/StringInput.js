@@ -15,7 +15,6 @@ const StringInput = styled.input`
   box-shadow: none;
   margin: 0px 0px 0px;
   width: 100%;
-  box-sizing: border-box;
   transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
   -webkit-appearance: none;
   -moz-appearance: none;
