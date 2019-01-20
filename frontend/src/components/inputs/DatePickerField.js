@@ -57,10 +57,10 @@ class DatePickerField extends React.Component {
             label={this.props.label}
             error={this.props.error}
             value={this.renderDate()}
-            onChange={this.props.onChange}/>
+            readOnly/>
           <DatePicker
             ref='datepicker'
-            selected={this.props.value ? moment(this.props.value) : null}
+            selected={this.props.value ? moment(this.props.value).toDate() : null}
             onChange={this.onDateChange}
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}/>
@@ -71,7 +71,7 @@ class DatePickerField extends React.Component {
 
   @autobind
   onDateChange(date) {
-    this.props.onChange(date.format("YYYY-MM-DD")) // ISO8601 format for date
+    this.props.onChange(moment(date).format("YYYY-MM-DD")) // ISO8601 format for date
   }
 
   @autobind
