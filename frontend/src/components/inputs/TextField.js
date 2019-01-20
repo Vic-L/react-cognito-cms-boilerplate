@@ -7,7 +7,6 @@ const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
 
 const InputContainer = styled.div`
   position: relative;
-  margin: 0.5rem;
 `
 
 const NORMAL_PADDING = '10px'
