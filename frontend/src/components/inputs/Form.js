@@ -199,8 +199,8 @@ class Form extends React.Component {
               value={formObject.get('datePickerFieldWithNoError')}
               error={""}
               dateDisplayFormat="YYYY/MM/DD"
-              minDate={moment().subtract(2, 'weeks')}
-              maxDate={moment().add(1, 'year')}
+              minDate={moment().subtract(2, 'weeks').toDate()}
+              maxDate={moment().add(1, 'year').toDate()}
               onChange={this.onChangeDatePickerFieldWithNoError}/>
           </React.Suspense>
         </Box>

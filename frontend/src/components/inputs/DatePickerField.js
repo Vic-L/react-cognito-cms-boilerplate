@@ -5,7 +5,6 @@ import moment from 'moment'
 import autobind from 'autobind-decorator'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import momentPropTypes from 'react-moment-proptypes'
 
 import { InputField } from '_contentLoaders'
 
@@ -92,8 +91,8 @@ DatePickerField.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   error: PropTypes.string,
-  minDate: momentPropTypes.momentObj,
-  maxDate: momentPropTypes.momentObj,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
 }
 
 export default DatePickerField
