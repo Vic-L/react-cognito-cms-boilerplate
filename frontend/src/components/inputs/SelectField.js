@@ -5,6 +5,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 
 import { InputField } from '_contentLoaders'
+import SelectStyle from '_inputs/SelectStyle'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
@@ -22,26 +23,6 @@ class SelectField extends React.Component {
 
   render() {
     const { error } = this.props
-
-    const selectStyle = {
-      option: (base, state) => ({
-        ...base,
-        borderBottom: '1px black solid',
-        color: 'black',
-      }),
-      container: () => ({
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-      }),
-      // 50 is the height of input
-      control: () => ({
-        opacity: 0,
-        width: '100%',
-        overflow: 'hidden',
-        height: 50,
-      })
-    }
 
     return (
       <React.Suspense fallback={<InputField/>}>
@@ -63,7 +44,7 @@ class SelectField extends React.Component {
             </React.Suspense>
           </div>
           <Select
-            styles={selectStyle}
+            styles={SelectStyle}
             value={this.renderOptionValue()}
             onChange={this.onSelectOption}
             options={this.props.options}/>
