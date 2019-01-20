@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.div`
+const Button = styled.button`
   text-align: center;
   margin: auto;
   vertical-align: middle;
@@ -16,6 +16,7 @@ const Button = styled.div`
   display: inline-block;
   border-radius: 0.25rem;
   font-size: 1rem;
+  border: none;
   &:hover {
     background-color: ${SECONDARY_COLOR};
   }
