@@ -43,6 +43,19 @@ const resolvers = {
       }
       mutate(cache, payload)
       return null
+    },
+
+    updateAlertResponse: (_, {
+      alertResponse,
+    }, { cache }) => {
+      const payload = {
+        selectedAlertResponse: {
+          __typename: 'SelectedAlertResponse',
+          alertResponse
+        }
+      }
+      mutate(cache, payload)
+      return null
     }
   }
 }

@@ -12,3 +12,11 @@ export const GET_ALERT = gql`
     }
   }
 `
+
+export const GET_SELECTED_ALERT_RESPONSE = gql`
+  {
+    selectedAlertResponse @client {
+      alertResponse
+    }
+  }
+`

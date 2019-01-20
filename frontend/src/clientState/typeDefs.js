@@ -30,6 +30,12 @@ const typeDefs = `
     ): Boolean
   }
 
+  type Mutation {
+    updateAlertResponse(
+      alertResponse: AlertResponse
+    ): Boolean
+  }
+
   type Query {
     alert: Alert
   }
