@@ -12,7 +12,6 @@ import TransitionWrapper from '_transitions/TransitionWrapper';
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
 const SelectField = React.lazy(() => import('_inputs/SelectField'))
-const RestrictedSelectField = React.lazy(() => import('_inputs/RestrictedSelectField'))
 const CountrySelector = React.lazy(() => import('_inputs/CountrySelector'))
 const AutoSuggestField = React.lazy(() => import('_inputs/AutoSuggestField'))
 const DatePickerField = React.lazy(() => import('_inputs/DatePickerField'))
@@ -38,7 +37,6 @@ class Form extends React.Component {
         fieldWithNoError: null,
         fieldWithError: null,
         selectFieldWithNoError: null,
-        restrictedSelectField: null,
         countrySelectorField: null,
         autoSuggestFieldWithNoError: null,
         datePickerFieldWithNoError: null,
@@ -154,23 +152,6 @@ class Form extends React.Component {
                 error={""}
                 options={this.getOptions()}
                 onChange={this.onChangeSelectFieldWithNoError}/>
-            </React.Suspense>
-          </Cell>
-          <Cell/>
-
-          {/* row */}
-          <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
-              <RestrictedSelectField
-                name="restrictedSelectField"
-                placeholder="RestrictedSelectField"
-                type="text"
-                label="RESTRICTEDSELECTFIELD"
-                value={formObject.get('restrictedSelectField')}
-                error={""}
-                fullOptions={this.getOptions()}
-                selectableOptions={[this.getOptions()[0]]}
-                onChange={this.onChangeRestrictedSelectFieldWithNoError}/>
             </React.Suspense>
           </Cell>
           <Cell/>
@@ -354,13 +335,6 @@ class Form extends React.Component {
   onChangeSelectFieldWithNoError(selectedOptionValue) {
     this.setState(({formObject}) => ({
       formObject: formObject.set('selectFieldWithNoError', selectedOptionValue)
-    }))
-  }
-
-  @autobind
-  onChangeRestrictedSelectFieldWithNoError(selectedOptionValue) {
-    this.setState(({formObject}) => ({
-      formObject: formObject.set('restrictedSelectField', selectedOptionValue)
     }))
   }
 
