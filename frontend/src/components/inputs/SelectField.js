@@ -8,7 +8,11 @@ import { InputField } from '_contentLoaders'
 import SelectStyle from '_inputs/SelectStyle'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
-const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
+
+const SelectContainer = styled.div`
+  position: relative;
+  display: block;
+`
 
 const SelectElement = styled.select`
   position: absolute;
@@ -26,28 +30,26 @@ class SelectField extends React.Component {
     const { error, placeholder } = this.props
 
     return (
-      <React.Suspense fallback={<InputField/>}>
-        <SelectContainer>
-          <React.Suspense fallback={<InputField/>}>
-            <TextField
-              name={this.props.name}
-              placeholder={placeholder}
-              type={this.props.type}
-              label={this.props.label}
-              error={this.props.error}
-              value={this.renderOptionLabel()}
-              fieldIconSrc='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'
-              onChange={this.props.onChange}/>
-          </React.Suspense>
-          <SelectElement
-            onChange={this.onSelectOption}
-            value={this.renderOptionValue()}>
-            <option value='' disabled>{placeholder}</option>
-            {this.renderOptions()}
-          </SelectElement>
-          
-        </SelectContainer>
-      </React.Suspense>
+      <SelectContainer>
+        <React.Suspense fallback={<InputField/>}>
+          <TextField
+            name={this.props.name}
+            placeholder={placeholder}
+            type={this.props.type}
+            label={this.props.label}
+            error={this.props.error}
+            value={this.renderOptionLabel()}
+            fieldIconSrc='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'
+            onChange={this.props.onChange}/>
+        </React.Suspense>
+        <SelectElement
+          onChange={this.onSelectOption}
+          value={this.renderOptionValue()}>
+          <option value='' disabled>{placeholder}</option>
+          {this.renderOptions()}
+        </SelectElement>
+        
+      </SelectContainer>
     )
   }
 
