@@ -6,89 +6,23 @@ import PropTypes from 'prop-types'
 import { InputField } from '_contentLoaders'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
-const SelectContainer = React.lazy(() => import('_inputs/SelectContainer'))
+const SelectField = React.lazy(() => import('_inputs/SelectField'))
 
 class CountrySelector extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isDropdownShown: false,
-      selectedOption: null
-    }
-  }
-
   render() {
-    const { error } = this.props
-
-    const selectStyle = {
-      option: (base, state) => ({
-        ...base,
-        borderBottom: '1px black solid',
-        color: 'black'
-      }),
-      // 50 is the height of input
-      container: () => ({
-        height: 50,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-      control: () => ({
-        opacity: 0,
-        height: 50,
-        display: 'flex',
-      })
-    }
-
     return (
-      <SelectContainer>
-        <React.Suspense fallback={<InputField/>}>
-          <TextField
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            type={this.props.type}
-            label={this.props.label}
-            error={this.props.error}
-            value={this.renderOptionLabel()}
-            onChange={this.props.onChange}/>
-        </React.Suspense>
-        <Select
-          styles={selectStyle}
-          value={this.renderOptionValue()}
-          onChange={this.onSelectOption}
-          options={this.getCountryCodes()}/>
-      </SelectContainer>
+      <React.Suspense fallback={<InputField/>}>
+        <SelectField
+          name={this.props.name}
+          placeholder={this.props.placeholder}
+          type={this.props.type}
+          label={this.props.label}
+          error={this.props.error}
+          value={this.props.value}
+          options={this.getOptions()}
+          onChange={this.props.onChange}/>
+      </React.Suspense>
     )
-  }
-
-  @autobind
-  renderOptionLabel() {
-    if (this.props.value) {
-      const option = _.find(this.getCountryCodes(), (option) => {
-        return option.value === this.props.value
-      })
-
-      if (_.isNil(option)) {
-        return ""
-      } else {
-        return option.label
-      }
-    } else {
-      return ""
-    }
-  }
-
-  @autobind
-  renderOptionValue() {
-    if (this.props.value) {
-      return _.find(this.getCountryCodes(), (option) => {
-        return option.value === this.props.value
-      }) || null
-    } else {
-      return null
-    }
   }
 
   @autobind
@@ -97,7 +31,7 @@ class CountrySelector extends React.Component {
   }
 
   @autobind
-  getCountryCodes() {
+  getOptions() {
     return _.map([
       {
         "name": "Afghanistan",
