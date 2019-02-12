@@ -1,23 +1,28 @@
-import React, { Component } from 'react'
-import Modal from 'react-modal'
-import autobind from 'autobind-decorator'
+import React, { Component } from 'react';
+import Modal from 'react-modal';
+import autobind from 'autobind-decorator';
+import { Query, Mutation } from 'react-apollo';
 
-import gql from 'graphql-tag'
-import { Query, Mutation } from 'react-apollo'
-
-import { GET_ALERT } from '_queries'
-import { DISMISS_ALERT } from '_mutations'
+import { GET_ALERT } from '_queries';
+import { DISMISS_ALERT } from '_mutations';
 
 class AlertModal extends Component {
   componentDidMount() {
-    Modal.setAppElement('#app')
+    Modal.setAppElement('#app');
+  }
+
+  @autobind
+  closeModal(dismissAlert, action) {
+    dismissAlert({
+      variables: {
+        action
+      }
+    });
   }
 
   render() {
-    const { alert } = this.props
-
     const style = {
-      overlay : {
+      overlay: {
         position: 'fixed',
         top: 0,
         left: 0,
@@ -26,7 +31,7 @@ class AlertModal extends Component {
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
         zIndex: 999999999999,
       },
-      content : {
+      content: {
         position: 'absolute',
         border: '1px solid #ccc',
         background: '#fff',
@@ -39,59 +44,52 @@ class AlertModal extends Component {
         top: '50%',
         transform: 'translate(-50%, -50%)',
       }
-    }
+    };
+
     return (
       <Mutation mutation={DISMISS_ALERT}>
-        {(dismissAlert, { data }) => {
-          return (
-            <Query
-              query={GET_ALERT}
-              fetchPolicy='cache-first'>
-              {({ data }) => {
-                const { title, body, actions } = data.alert
-                const hasAlert = !!title || !!body
+        {(dismissAlert) => (
+          <Query
+            query={GET_ALERT}
+            fetchPolicy='cache-first'
+          >
+            {({ data }) => {
+              const { title, body, actions } = data.alert;
+              const hasAlert = !!title || !!body;
 
-                return(
-                  <Modal
-                    isOpen={hasAlert ? true : false}
-                    contentLabel="Alert Modal"
-                    style={style}>
+              return (
+                <Modal
+                  isOpen={hasAlert}
+                  contentLabel="Alert Modal"
+                  style={style}
+                >
 
-                    {
-                      hasAlert ? (
-                        <h3>{title}</h3>
-                      ) : null
-                    }
+                  {
+                    hasAlert ? (
+                      <h3>{title}</h3>
+                    ) : null
+                  }
 
-                    <p>{hasAlert ? body : ""}</p>
+                  <p>{hasAlert ? body : ''}</p>
 
-                    {
-                      actions && actions.map(action => 
-                        <button
-                          key={action.text}
-                          onClick={this.closeModal.bind(null, dismissAlert, action)}>
-                          {action.text}
-                        </button>
-                      )
-                    }
+                  {
+                    actions && actions.map(action => 
+                      <button
+                        key={action.text}
+                        onClick={this.closeModal.bind(null, dismissAlert, action)}
+                      >
+                        {action.text}
+                      </button>
+                    )
+                  }
 
-                  </Modal>
-                )
-              }}
-            </Query>
-          )
-        }}
+                </Modal>
+              );
+            }}
+          </Query>
+        )}
       </Mutation>
-    )
-  }
-
-  @autobind
-  closeModal(dismissAlert, action) {
-    dismissAlert({
-      variables: {
-        action
-      }
-    })
+    );
   }
 }
 
