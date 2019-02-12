@@ -11,9 +11,9 @@ import App from '_components/App';
 // if using apollo
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import defaults from '_clientState/defaults';
-import resolvers from '_clientState/resolvers';
-import typeDefs from '_clientState/typeDefs';
+import defaults from '_apollo/defaults';
+import resolvers from '_apollo/resolvers';
+import typeDefs from '_apollo/typeDefs';
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
