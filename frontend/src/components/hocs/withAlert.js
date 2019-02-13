@@ -1,20 +1,21 @@
-import React from 'react'
-import { Mutation } from 'react-apollo'
+import React from 'react';
+import { Mutation } from 'react-apollo';
 
-import { UPDATE_ALERT } from '_mutations'
+import { UPDATE_ALERT } from '_mutations';
 
 export default function withAlert(WrappedComponent) {
   return class extends React.Component {
     render() {
       return (
         <Mutation mutation={UPDATE_ALERT}>
-          {(updateAlert, { data }) =>
+          {(updateAlert) =>
             <WrappedComponent
               {...this.props}
-              updateAlert={updateAlert}/>
+              updateAlert={updateAlert}
+            />
           }
         </Mutation>
-      )
+      );
     }
   };
 }
