@@ -6,7 +6,7 @@ import autobind from 'autobind-decorator'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { InputField } from '_contentLoaders'
+import Shimmer from '_elements/Shimmer';
 import Overlay from '_inputs/Overlay'
 
 // datepicker setup
@@ -48,7 +48,7 @@ class WeekPickerField extends React.Component {
     return (
       <WeekPickerContainer>
         <Overlay onClick={this.openDatePicker}/>
-        <React.Suspense fallback={<InputField/>}>
+        <React.Suspense fallback={<Shimmer />}>
           <TextField
             name={this.props.name}
             placeholder={this.props.placeholder}

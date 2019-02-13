@@ -8,7 +8,7 @@ import { Grid, Cell } from 'styled-css-grid';
 import Auth from '@aws-amplify/auth';
 import PropTypes from 'prop-types';
 
-import * as ContentLoaders from '_contentLoaders'
+import Shimmer from '_elements/Shimmer';
 import TransitionWrapper from '_transitions/TransitionWrapper'
 import ValidateField from '_services/ValidateField'
 import ValidateFormObject from '_services/ValidateFormObject'
@@ -67,7 +67,7 @@ class Login extends React.Component {
           <Cell>
             <Grid columns={1} gap='1rem'>
               <Cell>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                <React.Suspense fallback={<Shimmer />}>
                   <TextField
                     name="email"
                     placeholder="Email"
@@ -80,7 +80,7 @@ class Login extends React.Component {
               </Cell>
               
               <Cell>
-                <React.Suspense fallback={<ContentLoaders.InputField/>}>
+                <React.Suspense fallback={<Shimmer />}>
                   <TextField
                     name="password"
                     placeholder="Password"
@@ -93,7 +93,7 @@ class Login extends React.Component {
               </Cell>
 
               <Cell center>
-                <React.Suspense fallback={<ContentLoaders.Button/>}>
+                <React.Suspense fallback={<Shimmer />}>
                   <ButtonWithLoader
                     isLoading={this.state.isLoggingIn}
                     text="Login"

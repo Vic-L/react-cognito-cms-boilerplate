@@ -1,18 +1,18 @@
-import _ from 'lodash'
+import _ from 'lodash';
 import React from 'react';
-import DatePicker from 'react-datepicker'
-import moment from 'moment'
-import autobind from 'autobind-decorator'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import autobind from 'autobind-decorator';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { InputField } from '_contentLoaders'
-import Overlay from '_inputs/Overlay'
+import Shimmer from '_elements/Shimmer';
+import Overlay from '_inputs/Overlay';
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
+const TextField = React.lazy(() => import('_inputs/TextField'));
 const DatePickerContainer = styled.div`
   position: relative;
-`
+`;
 
 class DatePickerField extends React.Component {
   render() {
@@ -40,7 +40,7 @@ class DatePickerField extends React.Component {
     return (
       <DatePickerContainer>
         <Overlay onClick={this.openDatePicker}/>
-        <React.Suspense fallback={<InputField/>}>
+        <React.Suspense fallback={<Shimmer />}>
           <TextField
             name={this.props.name}
             placeholder={this.props.placeholder}

@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import { Grid, Cell } from 'styled-css-grid';
 
 import TransitionWrapper from '_transitions/TransitionWrapper';
-import * as ContentLoaders from '_contentLoaders';
+import Shimmer from '_elements/Shimmer';
 import withCallbackAlert from '_hocs/withCallbackAlert';
 import {
   GET_POKEMONS,
@@ -50,7 +50,7 @@ const Dashboard = ({
             const html = [
               <React.Suspense
                 key='refetch-button'
-                fallback={<ContentLoaders.Button />}
+                fallback={<Shimmer />}
               >
                 <ButtonWithLoader
                   isLoading={loading}

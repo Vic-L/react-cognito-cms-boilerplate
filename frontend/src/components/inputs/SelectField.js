@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { InputField } from '_contentLoaders'
+import Shimmer from '_elements/Shimmer';
 import SelectStyle from '_inputs/SelectStyle'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
@@ -31,7 +31,7 @@ class SelectField extends React.Component {
 
     return (
       <SelectContainer>
-        <React.Suspense fallback={<InputField/>}>
+        <React.Suspense fallback={<Shimmer />}>
           <TextField
             name={this.props.name}
             placeholder={placeholder}

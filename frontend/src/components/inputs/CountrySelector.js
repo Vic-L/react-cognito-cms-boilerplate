@@ -2,8 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import autobind from 'autobind-decorator';
 import PropTypes from 'prop-types';
-import { InputField } from '_contentLoaders';
 
+import Shimmer from '_elements/Shimmer';
 const TextField = React.lazy(() => import('_inputs/TextField'));
 const SelectField = React.lazy(() => import('_inputs/SelectField'));
 
@@ -3261,7 +3261,7 @@ class CountrySelector extends React.Component {
 
   render() {
     return (
-      <React.Suspense fallback={<InputField />}>
+      <React.Suspense fallback={<Shimmer />}>
         <SelectField
           name={this.props.name}
           placeholder={this.props.placeholder}

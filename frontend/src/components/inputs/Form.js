@@ -7,7 +7,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { Grid, Cell } from 'styled-css-grid';
 
-import * as ContentLoaders from '_contentLoaders';
+import Shimmer from '_elements/Shimmer';
 import TransitionWrapper from '_transitions/TransitionWrapper';
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
@@ -61,13 +61,12 @@ class Form extends React.Component {
 
     return (
       <React.Fragment>
-        <ContentLoaders.Button/>
-        <ContentLoaders.InputField/>
+        <Shimmer />
 
         <Grid columns={2} gap='1rem'>
           {/* row */}
           <Cell center>
-            <React.Suspense fallback={<div/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <Checkbox
                 text="Male"
                 isChecked={formObject.get('isMaleChecked')}
@@ -75,7 +74,7 @@ class Form extends React.Component {
             </React.Suspense>
           </Cell>
           <Cell center>
-            <React.Suspense fallback={<div/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <Checkbox
                 text="Female"
                 isChecked={formObject.get('isFemaleChecked')}
@@ -85,7 +84,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <TextField
                 isFloating={true}
                 name="fieldWithNoError"
@@ -101,7 +100,10 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+            <React.Suspense fallback={<Shimmer css={`
+              height: 100px;
+              width: 100%`
+            } />}>
               <TextArea
                 name="textAreaWithoutError"
                 placeholder="Enter text here"
@@ -114,7 +116,10 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.TextAreaField/>}>
+            <React.Suspense fallback={<Shimmer css={`
+              height: 100px;
+              width: 100%`
+            } />}>
               <TextArea
                 name="textAreaWithError"
                 placeholder="Enter text here"
@@ -127,7 +132,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <TextField
                 name="fieldWithError"
                 placeholder="FieldWithError"
@@ -142,7 +147,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <SelectField
                 name="selectFieldWithNoError"
                 placeholder="SelectFieldWithNoError"
@@ -158,7 +163,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <CountrySelector
                 name="countrySelectorField"
                 placeholder="Select Country"
@@ -175,7 +180,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <AutoSuggestField
                 name="AutoSuggestFieldWithNoError"
                 placeholder="AutoSuggestFieldWithNoError"
@@ -191,7 +196,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <DatePickerField
                 name="DatePickerFieldWithNoError"
                 placeholder="DatePickerFieldWithNoError"
@@ -210,7 +215,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <WeekPickerField
                 name="WeekPickerFieldWithNoError"
                 placeholder="WeekPickerFieldWithNoError"
@@ -227,7 +232,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <FileField
                 name="FileFieldWithoutError"
                 text="FileFieldWithoutError"
@@ -237,7 +242,7 @@ class Form extends React.Component {
             </React.Suspense>
           </Cell>
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.InputField/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <FileField
                 name="FileFieldWithError"
                 text="FileFieldWithError"
@@ -249,7 +254,7 @@ class Form extends React.Component {
 
           {/* row */}
           <Cell>
-            <React.Suspense fallback={<div/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <WYSIWYG
                 editorState={formObject.get('editorState')}
                 onEditorStateChange={this.onEditorStateChange}
@@ -272,14 +277,14 @@ class Form extends React.Component {
           {/* row */}
 
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.Button/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <Button onClick={this.onSubmit}>
                 SUBMIT
               </Button>
             </React.Suspense>
           </Cell>
           <Cell>
-            <React.Suspense fallback={<ContentLoaders.Button/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <ButtonWithLoader
                 text="SUBMIT WITH LOADER"
                 isLoading={this.state.isLoading}

@@ -2,7 +2,7 @@ import React from 'react'
 import autobind from 'autobind-decorator'
 import Auth from '@aws-amplify/auth'
 import styled, { css } from 'styled-components'
-import * as ContentLoaders from '_contentLoaders'
+import Shimmer from '_elements/Shimmer';
 
 const SidebarOption = React.lazy(() => import('_sidebar/SidebarOption'))
 const SidebarOptionWithDropdown = React.lazy(() => import('_sidebar/SidebarOptionWithDropdown'))
@@ -92,7 +92,7 @@ class Sidebar extends React.Component {
         <SidebarBackground/>
         <SidebarWrapper>
           <SidebarTopSection>
-            <React.Suspense fallback={<ContentLoaders.Button/>}>
+            <React.Suspense fallback={<Shimmer />}>
               <Button onClick={this.onLogout}>
                 Logout
               </Button>
