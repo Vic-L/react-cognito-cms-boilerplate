@@ -20,8 +20,8 @@ const FileField = React.lazy(() => import('_inputs/FileField'))
 const WYSIWYG = React.lazy(() => import('_inputs/WYSIWYG'))
 const Checkbox = React.lazy(() => import('_inputs/Checkbox'))
 const TextArea = React.lazy(() => import('_inputs/TextArea'))
-const Button = React.lazy(() => import('_buttons/Button'))
-const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
+const Button = React.lazy(() => import('_elements/Button'))
+const ButtonWithLoader = React.lazy(() => import('_elements/ButtonWithLoader'))
 
 class Form extends React.Component {
   constructor(props) {

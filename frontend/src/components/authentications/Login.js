@@ -16,7 +16,7 @@ import ValidateFormObject from '_services/ValidateFormObject'
 import withAlert from '_hocs/withAlert'
 
 const TextField = React.lazy(() => import('_inputs/TextField'))
-const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
+const ButtonWithLoader = React.lazy(() => import('_elements/ButtonWithLoader'))
 
 const Logo = styled.img`
   margin: 0.5rem auto;

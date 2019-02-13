@@ -6,7 +6,7 @@ import Shimmer from '_elements/Shimmer';
 
 const SidebarOption = React.lazy(() => import('_sidebar/SidebarOption'))
 const SidebarOptionWithDropdown = React.lazy(() => import('_sidebar/SidebarOptionWithDropdown'))
-const Button = React.lazy(() => import('_buttons/Button'))
+const Button = React.lazy(() => import('_elements/Button'))
 
 const SidebarContainer = styled.div`
   width: 16.66666667%;

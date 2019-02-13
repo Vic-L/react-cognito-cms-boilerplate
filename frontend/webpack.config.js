@@ -133,7 +133,6 @@ module.exports = {
       _miscellaneous: path.resolve(__dirname, 'src/components/miscellaneous/'),
       _authentications: path.resolve(__dirname, 'src/components/authentications/'),
       _inputs: path.resolve(__dirname, 'src/components/inputs/'),
-      _buttons: path.resolve(__dirname, 'src/components/buttons/'),
       _sidebar: path.resolve(__dirname, 'src/components/sidebar/'),
       _tables: path.resolve(__dirname, 'src/components/tables/'),
       _cards: path.resolve(__dirname, 'src/components/cards/'),

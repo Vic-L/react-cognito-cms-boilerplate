@@ -11,7 +11,7 @@ import {
 } from '_queries';
 import HandleGraphQLSimpleError from '_services/HandleGraphQLSimpleError';
 
-const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
+const ButtonWithLoader = React.lazy(() => import('_elements/ButtonWithLoader'))
 
 const Dashboard = ({
   updateAlert,
