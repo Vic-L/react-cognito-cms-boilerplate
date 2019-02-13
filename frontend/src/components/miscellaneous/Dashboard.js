@@ -9,6 +9,7 @@ import withCallbackAlert from '_hocs/withCallbackAlert'
 import {
   GET_POKEMONS,
 } from '_queries';
+import HandleGraphQLSimpleError from '_services/HandleGraphQLSimpleError';
 
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
 
@@ -30,18 +31,8 @@ const Dashboard = ({
 
           {({ loading, error, data, refetch }) => {
             if (error) {
-              updateAlert({
-                variables: {
-                  title: 'Error',
-                  body: error.message,
-                  actions: [
-                    {
-                      text: 'OK',
-                      alertResponse: 'NEUTRAL',
-                    }
-                  ]
-                }
-              })
+              HandleGraphQLSimpleError(updateAlert, error)
+              return <p>Error</p>
             }
 
             if (alertResponse === 'POSITIVE') {
@@ -86,7 +77,7 @@ const Dashboard = ({
             ]
 
             if (_.isNil(data.pokemons)) {
-              html.unshift(<p key='no-post'>No posts!</p>)
+              html.unshift(<p key='no-post'>No pokemons?!</p>)
               return html
             }
 
@@ -107,4 +98,4 @@ const Dashboard = ({
   )
 }
 
-export default TransitionWrapper(withCallbackAlert(Dashboard))
+export default TransitionWrapper(withCallbackAlert(Dashboard));
