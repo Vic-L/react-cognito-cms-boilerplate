@@ -39,10 +39,10 @@ module.exports = {
   mode,
   output: {
     path: path.resolve(__dirname, 'dist', 'assets'),
-    publicPath: process.env.NODE_ENV === 'prod' ? 
+    publicPath: process.env.NODE_ENV === 'production' ? 
       `${process.env.assetsPublicPathHostName}/assets/` : 
       '/assets/',
-    filename: process.env.NODE_ENV === 'prod' ? 'bundle-[hash].js' : 'bundle.js'
+    filename: process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js'
   },
   module: {
     rules: [
@@ -83,8 +83,8 @@ module.exports = {
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new HtmlWebpackPlugin({
       inject: true,
-      template: process.env.NODE_ENV === 'prod' ?
-        './src/index.prod.html' :
+      template: process.env.NODE_ENV === 'production' ?
+        './src/index.production.html' :
         './src/index.html',
       filename: '../index.html'
     }),
@@ -105,7 +105,7 @@ module.exports = {
       path: `./.env.${process.env.ENV_FILE_SUFFIX}`
     }),
     new CompressionPlugin({
-      exclude: process.env.NODE_ENV === 'prod' ? undefined : /.*/,
+      exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
       filename: '[path]'
     })
   ],
@@ -118,7 +118,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        exclude: process.env.NODE_ENV === 'prod' ? undefined : /.*/,
+        exclude: process.env.NODE_ENV === 'production' ? undefined : /.*/,
         uglifyOptions: {
           output: {
             comments: false

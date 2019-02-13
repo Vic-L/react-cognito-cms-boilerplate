@@ -9,11 +9,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=dev ENV_FILE_SUFFIX=dev node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "build:prod": "NODE_ENV=prod webpack -p --config webpack.config.js",
-    "build:stg": "NODE_ENV=production ENV_FILE_SUFFIX=stg webpack -p --config webpack.config.js",
-    "deploy": "npm run build:prod && npm run deploy:remove-assets && npm run deploy:upload-assets && npm run deploy:html",
-    "deployStg": "npm run build:stg && npm run deploy:remove-assets && npm run deploy:upload-assets",
+    "start": "NODE_ENV=dev ENV_FILE_SUFFIX=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build:production": "NODE_ENV=production ENV_FILE_SUFFIX=production webpack -p --config webpack.config.js",
+    "build:staging": "NODE_ENV=production ENV_FILE_SUFFIX=staging webpack -p --config webpack.config.js",
+    "deploy": "npm run build:production && npm run deploy:remove-assets && npm run deploy:upload-assets && npm run deploy:html",
+    "deployStg": "npm run build:staging && npm run deploy:remove-assets && npm run deploy:upload-assets",
     "deploy:remove-assets": "aws s3 rm \"${s3bucket}\"/assets --recursive --profile $awsProfile",
     "deploy:upload-assets": "aws s3 cp ./dist/assets \"${s3bucket}\"/assets --recursive --acl public-read --exclude '*.DS_Store' --profile $awsProfile --cache-control public,max-age=31536000 --content-type text/javascript --content-encoding gzip",
     "deploy:html": "aws s3 cp ./dist/index.html $s3bucket --acl public-read --exclude '*.DS_Store' --profile $awsProfile --content-type text/html --content-encoding gzip"
