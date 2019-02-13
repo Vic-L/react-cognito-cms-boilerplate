@@ -31,7 +31,7 @@ export const DISMISS_ALERT = gql`
 
 export const UPDATE_ALERT_RESPONSE = gql`
   mutation(
-    $alertResponse: AlertResponse
+    $alertResponse: String
   ) {
     updateAlertResponse(
       alertResponse: $alertResponse,
