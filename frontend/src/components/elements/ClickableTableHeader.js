@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const TableHeader = React.lazy(() => import('_tables/TableHeader'))
+const TableHeader = React.lazy(() => import('_elements/TableHeader'))
 
 const Header = styled(TableHeader)`
   background-color: ${PRIMARY_COLOR};

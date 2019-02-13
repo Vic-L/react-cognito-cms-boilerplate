@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ClickableTableHeader = React.lazy(() => import('_tables/ClickableTableHeader'))
-const Table = React.lazy(() => import('_tables/Table'))
-const TableHeader = React.lazy(() => import('_tables/TableHeader'))
-const TableCell = React.lazy(() => import('_tables/TableCell'))
+const ClickableTableHeader = React.lazy(() => import('_elements/ClickableTableHeader'))
+const Table = React.lazy(() => import('_elements/Table'))
+const TableHeader = React.lazy(() => import('_elements/TableHeader'))
+const TableCell = React.lazy(() => import('_elements/TableCell'))
 
 // Delete this component
 const TableScreen = () => {
