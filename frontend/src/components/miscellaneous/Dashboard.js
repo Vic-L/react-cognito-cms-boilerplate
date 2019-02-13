@@ -1,11 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { Grid, Cell } from 'styled-css-grid';
 
 import TransitionWrapper from '_transitions/TransitionWrapper';
 import * as ContentLoaders from '_contentLoaders';
-import withCallbackAlert from '_hocs/withCallbackAlert'
+import withCallbackAlert from '_hocs/withCallbackAlert';
 import {
   GET_POKEMONS,
 } from '_queries';
@@ -50,7 +50,8 @@ const Dashboard = ({
             const html = [
               <React.Suspense
                 key='refetch-button'
-                fallback={<ContentLoaders.Button/>}>
+                fallback={<ContentLoaders.Button />}
+              >
                 <ButtonWithLoader
                   isLoading={loading}
                   disabled={loading}
@@ -71,31 +72,30 @@ const Dashboard = ({
                           }
                         ]
                       }
-                    })
-                  }}/>
+                    });
+                  }}
+                />
               </React.Suspense>
-            ]
+            ];
 
             if (_.isNil(data.pokemons)) {
-              html.unshift(<p key='no-post'>No pokemons?!</p>)
-              return html
+              html.unshift(<p key='no-post'>No pokemons?!</p>);
+              return html;
             }
 
-            const posts = data.pokemons.map(pokemon => {
-              return (
-                <p key={`pokemon-${pokemon.id}`}>{pokemon.name}</p>
-              )
-            })
+            const posts = data.pokemons.map(pokemon => (
+              <p key={`pokemon-${pokemon.id}`}>{pokemon.name}</p>
+            ));
 
-            posts.push(html)
-            return posts
+            posts.push(html);
+            return posts;
           }}
         </Query>
       </Cell>
 
-      <Cell/>
+      <Cell />
     </Grid>
-  )
-}
+  );
+};
 
 export default TransitionWrapper(withCallbackAlert(Dashboard));
