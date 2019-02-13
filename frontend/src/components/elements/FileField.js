@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const FileField = ({
   onChange,
@@ -9,7 +9,6 @@ const FileField = ({
   containerClassName,
   ...others
 }) => {
-  
   // fileUpload(file){
   //   const url = 'http://example.com/file-upload';
   //   const formData = new FormData();
@@ -33,8 +32,8 @@ const FileField = ({
         <label className='error'>{error}</label>
       </div>
     </label>
-  )
-}
+  );
+};
 
 FileField.propTypes = {
   name: PropTypes.string.isRequired,
@@ -43,6 +42,6 @@ FileField.propTypes = {
   error: PropTypes.string,
   text: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-}
+};
 
-export default FileField
+export default FileField;

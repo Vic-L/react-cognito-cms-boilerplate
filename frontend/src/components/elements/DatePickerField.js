@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -15,31 +14,30 @@ const DatePickerContainer = styled.div`
 `;
 
 class DatePickerField extends React.Component {
-  render() {
-    const { error } = this.props
+  @autobind
+  onDateChange(date) {
+    // ISO8601 format for date
+    this.props.onChange(moment(date).format('YYYY-MM-DD'));
+  }
 
-    const selectStyle = {
-      option: (base, state) => ({
-        ...base,
-        borderBottom: '1px black solid',
-        color: 'black'
-      }),
-      // 50 is the height of input
-      container: () => ({
-        height: 50,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-      control: () => ({
-        opacity: 0,
-      })
+  @autobind
+  openDatePicker() {
+    this.refs.datepicker.setOpen(true);
+  }
+
+  @autobind
+  renderDate() {
+    if (this.props.value) {
+      return moment(this.props.value).format(this.props.dateDisplayFormat);
     }
 
+    return '';
+  }
+
+  render() {
     return (
       <DatePickerContainer>
-        <Overlay onClick={this.openDatePicker}/>
+        <Overlay onClick={this.openDatePicker} />
         <React.Suspense fallback={<Shimmer />}>
           <TextField
             name={this.props.name}
@@ -49,35 +47,18 @@ class DatePickerField extends React.Component {
             error={this.props.error}
             fieldIconSrc={this.props.fieldIconSrc}
             value={this.renderDate()}
-            readOnly/>
+            readOnly
+          />
           <DatePicker
             ref='datepicker'
             selected={this.props.value ? moment(this.props.value).toDate() : null}
             onChange={this.onDateChange}
             minDate={this.props.minDate}
-            maxDate={this.props.maxDate}/>
+            maxDate={this.props.maxDate}
+          />
         </React.Suspense>
       </DatePickerContainer>
-    )
-  }
-
-  @autobind
-  onDateChange(date) {
-    this.props.onChange(moment(date).format("YYYY-MM-DD")) // ISO8601 format for date
-  }
-
-  @autobind
-  openDatePicker() {
-    this.refs.datepicker.setOpen(true)
-  }
-
-  @autobind
-  renderDate() {
-    if (this.props.value) {
-      return moment(this.props.value).format(this.props.dateDisplayFormat)
-    } else {
-      return ""
-    }
+    );
   }
 }
 
@@ -92,10 +73,9 @@ DatePickerField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  error: PropTypes.string,
   fieldIconSrc: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-}
+};
 
-export default DatePickerField
+export default DatePickerField;

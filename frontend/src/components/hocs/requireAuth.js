@@ -1,32 +1,31 @@
-import React from 'react'
-import Auth from '@aws-amplify/auth'
+import React from 'react';
+import Auth from '@aws-amplify/auth';
 
 export default function requireAuth(WrappedComponent) {
   return class extends React.Component {
     constructor(props) {
-      super(props)
+      super(props);
 
       this.state = {
         checkedAuthentication: false
-      }
+      };
     }
 
-    componentDidMount() {
-      Auth.currentSession()
-      .then(session => {
-        this.setState({ checkedAuthentication: true })
-      })
-      .catch(err => {
-        this.props.history.push('/login')
-      })
+    async componentDidMount() {
+      try {
+        await Auth.currentSession();
+        this.setState({ checkedAuthentication: true });
+      } catch (err) {
+        this.props.history.push('/login');
+      }
     }
 
     render() {
       if (!this.state.checkedAuthentication) {
-        return null
+        return null;
       }
 
-      return <WrappedComponent {...this.props} />
+      return <WrappedComponent {...this.props} />;
     }
   };
 }

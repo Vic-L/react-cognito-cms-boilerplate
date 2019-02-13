@@ -1,53 +1,73 @@
-import _ from 'lodash'
 import React from 'react';
-import DatePicker from 'react-datepicker'
-import moment from 'moment'
-import autobind from 'autobind-decorator'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import DatePicker, {
+  registerLocale
+} from 'react-datepicker';
+import moment from 'moment';
+import autobind from 'autobind-decorator';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import enGB from 'date-fns/locale/en-GB';
 
 import Shimmer from '_elements/Shimmer';
-import Overlay from '_elements/Overlay'
+import Overlay from '_elements/Overlay';
 
 // datepicker setup
-import enGB from 'date-fns/locale/en-GB'
-import {registerLocale} from 'react-datepicker'
-registerLocale('en-GB', enGB)
+registerLocale('en-GB', enGB);
 
-const TextField = React.lazy(() => import('_elements/TextField'))
+const TextField = React.lazy(() => import('_elements/TextField'));
 
 const WeekPickerContainer = styled.div`
   position: relative;
-`
+`;
 
 class WeekPickerField extends React.Component {
-  render() {
-    const { error } = this.props
+  @autobind
+  onDateChange(date) {
+    // ISO8601 format for monday of selected date
+    this.props.onChange(moment(date).day(1).format('YYYY-MM-DD'));
+  }
 
-    const selectStyle = {
-      option: (base, state) => ({
-        ...base,
-        borderBottom: '1px black solid',
-        color: 'black'
-      }),
-      // 50 is the height of input
-      container: () => ({
-        height: 50,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-      control: () => ({
-        opacity: 0,
-      })
+  @autobind
+  highlightWeek() {
+    const { value } = this.props;
+
+    if (value) {
+      const mondayOfWeek = moment(value).day(1);
+      return [
+        mondayOfWeek.add(1, 'day').toDate(),
+        mondayOfWeek.add(1, 'day').toDate(),
+        mondayOfWeek.add(1, 'day').toDate(),
+        mondayOfWeek.add(1, 'day').toDate(),
+        mondayOfWeek.add(1, 'day').toDate(),
+        mondayOfWeek.add(1, 'day').toDate(),
+      ];
     }
 
-    const { minDate, maxDate } = this.props
+    return [];
+  }
 
+  @autobind
+  openDatePicker() {
+    this.refs.datepicker.setOpen(true);
+  }
+
+  @autobind
+  renderDate() {
+    const { value } = this.props;
+    if (value) {
+      const monday = moment(value);
+      const sunday = moment(value).day(7);
+      return `W${monday.format('DD')}-${sunday.format('DD')} ${monday.format('MMM YYYY')}`;
+    }
+
+    return '';
+  }
+
+    render() {
     return (
       <WeekPickerContainer>
-        <Overlay onClick={this.openDatePicker}/>
+        <Overlay onClick={this.openDatePicker} />
         <React.Suspense fallback={<Shimmer />}>
           <TextField
             name={this.props.name}
@@ -57,7 +77,8 @@ class WeekPickerField extends React.Component {
             error={this.props.error}
             value={this.renderDate()}
             fieldIconSrc={this.props.fieldIconSrc}
-            readOnly/>
+            readOnly
+          />
           <DatePicker
             ref='datepicker'
             showWeekNumbers
@@ -66,51 +87,11 @@ class WeekPickerField extends React.Component {
             maxDate={this.props.maxDate}
             selected={this.props.value ? moment(this.props.value).toDate() : null}
             onChange={this.onDateChange}
-            highlightDates={this.highlightWeek()}/>
+            highlightDates={this.highlightWeek()}
+          />
         </React.Suspense>
       </WeekPickerContainer>
-    )
-  }
-
-  @autobind
-  highlightWeek() {
-    const { value } = this.props
-
-    if (value) {
-      const mondayOfWeek = moment(value).day(1)
-      return [
-        mondayOfWeek.add(1, 'day').toDate(),
-        mondayOfWeek.add(1, 'day').toDate(),
-        mondayOfWeek.add(1, 'day').toDate(),
-        mondayOfWeek.add(1, 'day').toDate(),
-        mondayOfWeek.add(1, 'day').toDate(),
-        mondayOfWeek.add(1, 'day').toDate(),
-      ]
-    } else {
-      return []
-    }
-  }
-
-  @autobind
-  onDateChange(date) {
-    this.props.onChange(moment(date).day(1).format("YYYY-MM-DD")) // ISO8601 format for monday of selected date
-  }
-
-  @autobind
-  openDatePicker() {
-    this.refs.datepicker.setOpen(true)
-  }
-
-  @autobind
-  renderDate() {
-    const { value } = this.props
-    if (value) {
-      const monday = moment(value)
-      const sunday = moment(value).day(7)
-      return `W${monday.format('DD')}-${sunday.format('DD')} ${monday.format('MMM YYYY')}`
-    } else {
-      return ""
-    }
+    );
   }
 }
 
@@ -124,10 +105,9 @@ WeekPickerField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  error: PropTypes.string,
   fieldIconSrc: PropTypes.string,
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-}
+};
 
-export default WeekPickerField
+export default WeekPickerField;

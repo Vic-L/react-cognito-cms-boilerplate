@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -7,6 +7,6 @@ const Table = styled.table`
   border-radius: 0;
   overflow-x: auto;
   display: block;
-`
+`;
 
-export default Table
+export default Table;

@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const TableHeader = React.lazy(() => import('_elements/TableHeader'))
+const TableHeader = React.lazy(() => import('_elements/TableHeader'));
 
 const Header = styled(TableHeader)`
   background-color: ${PRIMARY_COLOR};
@@ -11,35 +11,31 @@ const Header = styled(TableHeader)`
   &:hover {
     background-color: ${SECONDARY_COLOR};
   }
-`
+`;
 
 const SortingArrow = styled.img`
   position: absolute;
   right: 5%;
   top: 50%;
   transform: translateY(-50%);
-`
+`;
 
 const ClickableTableHeader = ({
   onClick,
   title,
-}) => {
+}) => (
+  <Header onClick={onClick}>
 
-  return (
-    <Header
-      onClick={onClick}>
+    {title}
 
-      {title}
+    <SortingArrow src='https://upload.wikimedia.org/wikipedia/commons/f/f5/Sort_both_small.svg' />
 
-      <SortingArrow src='https://upload.wikimedia.org/wikipedia/commons/f/f5/Sort_both_small.svg'/>
-
-    </Header>
-  )
-}
+  </Header>
+);
 
 ClickableTableHeader.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-}
+};
 
-export default ClickableTableHeader
+export default ClickableTableHeader;

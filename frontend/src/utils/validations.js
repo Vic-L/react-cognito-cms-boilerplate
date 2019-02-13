@@ -1,5 +1,5 @@
-import { PASSWORD_MIN_LENGTH } from '_utils/errors'
-import validation from 'validate.js'
+import { PASSWORD_MIN_LENGTH } from '_utils/errors';
+import validation from 'validate.js';
 
 const constraints = {
   // login form
@@ -20,21 +20,21 @@ const constraints = {
       message: `^Please enter at least ${PASSWORD_MIN_LENGTH} characters`
     }
   },
-}
+};
 
 function validate(fieldName, value) {
-  var formValues = {}
-  formValues[fieldName] = value
+  const formValues = {};
+  formValues[fieldName] = value;
 
-  var formFields = {}
-  formFields[fieldName] = constraints[fieldName]
+  const formFields = {};
+  formFields[fieldName] = constraints[fieldName];
 
-  const result = validation(formValues, formFields)
+  const result = validation(formValues, formFields);
 
   if (result) {
-    return result[fieldName][0]
+    return result[fieldName][0];
   }
-  return null
+  return null;
 }
 
-export default validate
+export default validate;

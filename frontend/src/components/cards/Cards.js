@@ -68,4 +68,4 @@ class Cards extends React.Component {
   }
 }
 
-export default TransitionWrapper(Cards)
+export default TransitionWrapper(Cards);

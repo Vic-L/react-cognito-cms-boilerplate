@@ -93,4 +93,4 @@ class AlertModal extends Component {
   }
 }
 
-export default AlertModal
+export default AlertModal;

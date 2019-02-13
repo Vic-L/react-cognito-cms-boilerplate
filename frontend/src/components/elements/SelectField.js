@@ -1,18 +1,17 @@
-import _ from 'lodash'
-import React from 'react'
-import autobind from 'autobind-decorator'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import _ from 'lodash';
+import React from 'react';
+import autobind from 'autobind-decorator';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Shimmer from '_elements/Shimmer';
-import SelectStyle from '_elements/SelectStyle'
 
-const TextField = React.lazy(() => import('_elements/TextField'))
+const TextField = React.lazy(() => import('_elements/TextField'));
 
 const SelectContainer = styled.div`
   position: relative;
   display: block;
-`
+`;
 
 const SelectElement = styled.select`
   position: absolute;
@@ -23,11 +22,54 @@ const SelectElement = styled.select`
   width: 100%;
   opacity: 0;
   cursor: pointer;
-`
+`;
 
 class SelectField extends React.Component {
+  @autobind
+  onSelectOption(e) {
+    this.props.onChange(e.target.value);
+  }
+
+  @autobind
+  renderOptionValue() {
+    if (!_.isNil(this.props.value)) {
+      const option = _.find(this.props.options, (opt) => 
+        `${opt.value}` === `${this.props.value}`
+      );
+
+      if (_.isNil(option)) return '';
+      return option.value;
+    }
+    
+    return '';
+  }
+
+  @autobind
+  renderOptions() {
+    return this.props.options.map(option => 
+      <option key={option.label} value={option.value}>{option.label}</option>
+    );
+  }
+
+  @autobind
+  renderOptionLabel() {
+    if (!_.isNil(this.props.value)) {
+      const option = _.find(this.props.options, (opt) => 
+        `${opt.value}` === `${this.props.value}`
+      );
+
+      if (_.isNil(option)) {
+        return null;
+      }
+
+      return option.label;
+    }
+
+    return null;
+  }
+
   render() {
-    const { error, placeholder } = this.props
+    const { placeholder } = this.props;
 
     return (
       <SelectContainer>
@@ -40,63 +82,19 @@ class SelectField extends React.Component {
             error={this.props.error}
             value={this.renderOptionLabel()}
             fieldIconSrc='https://upload.wikimedia.org/wikipedia/commons/4/4b/Feather-arrows-chevron-down.svg'
-            onChange={this.props.onChange}/>
+            onChange={this.props.onChange}
+          />
         </React.Suspense>
         <SelectElement
           onChange={this.onSelectOption}
-          value={this.renderOptionValue()}>
+          value={this.renderOptionValue()}
+        >
           <option value='' disabled>{placeholder}</option>
           {this.renderOptions()}
         </SelectElement>
         
       </SelectContainer>
-    )
-  }
-
-  @autobind
-  renderOptionLabel() {
-    if (!_.isNil(this.props.value)) {
-      const option = _.find(this.props.options, (option) => {
-        return `${option.value}` === `${this.props.value}`
-      })
-
-      if (_.isNil(option)) {
-        return null
-      } else {
-        return option.label
-      }
-    } else {
-      return null
-    }
-  }
-
-  @autobind
-  renderOptionValue() {
-    if (!_.isNil(this.props.value)) {
-      const option = _.find(this.props.options, (option) => {
-        return `${option.value}` === `${this.props.value}`
-      })
-
-      if (_.isNil(option)) {
-        return ''
-      } else {
-        return option.value
-      }
-    } else {
-      return ''
-    }
-  }
-
-  @autobind
-  renderOptions() {
-    return this.props.options.map(option => {
-      return <option key={option.label} value={option.value}>{option.label}</option>
-    })
-  }
-
-  @autobind
-  onSelectOption(e) {
-    this.props.onChange(e.target.value)
+    );
   }
 }
 
@@ -122,6 +120,6 @@ SelectField.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-}
+};
 
-export default SelectField
+export default SelectField;

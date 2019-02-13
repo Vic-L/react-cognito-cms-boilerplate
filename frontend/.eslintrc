@@ -14,4 +14,15 @@
       }
     }
   },
+  "globals": {
+    "PRIMARY_COLOR": true,
+    "SECONDARY_COLOR": true,
+    "ERROR_COLOR": true,
+    "TRANSITION_TIMEOUT": true,
+    "PRIMARY_FONT": true,
+    "SECONDARY_FONT": true
+  },
+  "env": {
+    "browser": true
+  }
 }

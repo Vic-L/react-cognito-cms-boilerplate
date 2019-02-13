@@ -20,7 +20,7 @@ const PRIMARY_FONT = 'Lato';
 const SECONDARY_FONT = 'Montserrat';
 const FONT_ASSETS_ENDPOINT = 'https://github.com/InteractiveObject/pakify/raw/master/fonts';
 const mode = (() => {
-  switch(process.env.NODE_ENV) {
+  switch (process.env.NODE_ENV) {
     case 'prod':
     return 'production';
     case 'stg':
@@ -88,6 +88,8 @@ module.exports = {
         './src/index.html',
       filename: '../index.html'
     }),
+
+    // add variables below to `globals` in eslintrc
     new webpack.DefinePlugin({
       PRIMARY_COLOR: JSON.stringify(PRIMARY_COLOR),
       SECONDARY_COLOR: JSON.stringify(SECONDARY_COLOR),
@@ -130,7 +132,6 @@ module.exports = {
     alias: {
       _components: path.resolve(__dirname, 'src/components/'),
       _transitions: path.resolve(__dirname, 'src/components/transitions/'),
-      _miscellaneous: path.resolve(__dirname, 'src/components/miscellaneous/'),
       _authentications: path.resolve(__dirname, 'src/components/authentications/'),
       _sidebar: path.resolve(__dirname, 'src/components/sidebar/'),
       _cards: path.resolve(__dirname, 'src/components/cards/'),

@@ -77,12 +77,12 @@ class AutoSuggestField extends React.Component {
   getSuggestions(value) {
     if (value) {
       const regexp = new RegExp(value.trim().toLowerCase(), 'i');
-      return this.props.suggestionList.filter(suggestion => {
-        return suggestion.toLowerCase().match(regexp)
-      });
-    } else {
-      return fromJS([]);
+      return this.props.suggestionList.filter(suggestion =>
+        suggestion.toLowerCase().match(regexp)
+      );
     }
+
+    return fromJS([]);
   }
 
   @autobind
@@ -128,7 +128,7 @@ class AutoSuggestField extends React.Component {
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={{
-              value: this.props.value || "", // AutoSuggest need to trim value, so cannot be null
+              value: this.props.value || '', // AutoSuggest need to trim value, so cannot be null
               onChange: () => {} // not needed and should not triggered
             }}
             alwaysRenderSuggestions={this.state.inFocus}

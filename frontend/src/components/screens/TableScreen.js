@@ -1,15 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
 
-const ClickableTableHeader = React.lazy(() => import('_elements/ClickableTableHeader'))
-const Table = React.lazy(() => import('_elements/Table'))
-const TableHeader = React.lazy(() => import('_elements/TableHeader'))
-const TableCell = React.lazy(() => import('_elements/TableCell'))
+const ClickableTableHeader = React.lazy(() => import('_elements/ClickableTableHeader'));
+const Table = React.lazy(() => import('_elements/Table'));
+const TableHeader = React.lazy(() => import('_elements/TableHeader'));
+const TableCell = React.lazy(() => import('_elements/TableCell'));
 
 // Delete this component
-const TableScreen = () => {
-  return (
-    <React.Suspense fallback={<div/>}>
+const TableScreen = () => (
+    <React.Suspense fallback={<div />}>
       <Table>
         <thead>
           <tr>
@@ -19,7 +17,8 @@ const TableScreen = () => {
             <React.Suspense fallback={<th>Sortable Header 2</th>}>
               <ClickableTableHeader
                 title="Sortable Header 2"
-                onClick={handleHeader2Change}/>
+                onClick={handleHeader2Change}
+              />
             </React.Suspense>
             <React.Suspense fallback={<th>Header 3</th>}>
               <TableHeader>Header 3</TableHeader>
@@ -52,11 +51,10 @@ const TableScreen = () => {
         </tbody>
       </Table>
     </React.Suspense>
-  )
-}
+);
 
 function handleHeader2Change() {
-  alert("handleHeader2Change")
+  alert('handleHeader2Change');
 }
 
-export default TableScreen
+export default TableScreen;

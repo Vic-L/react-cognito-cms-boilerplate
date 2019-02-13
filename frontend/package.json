@@ -29,6 +29,7 @@
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.1",
+    "date-fns": "^2.0.0-alpha.27",
     "dotenv-webpack": "^1.5.7",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",

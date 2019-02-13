@@ -5,6 +5,8 @@ import { Router } from 'react-router-dom';
 import WebFont from 'webfontloader';
 import Auth from '@aws-amplify/auth';
 import createHistory from 'history/createBrowserHistory';
+import styledNormalize from 'styled-normalize';
+import { createGlobalStyle } from 'styled-components';
 
 import App from '_components/App';
 
@@ -70,7 +72,8 @@ WebFont.load({
 // if using App Sync
 /*
 
-** NOTE: add `cp ./src/configs/<env>/appsync.js ./src/appsync.js &&` to start of scripts in package.json to load the correct env for appsync
+** NOTE: add `cp ./src/configs/<env>/appsync.js ./src/appsync.js &&`
+** to start of scripts in package.json to load the correct env for appsync
 
 import AWSAppSyncClient from "aws-appsync"
 import { Rehydrated } from 'aws-appsync-react'
@@ -127,9 +130,6 @@ const apolloClient = new ApolloClient({
   }
 });
 
-import styledNormalize from 'styled-normalize';
-import { createGlobalStyle } from 'styled-components';
-
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
 
@@ -138,17 +138,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppProvider = () => {
-  return (
-    <ApolloProvider client={apolloClient}>
-      <Router history={history}>
-        <React.Fragment>
-          <GlobalStyle />
-          <App />
-        </React.Fragment>
-      </Router>
-    </ApolloProvider>
-  );
-};
+const AppProvider = () => (
+  <ApolloProvider client={apolloClient}>
+    <Router history={history}>
+      <React.Fragment>
+        <GlobalStyle />
+        <App />
+      </React.Fragment>
+    </Router>
+  </ApolloProvider>
+);
 
 export default AppProvider;
