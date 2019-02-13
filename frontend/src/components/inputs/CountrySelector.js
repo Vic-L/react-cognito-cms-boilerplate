@@ -1,30 +1,13 @@
-import _ from 'lodash'
-import React from 'react'
-import autobind from 'autobind-decorator'
-import Select from 'react-select'
-import PropTypes from 'prop-types'
-import { InputField } from '_contentLoaders'
+import _ from 'lodash';
+import React from 'react';
+import autobind from 'autobind-decorator';
+import PropTypes from 'prop-types';
+import { InputField } from '_contentLoaders';
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
-const SelectField = React.lazy(() => import('_inputs/SelectField'))
+const TextField = React.lazy(() => import('_inputs/TextField'));
+const SelectField = React.lazy(() => import('_inputs/SelectField'));
 
 class CountrySelector extends React.Component {
-  render() {
-    return (
-      <React.Suspense fallback={<InputField/>}>
-        <SelectField
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          type={this.props.type}
-          label={this.props.label}
-          error={this.props.error}
-          value={this.props.value}
-          options={this.getOptions()}
-          onChange={this.props.onChange}/>
-      </React.Suspense>
-    )
-  }
-
   @autobind
   onSelectOption(selectedOption) {
     this.props.onChange(selectedOption.value)
@@ -3270,12 +3253,27 @@ class CountrySelector extends React.Component {
         "sub-region-code": "202",
         "intermediate-region-code": "014"
       }
-    ], (country) => {
-      return {
-        label: country[this.props.labelKey],
-        value: country[this.props.valueKey],
-      }
-    })
+    ], country => ({
+      label: country[this.props.labelKey],
+      value: country[this.props.valueKey],
+    }));
+  }
+
+  render() {
+    return (
+      <React.Suspense fallback={<InputField />}>
+        <SelectField
+          name={this.props.name}
+          placeholder={this.props.placeholder}
+          type={this.props.type}
+          label={this.props.label}
+          error={this.props.error}
+          value={this.props.value}
+          options={this.getOptions()}
+          onChange={this.props.onChange}
+        />
+      </React.Suspense>
+    );
   }
 }
 
@@ -3294,6 +3292,6 @@ CountrySelector.propTypes = {
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-}
+};
 
-export default CountrySelector
+export default CountrySelector;
