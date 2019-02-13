@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import PropTypes from 'prop-types'
 
 // COMPONENTS
-const ErrorContainer = React.lazy(() => import('_inputs/ErrorContainer'))
+const ErrorContainer = React.lazy(() => import('_elements/ErrorContainer'))
 
 const InputContainer = styled.div`
   position: relative;

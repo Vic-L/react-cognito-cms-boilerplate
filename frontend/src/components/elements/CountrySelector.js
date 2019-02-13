@@ -4,8 +4,8 @@ import autobind from 'autobind-decorator';
 import PropTypes from 'prop-types';
 
 import Shimmer from '_elements/Shimmer';
-const TextField = React.lazy(() => import('_inputs/TextField'));
-const SelectField = React.lazy(() => import('_inputs/SelectField'));
+const TextField = React.lazy(() => import('_elements/TextField'));
+const SelectField = React.lazy(() => import('_elements/SelectField'));
 
 class CountrySelector extends React.Component {
   @autobind

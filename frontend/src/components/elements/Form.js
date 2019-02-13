@@ -10,16 +10,16 @@ import { Grid, Cell } from 'styled-css-grid';
 import Shimmer from '_elements/Shimmer';
 import TransitionWrapper from '_transitions/TransitionWrapper';
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
-const SelectField = React.lazy(() => import('_inputs/SelectField'))
-const CountrySelector = React.lazy(() => import('_inputs/CountrySelector'))
-const AutoSuggestField = React.lazy(() => import('_inputs/AutoSuggestField'))
-const DatePickerField = React.lazy(() => import('_inputs/DatePickerField'))
-const WeekPickerField = React.lazy(() => import('_inputs/WeekPickerField'))
-const FileField = React.lazy(() => import('_inputs/FileField'))
-const WYSIWYG = React.lazy(() => import('_inputs/WYSIWYG'))
-const Checkbox = React.lazy(() => import('_inputs/Checkbox'))
-const TextArea = React.lazy(() => import('_inputs/TextArea'))
+const TextField = React.lazy(() => import('_elements/TextField'))
+const SelectField = React.lazy(() => import('_elements/SelectField'))
+const CountrySelector = React.lazy(() => import('_elements/CountrySelector'))
+const AutoSuggestField = React.lazy(() => import('_elements/AutoSuggestField'))
+const DatePickerField = React.lazy(() => import('_elements/DatePickerField'))
+const WeekPickerField = React.lazy(() => import('_elements/WeekPickerField'))
+const FileField = React.lazy(() => import('_elements/FileField'))
+const WYSIWYG = React.lazy(() => import('_elements/WYSIWYG'))
+const Checkbox = React.lazy(() => import('_elements/Checkbox'))
+const TextArea = React.lazy(() => import('_elements/TextArea'))
 const Button = React.lazy(() => import('_elements/Button'))
 const ButtonWithLoader = React.lazy(() => import('_elements/ButtonWithLoader'))
 

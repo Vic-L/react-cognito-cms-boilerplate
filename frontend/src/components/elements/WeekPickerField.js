@@ -7,14 +7,14 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Shimmer from '_elements/Shimmer';
-import Overlay from '_inputs/Overlay'
+import Overlay from '_elements/Overlay'
 
 // datepicker setup
 import enGB from 'date-fns/locale/en-GB'
 import {registerLocale} from 'react-datepicker'
 registerLocale('en-GB', enGB)
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
+const TextField = React.lazy(() => import('_elements/TextField'))
 
 const WeekPickerContainer = styled.div`
   position: relative;

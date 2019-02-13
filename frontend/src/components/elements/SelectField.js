@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Shimmer from '_elements/Shimmer';
-import SelectStyle from '_inputs/SelectStyle'
+import SelectStyle from '_elements/SelectStyle'
 
-const TextField = React.lazy(() => import('_inputs/TextField'))
+const TextField = React.lazy(() => import('_elements/TextField'))
 
 const SelectContainer = styled.div`
   position: relative;

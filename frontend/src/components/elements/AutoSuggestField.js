@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import Shimmer from '_elements/Shimmer';
 
-const TextField = React.lazy(() => import('_inputs/TextField'));
+const TextField = React.lazy(() => import('_elements/TextField'));
 
 const AutoSuggestFieldContainer = styled.div`
   position: relative;

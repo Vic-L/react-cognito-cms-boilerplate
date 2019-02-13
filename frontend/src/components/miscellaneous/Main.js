@@ -14,7 +14,7 @@ import TransitionWrapper from '_transitions/TransitionWrapper'
 const TransitionGroupWrapper = React.lazy(() => import('_transitions/TransitionGroupWrapper'))
 const Sidebar = React.lazy(() => import('_sidebar/Sidebar'))
 const Dashboard = React.lazy(() => import('_miscellaneous/Dashboard'))
-const Form = React.lazy(() => import('_inputs/Form'))
+const Form = React.lazy(() => import('_elements/Form'))
 const Cards = React.lazy(() => import('_cards/Cards'))
 const Charts = React.lazy(() => import('_charts/Charts'))
 const TableScreen = React.lazy(() => import('_screens/TableScreen'))

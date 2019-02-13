@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Shimmer from '_elements/Shimmer';
-import Overlay from '_inputs/Overlay';
+import Overlay from '_elements/Overlay';
 
-const TextField = React.lazy(() => import('_inputs/TextField'));
+const TextField = React.lazy(() => import('_elements/TextField'));
 const DatePickerContainer = styled.div`
   position: relative;
 `;
