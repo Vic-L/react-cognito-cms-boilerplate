@@ -50,7 +50,7 @@ const FieldIcon = styled.img`
 `
 
 const Label = styled.label`;
-  position: absolute
+  position: absolute;
   pointer-events: none;
   font-family: ${FONT};
   top: 1rem;
