@@ -108,7 +108,7 @@ render((
 */
 
 const apolloClient = new ApolloClient({
-  uri: 'https://fakerql.com/graphql',
+  uri: 'https://graphql-pokemon.now.sh/graphql',
   cache: new InMemoryCache(),
   clientState: {
     defaults,

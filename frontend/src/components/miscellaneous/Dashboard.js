@@ -6,17 +6,11 @@ import { Grid, Cell } from 'styled-css-grid';
 import TransitionWrapper from '_transitions/TransitionWrapper';
 import * as ContentLoaders from '_contentLoaders';
 import withCallbackAlert from '_hocs/withCallbackAlert'
+import {
+  GET_POKEMONS,
+} from '_queries';
 
 const ButtonWithLoader = React.lazy(() => import('_buttons/ButtonWithLoader'))
-
-const getPostsQuery = gql`
-  query getPosts($count: Int!) {
-    allPosts(count: $count) {
-      id
-      title
-    }
-  }
-`
 
 const Dashboard = ({
   updateAlert,
@@ -28,14 +22,27 @@ const Dashboard = ({
       <Cell/>
 
       <Cell>
-        <h1>GRAPHQL Posts</h1>
+        <h1>POKEMONS</h1>
         <Query
           fetchPolicy='network-only'
-          query={getPostsQuery}
+          query={GET_POKEMONS}
           variables={{ count: 10 }}>
 
           {({ loading, error, data, refetch }) => {
-            if (error) return <p>Error! {error.message}</p>
+            if (error) {
+              updateAlert({
+                variables: {
+                  title: 'Error',
+                  body: error.message,
+                  actions: [
+                    {
+                      text: 'OK',
+                      alertResponse: 'NEUTRAL',
+                    }
+                  ]
+                }
+              })
+            }
 
             if (alertResponse === 'POSITIVE') {
               refetch()
@@ -55,6 +62,7 @@ const Dashboard = ({
                 fallback={<ContentLoaders.Button/>}>
                 <ButtonWithLoader
                   isLoading={loading}
+                  disabled={loading}
                   text="Refetch!"
                   onClick={() => {
                     updateAlert({
@@ -77,14 +85,14 @@ const Dashboard = ({
               </React.Suspense>
             ]
 
-            if (_.isNil(data.allPosts)) {
+            if (_.isNil(data.pokemons)) {
               html.unshift(<p key='no-post'>No posts!</p>)
               return html
             }
 
-            const posts = data.allPosts.map((post, index) => {
+            const posts = data.pokemons.map(pokemon => {
               return (
-                <p key={`post-${index}`}>{post.title}</p>
+                <p key={`pokemon-${pokemon.id}`}>{pokemon.name}</p>
               )
             })
 
