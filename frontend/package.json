@@ -79,6 +79,7 @@
     "@babel/runtime": "^7.1.2",
     "ajv": "^6.5.4",
     "autobind-decorator": "^2.1.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "compression-webpack-plugin": "^2.0.0",
     "eslint-config-rallycoding": "^3.2.0",
     "json-loader": "^0.5.7",
