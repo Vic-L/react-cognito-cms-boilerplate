@@ -89,3 +89,10 @@ This command will upload
 $ cd backend && BUNDLE_HASH=$(aws s3api list-objects --bucket <BUCKET_NAME> --prefix assets/ --profile <AWS_NAMED_PROFILE> | grep "Key\": \"assets/bundle" | cut -d '-' -f 2 | cut -d '.' -f 1) && echo $BUNDLE_HASH && sls deploy --stage prod --bundleHash $BUNDLE_HASH
 ```
 Similarly, this command trying to get the hash of the bundle that is uploaded to the S3 bucket. It takes the hash and insert it as a env variable (`bundleHash`) for the command. This env variable will trickle down to the serverless.yml file, which passes it on further to the lamda functions via [serverless environment variables](https://serverless.com/framework/docs/providers/aws/guide/variables).
+
+
+## Methodology
+
+Stylings on components are using [`styled-component`](https://www.styled-components.com/docs/).
+
+To override/add styling without creating a similar component with small changes, add [css props](https://www.styled-components.com/docs/api#css-prop) to the component.
