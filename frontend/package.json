@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=dev ENV_FILE_SUFFIX=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "NODE_ENV=development ENV_FILE_SUFFIX=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "build:production": "NODE_ENV=production ENV_FILE_SUFFIX=production webpack -p --config webpack.config.js",
     "build:staging": "NODE_ENV=production ENV_FILE_SUFFIX=staging webpack -p --config webpack.config.js",
     "deploy": "npm run build:production && npm run deploy:remove-assets && npm run deploy:upload-assets && npm run deploy:html",
