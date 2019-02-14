@@ -2,7 +2,6 @@ import '_stylesheets/main.sass';
 
 import React from 'react';
 import { Router } from 'react-router-dom';
-import WebFont from 'webfontloader';
 import Auth from '@aws-amplify/auth';
 import createHistory from 'history/createBrowserHistory';
 import styledNormalize from 'styled-normalize';
@@ -63,11 +62,15 @@ Auth.configure({
 
 const history = createHistory();
 
-WebFont.load({
-  google: {
-    families: ['Lato', 'Montserrat']
-  }
-});
+if (typeof window !== 'undefined') {
+  const WebFont = require('webfontloader');
+
+  WebFont.load({
+    google: {
+      families: ['Lato', 'Montserrat']
+    }
+  });
+}
 
 // if using App Sync
 /*
