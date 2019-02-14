@@ -3,8 +3,6 @@ const path = require('path');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
@@ -69,13 +67,6 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin(['NODE_ENV']),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: process.env.NODE_ENV === 'production' ?
-        './src/index.production.html' :
-        './src/index.html',
-      filename: '../index.html'
-    }),
 
     // add variables below to `globals` in eslintrc
     new webpack.DefinePlugin({
@@ -85,9 +76,6 @@ module.exports = {
       TRANSITION_TIMEOUT: JSON.stringify(TRANSITION_TIMEOUT),
       PRIMARY_FONT: JSON.stringify(PRIMARY_FONT),
       SECONDARY_FONT: JSON.stringify(SECONDARY_FONT),
-    }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'async'
     }),
     new Dotenv({
       path: `./.env.${process.env.ENV_FILE_SUFFIX}`
