@@ -19,24 +19,12 @@ const TRANSITION_TIMEOUT = '350';
 const PRIMARY_FONT = 'Lato';
 const SECONDARY_FONT = 'Montserrat';
 const FONT_ASSETS_ENDPOINT = 'https://github.com/InteractiveObject/pakify/raw/master/fonts';
-const mode = (() => {
-  switch (process.env.NODE_ENV) {
-    case 'prod':
-    return 'production';
-    case 'stg':
-    return 'production';
-    case 'dev':
-    return 'development';
-    default:
-    return 'development'; // or 'none?'
-  }
-})();
 
 module.exports = {
   entry: [
     './src/index.js',
   ],
-  mode,
+  mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, 'dist', 'assets'),
     publicPath: process.env.NODE_ENV === 'production' ? 
